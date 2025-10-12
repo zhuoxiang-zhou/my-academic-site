@@ -71,7 +71,7 @@ export default function AcademicWebsite() {
                 <a href="mailto:zhuoxiang.zhou@gmail.com" className="hover:text-gray-900 text-lg font-medium">
                   Email
                 </a>
-                <a href="#" className="hover:text-gray-900 text-lg font-medium">
+                <a href="/cv.pdf" target="_blank" rel="noopener noreferrer" className="hover:text-gray-900 text-lg font-medium">
                   CV
                 </a>
                 <a href="https://linkedin.com/in/zhuoxiang-zhou-b25478288/" className="hover:text-gray-900">
