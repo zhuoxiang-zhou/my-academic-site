@@ -14,13 +14,14 @@ export default function Icon() {
         style={{
           fontSize: 20,
           fontWeight: 'bold',
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          // background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          background: 'white',
           width: '100%',
           height: '100%',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          color: 'white',
+          color: 'black',
           fontFamily: 'sans-serif',
         }}
       >
