@@ -87,6 +87,25 @@ function AcademicWebsiteContent() {
       <main className="max-w-7xl mx-auto px-8 py-16">
         {activeTab === 'bio' && (
           <>
+            <script
+              type="application/ld+json"
+              dangerouslySetInnerHTML={{
+                __html: JSON.stringify({
+                  '@context': 'https://schema.org',
+                  '@type': 'Person',
+                  name: 'Zhuoxiang Zhou',
+                  alternateName: 'Shawn Zhou',
+                  url: 'https://shawn-zhou.com',
+                  jobTitle: 'Undergraduate in Economics',
+                  affiliation: {
+                    '@type': 'EducationalOrganization',
+                    name: 'Peking University',
+                  },
+                  knowsAbout: ['Economics', 'Labor Economics', 'Innovation Economics'],
+                })
+              }}
+            />
+
             <div className="flex gap-16">
               {/* Photo */}
               <div className="w-80 flex-shrink-0">
