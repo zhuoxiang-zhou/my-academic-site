@@ -1,5 +1,5 @@
 export default function sitemap() {
-  const baseUrl = 'https://yourwebsite.com'; // Replace with your actual URL
+  const baseUrl = 'https://shawn-zhou.com'; // Replace with your actual URL
 
   return [
     {
