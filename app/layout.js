@@ -12,7 +12,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: 'Zhuoxiang (Shawn) Zhou | Economist',
+  title: 'Zhuoxiang (Shawn) Zhou',
   description: 'Undergraduate in Economics at Peking University studying labor economics and innovation.',
   keywords: ['Zhuoxiang Zhou', 'Shawn Zhou', 'Economist', 'Peking University', 'Labor Economics', 'Economics Research'],
   authors: [{ name: 'Zhuoxiang Zhou' }],
