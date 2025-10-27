@@ -9,30 +9,30 @@ export default function Other() {
   const photos = [
     { 
       src: '/photos/PKU_tower.jpg', 
-      caption: 'Peking University, Beijing, China', 
-      description: 'The Boya Tower at Peking University, an iconic symbol of liberal education in China.',
+      caption: 'Boya (Liberal Education) Tower,Peking University, Beijing, China', 
+      description: 'Where thought climbs higher than the stone that bears it.',
       size: 'tall', // Options: 'tall', 'extra-tall', 'wide', 'extra-wide', 'normal', 'large'
       aspectRatio: null,
       column: 1, // Which column: 1, 2, or 3 (on desktop)
       order: 1   // Order within that column (1 = first, 2 = second, etc.)
     },
     { 
-      src: '/photos/Cangnan_boat_flag.jpg', 
-      caption: 'Cangnan, Zhejiang, China', 
-      description: 'An abandoned boat at sunrise, flag waving in the gentle breeze.',
-      size: 'wide',
-      aspectRatio: null,
-      column: 3,
-      order: 2
-    },
-    { 
       src: '/photos/SF_beach_far_bridge.jpg', 
       caption: 'Golden Gate Bridge, San Francisco, USA', 
-      description: 'A foggy day at the beach with the iconic Golden Gate Bridge in the distance.',
+      description: 'Fog drifts like memory over the sea, where a bridge threads the world to its horizon.',
       size: 'tall',
       aspectRatio: null,
       column: 1,
       order: 2
+    },
+    { 
+      src: '/photos/Cangnan_facing_sun.jpg', 
+      caption: 'Cangnan, Zhejiang, China', 
+      description: 'Give me light, and let me see.',
+      size: 'tall',
+      aspectRatio: null,
+      column: 1,
+      order: 3
     },
     { 
       src: '/photos/SF_fishing.jpg', 
@@ -44,6 +44,33 @@ export default function Other() {
       order: 4
     },
     { 
+      src: '/photos/SF_golden_gate_bridge.jpg', 
+      caption: 'Boston, Massachusetts, USA',  
+      description: 'The Golden Gate rises through sea and sky, a bridge of steel and light linking horizons and dreams.',
+      size: null,
+      aspectRatio: '9/20',
+      column: 1,
+      order: 5
+    },
+    { 
+      src: '/photos/Yanling_rural.jpg', 
+      caption: 'Yanling, Henan, China',  
+      description: 'Beneath the turning blades of a windmill, two farmers rest by their tricycles.',
+      size: null,
+      aspectRatio: '9/20',
+      column: 1,
+      order: 6
+    },
+    { 
+      src: '/photos/Beihai_Park_cat.jpg', 
+      caption: 'Beihai Park, Beijing, China',  
+      description: 'A golden cat walks along a sunlit roof',
+      size: null,
+      aspectRatio: '9/20',
+      column: 1,
+      order: 7
+    },
+    { 
       src: '/photos/Wuyuan_reflection.jpg', 
       caption: 'Likeng, Wuyuan, Jiangxi, China', 
       description: 'A serene morning in Likeng, capturing the traditional architecture reflected in the water.',
@@ -53,13 +80,58 @@ export default function Other() {
       order: 1
     },
     { 
-      src: '/photos/Cangnan_facing_sun.jpg', 
-      caption: 'Cangnan, Zhejiang, China', 
-      description: 'Facing the sun on a mountain trail, embracing the warmth and light of a new day.',
+      src: '/photos/SF_palace.jpg', 
+      caption: 'Palace of Fine Arts, San Francisco, USA', 
+      description: 'Give me light, and let me see.',
+      size: 'extra-tall',
+      aspectRatio: null,
+      column: 2,
+      order: 2
+    },
+    { 
+      src: '/photos/Summer_Palace_reflection_tree.jpg', 
+      caption: 'Summer Palace, Beijing, China',  
+      description: 'Winter sketches its memory across a frozen mirror.',
+      size: null,
+      aspectRatio: '9/20',
+      column: 2,
+      order: 3
+    },
+    { 
+      src: '/photos/Boston_snow_park.jpg', 
+      caption: 'Boston, Massachusetts, USA',  
+      description: 'A lone runner crosses a quiet, snow-covered park—motion etched against the stillness of winter.',
+      size: null,
+      aspectRatio: '9/20',
+      column: 2,
+      order: 4
+    },
+    { 
+      src: '/photos/Summer_Palace_lotus_leaves.jpg', 
+      caption: 'Summer Palace, Beijing, China',  
+      description: 'Golden light drifts over still water, where withered lotus leaves stand like memories of a passing summer.',
       size: 'tall',
       aspectRatio: null,
-      column: 1,
-      order: 3
+      column: 2,
+      order: 5
+    },
+    { 
+      src: '/photos/SF_beach.jpg', 
+      caption: 'Ocean Beach, San Francisco, USA',  
+      description: 'Wings, wind, and waves—three kinds of motion, one kind of peace.',
+      size: 'tall',
+      aspectRatio: null,
+      column: 2,
+      order: 6
+    },
+    { 
+      src: '/photos/Boston_snowman.jpg', 
+      caption: 'Boston, Massachusetts, USA',  
+      description: 'A tiny snowman reaches toward the winter sun, melting slowly into the light.',
+      size: 'tall',
+      aspectRatio: null,
+      column: 2,
+      order: 7
     },
     { 
       src: '/photos/Plane_overlook.jpg', 
@@ -71,22 +143,13 @@ export default function Other() {
       order: 1
     },
     { 
-      src: '/photos/SF_palace.jpg', 
-      caption: 'Palace of Fine Arts, San Francisco, USA', 
-      description: 'Let there be light.',
-      size: 'extra-tall',
+      src: '/photos/Cangnan_boat_flag.jpg', 
+      caption: 'Cangnan, Zhejiang, China', 
+      description: 'An abandoned boat greets the dawn with its one red whisper.',
+      size: 'wide',
       aspectRatio: null,
-      column: 2,
+      column: 3,
       order: 2
-    },
-    { 
-      src: '/photos/Summer_Palace_reflection_tree.jpg', 
-      caption: 'Summer Palace, Beijing, China',  
-      description: 'A tranquil winter scene at the Summer Palace, with bare trees reflected in the ice-covered lake.',
-      size: null,
-      aspectRatio: '9/20',
-      column: 2,
-      order: 3
     },
     { 
       src: '/photos/Chengze_Garden_green.jpg', 
@@ -96,6 +159,33 @@ export default function Other() {
       aspectRatio: '9/20',
       column: 3,
       order: 3
+    },
+    { 
+      src: '/photos/Boston_airplane.jpg', 
+      caption: 'Boston, Massachusetts, USA',  
+      description: 'A plane carves a silver line across the sky, while sunlight filters through the leaves.',
+      size: null,
+      aspectRatio: '9/20',
+      column: 3,
+      order: 4
+    },
+    { 
+      src: '/photos/Beihai_Park_mandarin_ducks.jpg', 
+      caption: 'Beihai Park, Beijing, China',  
+      description: 'A pair of mandarin ducks glide together across the water, their quiet grace reflecting harmony and devotion.',
+      size: null,
+      aspectRatio: '9/20',
+      column: 3,
+      order: 5
+    },
+    { 
+      src: '/photos/Nanluoguxiang_bird.jpg', 
+      caption: 'Nanluoguxiang, Beijing, China',  
+      description: 'A flock rises into the pale sky, leaving the bare branches below in quiet stillness.',
+      size: null,
+      aspectRatio: '9/20',
+      column: 3,
+      order: 6
     },
   ];
 
