@@ -192,7 +192,7 @@ function AcademicWebsiteContent() {
                     </div>
 
                     {/* Abstract Toggle Button */}
-                    <button
+                    {/* <button
                       onClick={() => toggleAbstract('paper1')}
                       className="flex items-center gap-2 text-gray-700 hover:text-gray-900 mb-3 transition-colors"
                     >
@@ -205,14 +205,14 @@ function AcademicWebsiteContent() {
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                       </svg>
-                    </button>
+                    </button> */}
                     
                     {/* Collapsible Abstract */}
-                    <div className={`overflow-hidden transition-all duration-300 ${expandedAbstracts['paper1'] ? 'max-h-96 opacity-100 mb-6' : 'max-h-0 opacity-0'}`}>
+                    {/* <div className={`overflow-hidden transition-all duration-300 ${expandedAbstracts['paper1'] ? 'max-h-96 opacity-100 mb-6' : 'max-h-0 opacity-0'}`}>
                       <p className="text-md text-gray-700 leading-relaxed bg-gray-100 p-4 rounded-lg">
                         This study examines the impact of early academic recognition on student outcomes, exploiting a score threshold in the Principles of Economics course within an economics minor program. Using a natural experiment approach, we find that students achieving this threshold outperform peers in subsequent courses, secure more scholarships, and access top post-graduation opportunities, including elite graduate programs and economics-related employment. Recognition at this threshold significantly boosts motivation, with students who value it achieving even stronger results. These findings underscore the role of non-material recognition in enhancing student engagement, academic performance, and favorable career trajectories in educational settings.
                       </p>
-                    </div>
+                    </div> */}
                   </div>
 
                   <div>
@@ -259,7 +259,7 @@ function AcademicWebsiteContent() {
                 <div className="flex-1 space-y-12">
                   <div>
                     <h4 className="text-lg font-medium text-gray-900 mb-2"><b>Equalizer or Concentrator? Artificial Intelligence and Scientific Inequality</b></h4>
-                    <p className="text-md text-gray-600 mb-6">(with Richard B. Freeman)</p>
+                    {/* <p className="text-md text-gray-600 mb-6">(with Richard B. Freeman)</p> */}
                   </div>
 
                   <div>
@@ -267,7 +267,7 @@ function AcademicWebsiteContent() {
                     {/* <p className="text-lg text-gray-700 leading-relaxed">
                       Description of research question and approach for this early-stage project.
                     </p> */}
-                    <p className="text-md text-gray-600 mb-6">(with Wei Huang)</p>
+                    {/* <p className="text-md text-gray-600 mb-6">(with Wei Huang)</p> */}
                   </div>
                 </div>
               </div>
