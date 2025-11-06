@@ -156,7 +156,7 @@ function AcademicWebsiteContent() {
                         </a>, Peking University. I spent Fall 2024 as a visiting student at UC Berkeley and Spring 2025 at Harvard University.
                       </p>
                       <p>
-                        My work focuses on <b>labor economics</b> and <b>the economics of science and innovation</b>. I study two broad questions: (i) how policy instruments influence individual behavior and shape human capital formation, and (ii) how technological access and adoption affect productivity, welfare, and inequality.
+                        My work focuses on <b>labor economics</b> and <b>the economics of technology and innovation</b>. I study two broad questions: (i) how policy instruments influence individual behavior and shape human capital formation, and (ii) how technological access and adoption affect productivity, welfare, and inequality.
                       </p>
                     </div>
                   </div>
