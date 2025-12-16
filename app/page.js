@@ -271,24 +271,6 @@ function AcademicWebsiteContent() {
                   </div>
                 </div>
               </div>
-
-              <div className="flex gap-12">
-                <h3 className="text-2xl font-serif text-gray-900 w-64 flex-shrink-0">Book Chapters</h3>
-                <div className="text-lg flex-1 space-y-8">
-                  <div>
-                    <p>
-                      <b>Zhou, Zhuoxiang</b>, Jianduo Li, and Zhaohan Ran.{" "}
-                      <span className="font-medium">“Property and Inheritance.”</span>{" "}
-                      <i><b>Rural Survey in Huoliu Village, Yanling County, Henan Province.</b></i>{" "}
-                      China Social Sciences Press, 2025, 46–78.
-                    </p>
-                    {/* <a href="#" className="text-base text-gray-700 hover:text-gray-900 inline-flex items-center gap-1">
-                      Paper
-                      <ExternalLink className="w-4 h-4" />
-                    </a> */}
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         )}
