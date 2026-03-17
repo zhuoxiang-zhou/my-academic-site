@@ -145,18 +145,10 @@ function AcademicWebsiteContent() {
                         Hello, I'm Shawn! 
                       </p>
                       <p>
-                        I'm currently completing my senior year in Economics at the{" "}
-                        <a 
-                          href="https://en.nsd.pku.edu.cn/" 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="text-gray-800 hover:text-gray-900 underline"
-                        >
-                          <b>National School of Development (NSD)</b>
-                        </a>, Peking University. I spent Fall 2024 as a visiting student at UC Berkeley and Spring 2025 at Harvard University.
+                        I am a senior in Economics at Peking University. I was a visiting student at UC Berkeley (Fall 2024) and Harvard University (Spring 2025). I will join Stanford University this summer as a predoctoral research fellow in economics, working with Professor Matthew Gentzkow.
                       </p>
                       <p>
-                        My work focuses on <b>labor economics</b> and <b>the economics of technology and innovation</b>. I study two broad questions: (i) how policy instruments influence individual behavior and shape human capital formation, and (ii) how technological access and adoption affect productivity, welfare, and inequality.
+                        My research focuses on <b>labor economics</b> and <b>the economics of technology and innovation</b>. I study two broad questions: (i) how policy instruments shape individual behavior and the formation of human capital, and (ii) how access to and adoption of new technologies affect productivity, welfare, and inequality.
                       </p>
                     </div>
                   </div>
