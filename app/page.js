@@ -109,7 +109,7 @@ function AcademicWebsiteContent() {
             <div className="flex gap-16">
               {/* Photo */}
               <div className="w-80 flex-shrink-0">
-                <div className="w-80 h-80 rounded-full bg-gray-200 overflow-hidden mb-8">
+                <div className="w-80 h-80 rounded-lg bg-gray-200 overflow-hidden mb-8">
                     <img 
                       src="/bio_photo.jpg" 
                       alt="Zhuoxiang (Shawn) Zhou" 
