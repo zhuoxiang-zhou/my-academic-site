@@ -9,7 +9,7 @@ const Home: React.FC = () => {
       {/* Hero Section */}
       <div className="flex flex-col md:flex-row gap-12 items-start">
         <div className="w-full md:w-80 shrink-0">
-          <div className="aspect-[3/4] w-full relative rounded-lg overflow-hidden shadow-md border-4 border-white">
+          <div className="aspect-square w-full relative rounded-lg overflow-hidden shadow-md border-4 border-white">
              {/* Professional headshot placeholder */}
             <img 
               src="/images/bio.jpg" 
