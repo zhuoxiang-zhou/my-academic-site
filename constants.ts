@@ -18,7 +18,7 @@ export const PAPERS: Paper[] = [
     id: 'p1',
     title: "Crossing the Line: The Role of Academic Excellence Recognition in Shaping Academic and Career Trajectories",
     authors: ["Wei Huang"],
-    journalStatus: "Reject and Resubmit at",
+    journalStatus: "Reject and Resubmit, ",
     journal: "American Economic Journal: Economic Policy",
     year: 2024,
     status: "Working Paper",

@@ -38,9 +38,7 @@ const Teaching: React.FC = () => {
                 >
                   <Book size={18} /> Download Syllabus
                 </a>
-              ) : (
-                <span className="text-stone-400 text-sm italic">Syllabus available soon</span>
-              )}
+              ) : null}
             </div>
           </div>
         ))}
