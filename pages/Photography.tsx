@@ -97,7 +97,7 @@ const Photography: React.FC = () => {
           <Camera className="text-academic-500" size={32} strokeWidth={1.5} />
           Photography
         </h1>
-        <p className="text-stone-600 text-lg max-w-2xl font-light leading-relaxed">
+        <p className="text-stone-500 text-xl">
           Capturing perspectives from academic journeys and personal explorations. 
           Each frame tells a story of place, light, and moment.
         </p>

@@ -65,12 +65,14 @@ const ResearchPanel: React.FC<ResearchPanelProps> = ({ paper, isWip = false }) =
       )}
 
       {/* Status Line */}
-      <div className="flex items-center gap-2 mb-4">
-        <div className={`w-2 h-2 rounded-full ${dotColor}`} />
-        <span className="text-sm font-medium text-stone-500">
-           {paper.status}{paper.journal ? `, ${paper.journal}` : ''}
-        </span>
-      </div>
+      {paper.journal && (
+        <div className="flex items-center gap-2 mb-4">
+          <div className={`w-2 h-2 rounded-full ${dotColor}`} />
+          <span className="text-sm font-medium text-stone-500">
+            {paper.journal}
+          </span>
+        </div>
+      )}
 
       {/* Abstract & Actions - Only for non-WIP items when open */}
       {!isWip && isOpen && (
@@ -132,8 +134,8 @@ const Research: React.FC = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-20 sm:px-6 lg:px-8">
       <div className="mb-16 border-b border-stone-200 pb-10">
-        <h1 className="text-5xl font-serif font-bold text-academic-900 mb-6">Research</h1>
-        <p className="text-stone-500 text-xl max-w-2xl font-light">
+        <h1 className="text-4xl font-serif font-bold text-academic-900 mb-4">Research</h1>
+        <p className="text-stone-500 text-xl">
           My research focuses on labor economics and the economics of technology and innovation.
         </p>
       </div>

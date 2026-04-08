@@ -41,7 +41,7 @@ export const PAPERS: Paper[] = [
     year: 2025,
     status: "Work in Progress",
     abstract: "Exploring how AI adoption impacts inequality within the scientific community.",
-    topics: ["Innovation", "AI", "Inequality"]
+    topics: ["Innovation", "Labor Economics"]
   },
   {
     id: 'p4',
@@ -50,7 +50,7 @@ export const PAPERS: Paper[] = [
     year: 2025,
     status: "Work in Progress",
     abstract: "Analyzing the pass-through effects of excise taxes and their impact on consumer welfare.",
-    topics: ["Public Economics", "Welfare"]
+    topics: ["Public Economics"]
   }
 ];
 
