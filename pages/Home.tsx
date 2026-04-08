@@ -52,7 +52,7 @@ const Home: React.FC = () => {
 
           <div className="prose prose-stone leading-relaxed text-stone-700 max-w-none">
             <p className="text-lg leading-relaxed">
-              Hello, I'm Shawn!
+              Hello, I'm Zhuoxiang (<em>Jwo-shyang</em>). I also go by Shawn.
             </p>
             <p className="text-lg leading-relaxed mt-4">
               {SITE_CONFIG.bio}
