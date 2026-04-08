@@ -52,10 +52,10 @@ const Home: React.FC = () => {
             <p className="text-lg leading-relaxed">
               Hello, I'm Shawn!
             </p>
-            <p className="text-lg leading-relaxed">
+            <p className="text-lg leading-relaxed mt-4">
               {SITE_CONFIG.bio}
             </p>
-            <p className="text-lg leading-relaxed">
+            <p className="text-lg leading-relaxed mt-4">
               {SITE_CONFIG.bio2}
             </p>
           </div>
