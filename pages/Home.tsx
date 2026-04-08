@@ -42,10 +42,10 @@ const Home: React.FC = () => {
         <div className="flex-1 space-y-6">
           <div>
             <h1 className="text-3xl sm:text-5xl font-serif font-bold text-academic-900">{SITE_CONFIG.name}</h1>
-            <p className="text-lg sm:text-xl text-academic-600 mt-3 font-light leading-snug">
+            {/* <p className="text-lg sm:text-xl text-academic-600 mt-3 font-light leading-snug">
               {SITE_CONFIG.title}, <br />
               {SITE_CONFIG.institution}
-            </p>
+            </p> */}
           </div>
 
           <div className="prose prose-stone leading-relaxed text-stone-700 max-w-none">
@@ -61,14 +61,14 @@ const Home: React.FC = () => {
           </div>
 
           {/* Quick Links */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6">
+          {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-6">
             <Link to="/research" className="group p-6 bg-white border border-stone-200 rounded-lg hover:border-academic-300 hover:shadow-sm transition-all">
               <h3 className="font-serif font-semibold text-academic-800 group-hover:text-academic-600 flex items-center gap-2 text-lg">
                 Latest Research <ArrowRight size={18} className="opacity-0 group-hover:opacity-100 transition-opacity" />
               </h3>
               <p className="text-stone-500 mt-2">Read my working papers on digital assets.</p>
             </Link>
-            
+
             <div className="p-6 bg-white border border-stone-200 rounded-lg hover:border-academic-300 hover:shadow-sm transition-all">
               <h3 className="font-serif font-semibold text-academic-800 flex items-center gap-2 text-lg">
                 Recently Reading
@@ -78,7 +78,7 @@ const Home: React.FC = () => {
                 <p className="text-sm text-stone-500">by Clara E. Mattei</p>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
