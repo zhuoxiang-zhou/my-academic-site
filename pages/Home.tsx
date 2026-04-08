@@ -24,8 +24,10 @@ const Home: React.FC = () => {
             >
               Email
             </a>
-            <a 
-              href="#" 
+            <a
+              href="/cv.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
               className="text-xl text-academic-700 hover:text-academic-900 font-sans transition-colors"
             >
               CV
