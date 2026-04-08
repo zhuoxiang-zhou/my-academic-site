@@ -75,11 +75,11 @@ const ResearchPanel: React.FC<ResearchPanelProps> = ({ paper, isWip = false }) =
       {/* Abstract & Actions - Only for non-WIP items when open */}
       {!isWip && isOpen && (
         <div className="mt-5 pt-5 border-t border-stone-100 animate-in fade-in slide-in-from-top-1 duration-200">
-          <div className="text-stone-700 leading-relaxed text-base">
+          {/* <div className="text-stone-700 leading-relaxed text-base">
             <span className="font-bold text-stone-900 text-xs uppercase tracking-wider mr-2">Abstract:</span>
             {paper.abstract}
-          </div>
-          
+          </div> */}
+
           <div className="flex gap-4 mt-4 pt-2">
              {paper.pdfUrl && (
                <a 
