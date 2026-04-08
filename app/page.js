@@ -31,13 +31,13 @@ function AcademicWebsiteContent() {
 
       {/* Header */}
       <header className={`border-b border-gray-200 bg-gradient-to-r ${theme.colors.headerGradient}`}>
-        <div className="max-w-7xl mx-auto px-8 py-6">
-          <div className="flex justify-between items-end">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 py-4 sm:py-6">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-end gap-3 sm:gap-0">
             <div>
-              <h1 className="text-3xl font-serif text-gray-900 mb-1">Zhuoxiang (Shawn) Zhou</h1>
-              <p className="text-base text-gray-700">National School of Development, Peking University</p>
+              <h1 className="text-2xl sm:text-3xl font-serif text-gray-900 mb-1">Zhuoxiang (Shawn) Zhou</h1>
+              <p className="text-sm sm:text-base text-gray-700">National School of Development, Peking University</p>
             </div>
-            <nav className="flex gap-8">
+            <nav className="flex gap-5 sm:gap-8">
               <button
                 onClick={() => setActiveTab('bio')}
                 className={`text-base pb-1 ${
@@ -84,7 +84,7 @@ function AcademicWebsiteContent() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-8 py-16">
+      <main className="max-w-7xl mx-auto px-4 sm:px-8 py-8 sm:py-16">
         {activeTab === 'bio' && (
           <>
             <script
@@ -106,10 +106,10 @@ function AcademicWebsiteContent() {
               }}
             />
 
-            <div className="flex gap-16">
+            <div className="flex flex-col sm:flex-row gap-8 sm:gap-16">
               {/* Photo */}
-              <div className="w-80 flex-shrink-0">
-                <div className="w-80 h-80 rounded-lg bg-gray-200 overflow-hidden mb-8">
+              <div className="w-full sm:w-80 flex-shrink-0 flex flex-col items-center sm:items-start">
+                <div className="w-56 h-56 sm:w-80 sm:h-80 rounded-lg bg-gray-200 overflow-hidden mb-8">
                     <img 
                       src="/bio_photo.jpg" 
                       alt="Zhuoxiang (Shawn) Zhou" 
@@ -134,7 +134,7 @@ function AcademicWebsiteContent() {
               </div>
 
               {/* Content */}
-              <div className="flex-1 max-w-3xl">
+              <div className="flex-1 min-w-0 max-w-3xl">
                 <h2 className="text-4xl font-serif text-gray-900 mb-12">Zhuoxiang Zhou</h2>
                 
                 <div className="space-y-8">
@@ -161,14 +161,14 @@ function AcademicWebsiteContent() {
 
         {activeTab === 'research' && (
           <div>
-            <div className="flex gap-12 border-b border-gray-300 pb-8 mb-12">
-              <h2 className="text-4xl font-serif text-gray-900 w-64 flex-shrink-0">Research</h2>
+            <div className="flex flex-col sm:flex-row gap-2 sm:gap-12 border-b border-gray-300 pb-8 mb-12">
+              <h2 className="text-3xl sm:text-4xl font-serif text-gray-900 sm:w-64 flex-shrink-0">Research</h2>
               <div className="flex-1"></div>
             </div>
 
             <div className="space-y-16">
-              <div className="flex gap-12">
-                <h3 className="text-2xl font-serif text-gray-900 w-64 flex-shrink-0">Working Papers</h3>
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-12">
+                <h3 className="text-xl sm:text-2xl font-serif text-gray-900 sm:w-64 flex-shrink-0">Working Papers</h3>
                 <div className="flex-1 space-y-12">
                   <div>
                     <h4 className="text-lg font-medium text-gray-900 mb-2"><b>Crossing the Line: The Role of Academic Excellence Recognition in Shaping Academic and Career Trajectories</b></h4>
@@ -246,8 +246,8 @@ function AcademicWebsiteContent() {
                 </div>
               </div>
 
-              <div className="flex gap-12">
-                <h3 className="text-2xl font-serif text-gray-900 w-64 flex-shrink-0">Work in Progress</h3>
+              <div className="flex flex-col sm:flex-row gap-4 sm:gap-12">
+                <h3 className="text-xl sm:text-2xl font-serif text-gray-900 sm:w-64 flex-shrink-0">Work in Progress</h3>
                 <div className="flex-1 space-y-12">
                   <div>
                     <h4 className="text-lg font-medium text-gray-900 mb-2"><b>Equalizer or Concentrator? Artificial Intelligence and Scientific Inequality</b></h4>
@@ -302,7 +302,7 @@ function AcademicWebsiteContent() {
 
       {/* Footer */}
       <footer className="bg-white border-t border-gray-200 mt-16">
-        <div className="max-w-7xl mx-auto px-8 py-8 flex justify-between items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-8 py-6 sm:py-8 flex flex-col sm:flex-row justify-between items-center gap-3 sm:gap-0">
           <p className="text-sm text-gray-600">© {new Date().getFullYear()} Zhuoxiang Zhou. All rights reserved.</p>
           <SeasonSelector />
         </div>
