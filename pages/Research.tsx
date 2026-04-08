@@ -58,7 +58,7 @@ const ResearchPanel: React.FC<ResearchPanelProps> = ({ paper, isWip = false }) =
       </h3>
       
       {/* Authors - Sans Serif */}
-      {otherAuthors.length > 0 && (
+      {!isWip && otherAuthors.length > 0 && (
         <p className="text-lg font-sans text-stone-600 italic mb-4">
           with {otherAuthors.join(", ")}
         </p>
