@@ -12,7 +12,7 @@ const Home: React.FC = () => {
           <div className="aspect-[3/4] w-full relative rounded-lg overflow-hidden shadow-md border-4 border-white">
              {/* Professional headshot placeholder */}
             <img 
-              src="https://picsum.photos/600/800?grayscale" 
+              src="/images/bio.jpg" 
               alt={SITE_CONFIG.name} 
               className="w-full h-full object-cover"
             />
