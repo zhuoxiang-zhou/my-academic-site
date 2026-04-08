@@ -8,7 +8,8 @@ export const SITE_CONFIG = {
   twitter: "",
   github: "",
   linkedin: "https://linkedin.com/in/zhuoxiang-zhou-b25478288/",
-  bio: "I am a senior in Economics at Peking University. I was a visiting student at UC Berkeley (Fall 2024) and Harvard University (Spring 2025). I will join Stanford University this summer as a predoctoral research fellow in economics, working with Professor Matthew Gentzkow. My research focuses on labor economics and the economics of technology and innovation. I study how policy instruments shape individual behavior and human capital formation, and how access to and adoption of new technologies affect productivity, welfare, and inequality.",
+  bio: "I am a senior in Economics at Peking University. I was a visiting student at UC Berkeley (Fall 2024) and Harvard University (Spring 2025). I will join Stanford University this summer as a predoctoral research fellow in economics, working with Professor Matthew Gentzkow.",
+  bio2: "My research focuses on labor economics and the economics of technology and innovation. I study how policy instruments shape individual behavior and human capital formation, and how access to and adoption of new technologies affect productivity, welfare, and inequality.",
   office: "National School of Development, Peking University"
 };
 

@@ -55,6 +55,9 @@ const Home: React.FC = () => {
             <p className="text-lg leading-relaxed">
               {SITE_CONFIG.bio}
             </p>
+            <p className="text-lg leading-relaxed">
+              {SITE_CONFIG.bio2}
+            </p>
           </div>
 
           {/* Quick Links */}
