@@ -66,9 +66,9 @@ const Navbar: React.FC = () => {
                   <Link to="/photography" className="block px-4 py-2 text-base text-stone-700 hover:bg-academic-50 hover:text-academic-800">
                      Photography
                   </Link>
-                  <Link to="/notes" className="block px-4 py-2 text-base text-stone-700 hover:bg-academic-50 hover:text-academic-800">
+                  {/* <Link to="/notes" className="block px-4 py-2 text-base text-stone-700 hover:bg-academic-50 hover:text-academic-800">
                      Notes
-                  </Link>
+                  </Link> */}
                 </div>
               )}
             </div>
@@ -98,9 +98,9 @@ const Navbar: React.FC = () => {
               <Link to="/photography" className="block px-3 py-2 rounded-md text-lg font-medium text-stone-700 hover:text-academic-900 hover:bg-stone-50">
                  Photography
               </Link>
-              <Link to="/notes" className="block px-3 py-2 rounded-md text-lg font-medium text-stone-700 hover:text-academic-900 hover:bg-stone-50">
+              {/* <Link to="/notes" className="block px-3 py-2 rounded-md text-lg font-medium text-stone-700 hover:text-academic-900 hover:bg-stone-50">
                  Notes
-              </Link>
+              </Link> */}
             </div>
           </div>
         </div>

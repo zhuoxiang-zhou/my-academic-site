@@ -6,7 +6,7 @@ import Home from './pages/Home';
 import Research from './pages/Research';
 import Teaching from './pages/Teaching';
 import Photography from './pages/Photography';
-import Notes from './pages/Notes';
+// import Notes from './pages/Notes';
 
 const App: React.FC = () => {
   return (
@@ -19,7 +19,7 @@ const App: React.FC = () => {
             <Route path="/research" element={<Research />} />
             <Route path="/teaching" element={<Teaching />} />
             <Route path="/photography" element={<Photography />} />
-            <Route path="/notes" element={<Notes />} />
+            {/* <Route path="/notes" element={<Notes />} /> */}
           </Routes>
         </main>
         <Footer />
