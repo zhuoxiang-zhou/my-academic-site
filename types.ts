@@ -3,6 +3,7 @@ export interface Paper {
   title: string;
   authors: string[];
   journal?: string;
+  journalStatus?: string;
   year: number;
   status: 'Working Paper' | 'Published' | 'Work in Progress';
   abstract: string;

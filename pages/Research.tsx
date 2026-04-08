@@ -69,7 +69,7 @@ const ResearchPanel: React.FC<ResearchPanelProps> = ({ paper, isWip = false }) =
         <div className="flex items-center gap-2 mb-4">
           <div className={`w-2 h-2 rounded-full ${dotColor}`} />
           <span className="text-sm font-medium text-stone-500">
-            {paper.journal}
+            {paper.journalStatus && <>{paper.journalStatus} </>}<em>{paper.journal}</em>
           </span>
         </div>
       )}
@@ -92,15 +92,15 @@ const ResearchPanel: React.FC<ResearchPanelProps> = ({ paper, isWip = false }) =
                  <FileText size={16} /> Download PDF
                </a>
              )}
-             {paper.link && (
-               <a 
-                 href={paper.link} 
+             {/* {paper.link && (
+               <a
+                 href={paper.link}
                  className="flex items-center gap-2 text-sm font-medium text-academic-600 hover:text-academic-800 transition-colors border border-stone-200 px-3 py-1.5 rounded-md hover:bg-stone-50"
                  onClick={(e) => e.stopPropagation()}
                >
                  <ExternalLink size={16} /> External Link
                </a>
-             )}
+             )} */}
           </div>
         </div>
       )}

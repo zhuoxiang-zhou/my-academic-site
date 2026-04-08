@@ -18,7 +18,8 @@ export const PAPERS: Paper[] = [
     id: 'p1',
     title: "Crossing the Line: The Role of Academic Excellence Recognition in Shaping Academic and Career Trajectories",
     authors: ["Wei Huang"],
-    journal: "Reject and Resubmit at American Economic Journal: Economic Policy",
+    journalStatus: "Reject and Resubmit at",
+    journal: "American Economic Journal: Economic Policy",
     year: 2024,
     status: "Working Paper",
     abstract: "This study examines the impact of early academic recognition on student outcomes, exploiting a score threshold in the Principles of Economics course within an economics minor program. Using a natural experiment approach, we find that students achieving this threshold outperform peers in subsequent courses, secure more scholarships, and access top post-graduation opportunities, including elite graduate programs and economics-related employment. Recognition at this threshold significantly boosts motivation, with students who value it achieving even stronger results. These findings underscore the role of non-material recognition in enhancing student engagement, academic performance, and favorable career trajectories in educational settings.",
@@ -59,7 +60,7 @@ export const BOOK_CHAPTERS: Paper[] = [];
 export const COURSES: Course[] = [
   {
     id: 'c1',
-    code: "ECON PhD",
+    code: "ECON",
     title: "Applied Econometrics (PhD-level)",
     level: "PhD",
     semester: "Fall 2025",
