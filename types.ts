@@ -2,6 +2,7 @@ export interface Paper {
   id: string;
   title: string;
   authors: string[];
+  authorLinks?: Record<string, string>;
   journal?: string;
   journalStatus?: string;
   year: number;
