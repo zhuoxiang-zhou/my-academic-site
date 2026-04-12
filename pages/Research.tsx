@@ -66,7 +66,7 @@ const ResearchPanel: React.FC<ResearchPanelProps> = ({ paper, isWip = false }) =
               <span key={author}>
                 {i > 0 && ", "}
                 {url ? (
-                  <a href={url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                  <a href={url} target="_blank" rel="noopener noreferrer" className="underline">
                     {author}
                   </a>
                 ) : author}
