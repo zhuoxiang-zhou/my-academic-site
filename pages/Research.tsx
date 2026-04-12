@@ -60,7 +60,19 @@ const ResearchPanel: React.FC<ResearchPanelProps> = ({ paper, isWip = false }) =
       {/* Authors - Sans Serif */}
       {!isWip && otherAuthors.length > 0 && (
         <p className="text-lg font-sans text-stone-600 italic mb-4">
-          with {otherAuthors.join(", ")}
+          with {otherAuthors.map((author, i) => {
+            const url = paper.authorLinks?.[author];
+            return (
+              <span key={author}>
+                {i > 0 && ", "}
+                {url ? (
+                  <a href={url} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                    {author}
+                  </a>
+                ) : author}
+              </span>
+            );
+          })}
         </p>
       )}
 
