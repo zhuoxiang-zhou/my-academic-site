@@ -58,7 +58,7 @@ const ResearchPanel: React.FC<ResearchPanelProps> = ({ paper, isWip = false }) =
       </h3>
       
       {/* Authors - Sans Serif */}
-      {!isWip && otherAuthors.length > 0 && (
+      {otherAuthors.length > 0 && (
         <p className="text-lg font-sans text-stone-600 mb-4">
           with {otherAuthors.map((author, i) => {
             const url = paper.authorLinks?.[author];

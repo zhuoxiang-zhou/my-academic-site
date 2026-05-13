@@ -21,7 +21,7 @@ export const PAPERS: Paper[] = [
     authorLinks: { "Wei Huang": "https://huangweipku.com/" },
     journalStatus: "Reject and Resubmit, ",
     journal: "American Economic Journal: Economic Policy",
-    year: 2024,
+    year: 2026,
     status: "Working Paper",
     abstract: "This study examines the impact of early academic recognition on student outcomes, exploiting a score threshold in the Principles of Economics course within an economics minor program. Using a natural experiment approach, we find that students achieving this threshold outperform peers in subsequent courses, secure more scholarships, and access top post-graduation opportunities, including elite graduate programs and economics-related employment. Recognition at this threshold significantly boosts motivation, with students who value it achieving even stronger results. These findings underscore the role of non-material recognition in enhancing student engagement, academic performance, and favorable career trajectories in educational settings.",
     link: "#",
@@ -29,28 +29,42 @@ export const PAPERS: Paper[] = [
   },
   {
     id: 'p2',
-    title: "Contraceptive Methods, Health, and Welfare: Evidence from India's NFHS",
-    authors: ["David I. Levine"],
-    authorLinks: { "David I. Levine": "https://haas.berkeley.edu/faculty/david-i-levine/" },
-    year: 2024,
+    title: "When Scientific Rankings Become Rewards: How Evaluation Thresholds Reallocate Scientific Visibility",
+    authors: ["Wei Huang", "Qingfeng Liu", "Shilin Zheng"],
+    authorLinks: { "Wei Huang": "https://huangweipku.com/" },
+    year: 2026,
     status: "Working Paper",
-    abstract: "This paper investigates the relationship between contraceptive methods and health/welfare outcomes in India using data from the National Family Health Survey (NFHS).",
-    topics: ["Development Economics", "Health"]
+    abstract: "Scientific evaluation increasingly relies on rankings, but rankings can do more than measure science when institutions convert metric categories into high-stakes rewards. They can become allocation mechanisms for scientific visibility, reallocating published authorship credit within shared scientific venues. We study this mechanism in China’s journal-ranking regime, where the Chinese Academy of Sciences classifies journals into reward-relevant tiers using sharp subfield-specific cutoffs. The Tier-1 boundary creates a discontinuous increase in the institutional value of publishing in journals just above the cutoff, even though journals just below it are closely comparable in measured standing. Linking CAS rankings to paper-level Web of Science records from 2000 to 2020, we exploit this boundary in a regression discontinuity design. Journals just above the cutoff publish substantially more China-affiliated first-author papers than journals just below it, with an increase of about 3 percentage points, or roughly one-fifth of the below-cutoff mean. The response is larger where institutional rewards are stronger and emerges after universities adopt explicit CAS-based publication incentives. The marginal increase in China-affiliated publications falls disproportionately in lower parts of the subsequent citation distribution, indicating a shift in the citation-based composition of marginal publications. It is also accompanied by reductions in non-China first-authored papers, while international collaboration margins change little. These findings show that rankings are not neutral scorecards. When tied to discrete rewards, they become institutional incentives that can redirect authorship, citation profiles, and scientific visibility within globally shared publication venues.",
+    topics: ["Innovation", "Economics of Science", "Labor Economics"]
   },
   {
     id: 'p3',
+    title: "Contraceptive Methods, Health, and Welfare: Evidence from India's NFHS",
+    authors: ["David I. Levine"],
+    authorLinks: { "David I. Levine": "https://haas.berkeley.edu/faculty/david-i-levine/" },
+    year: 2026,
+    status: "Working Paper",
+    abstract: "This paper investigates the relationship between contraceptive methods and health/welfare outcomes in India using data from the National Family Health Survey (NFHS).",
+    topics: ["Development Economics", "Health Economics"]
+  },
+  {
+    id: 'p4',
     title: "Equalizer or Concentrator? Artificial Intelligence and Scientific Inequality",
-    authors: ["Zhuoxiang Zhou"],
-    year: 2025,
+    authors: ["Zhuoxiang Zhou", "Richard B. Freeman", "Wei Huang"],
+    authorLinks: { 
+      "Richard B. Freeman": "https://freeman.scholars.harvard.edu/",
+      "Wei Huang": "https://huangweipku.com/" 
+    },
+    year: 2026,
     status: "Work in Progress",
     abstract: "Exploring how AI adoption impacts inequality within the scientific community.",
     topics: ["Innovation", "Labor Economics"]
   },
   {
-    id: 'p4',
+    id: 'p5',
     title: "The Economic Incidence of Excise Taxes: Tax Pass-Through, Consumer Behavior, and Welfare Impacts",
     authors: ["Zhuoxiang Zhou"],
-    year: 2025,
+    year: 2026,
     status: "Work in Progress",
     abstract: "Analyzing the pass-through effects of excise taxes and their impact on consumer welfare.",
     topics: ["Public Economics"]
