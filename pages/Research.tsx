@@ -62,9 +62,12 @@ const ResearchPanel: React.FC<ResearchPanelProps> = ({ paper, isWip = false }) =
         <p className="text-lg font-sans text-stone-600 mb-4">
           with {otherAuthors.map((author, i) => {
             const url = paper.authorLinks?.[author];
+            const isLast = i === otherAuthors.length - 1;
+            const separator = i === 0 ? '' : otherAuthors.length > 2 ? ', ' : ' ';
+            const prefix = isLast && i > 0 ? separator + 'and ' : separator;
             return (
               <span key={author}>
-                {i > 0 && ", "}
+                {prefix}
                 {url ? (
                   <a href={url} target="_blank" rel="noopener noreferrer" className="underline">
                     {author}
