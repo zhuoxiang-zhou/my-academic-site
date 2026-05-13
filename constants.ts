@@ -50,7 +50,7 @@ export const PAPERS: Paper[] = [
   {
     id: 'p4',
     title: "Equalizer or Concentrator? Artificial Intelligence and Scientific Inequality",
-    authors: ["Zhuoxiang Zhou", "Richard B. Freeman", "Wei Huang"],
+    authors: ["Richard B. Freeman", "Wei Huang"],
     authorLinks: { 
       "Richard B. Freeman": "https://freeman.scholars.harvard.edu/",
       "Wei Huang": "https://huangweipku.com/" 
@@ -63,7 +63,7 @@ export const PAPERS: Paper[] = [
   {
     id: 'p5',
     title: "The Economic Incidence of Excise Taxes: Tax Pass-Through, Consumer Behavior, and Welfare Impacts",
-    authors: ["Zhuoxiang Zhou"],
+    authors: [],
     year: 2026,
     status: "Work in Progress",
     abstract: "Analyzing the pass-through effects of excise taxes and their impact on consumer welfare.",
