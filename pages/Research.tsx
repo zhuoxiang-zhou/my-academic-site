@@ -53,7 +53,7 @@ const ResearchPanel: React.FC<ResearchPanelProps> = ({ paper, isWip = false }) =
       </div>
 
       {/* Title - Black, Serif */}
-      <h3 className="text-2xl font-serif font-bold text-black mb-2 leading-snug">
+      <h3 className="text-2xl font-paper font-bold text-black mb-2 leading-snug">
         {paper.title}
       </h3>
       
