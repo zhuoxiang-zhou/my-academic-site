@@ -2,15 +2,15 @@ import { Paper, Course, Photo, Note } from './types';
 
 export const SITE_CONFIG = {
   name: "Zhuoxiang (Shawn) Zhou",
-  title: "Senior in Economics",
-  institution: "Peking University",
+  title: "Stanford Institute for Economic Policy Research",
+  institution: "Stanford University",
   email: "zhuoxiang.zhou@gmail.com",
   twitter: "",
   github: "",
   linkedin: "https://linkedin.com/in/zhuoxiang-zhou-b25478288/",
-  bio: "I am a senior undergraduate in Economics at Peking University. I will join Stanford University this summer as a predoctoral research fellow in economics, working with Professor Matthew Gentzkow.",
+  bio: "I am a predoctoral research fellow in economics at Stanford University, working with Professor Matthew Gentzkow. I received my B.A. in Economics from Peking University.",
   bio2: "My research focuses on labor economics and the economics of technology and innovation. I study how policy instruments shape individual behavior and human capital formation, and how access to and adoption of new technologies affect productivity, welfare, and inequality.",
-  office: "National School of Development, Peking University"
+  office: ""
 };
 
 export const PAPERS: Paper[] = [
