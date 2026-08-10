@@ -1,195 +1,299 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { Camera, ChevronLeft, ChevronRight, MapPin, X, ZoomIn } from 'lucide-react';
 import { PHOTOS } from '../constants';
-import { MapPin, X, Camera, ChevronLeft, ChevronRight, ZoomIn } from 'lucide-react';
 import { Photo } from '../types';
 
-const Photography: React.FC = () => {
-  const [selectedPhotoIndex, setSelectedPhotoIndex] = useState<number | null>(null);
+const getColumnCount = () => {
+  if (typeof window === 'undefined') return 1;
+  if (window.innerWidth >= 1024) return 3;
+  if (window.innerWidth >= 768) return 2;
+  return 1;
+};
 
-  const openLightbox = (index: number) => {
-    setSelectedPhotoIndex(index);
+const PhotoVerse: React.FC<{ photo: Photo; lightbox?: boolean }> = ({ photo, lightbox = false }) => {
+  const language = photo.literaryQuote.language;
+  const isChinese = language?.startsWith('zh');
+  const verseClass = lightbox ? 'mt-4' : 'mt-3';
+  const quoteClass = isChinese
+    ? `${language === 'zh-Hant' ? 'font-cjk-tc' : 'font-cjk-sc'} not-italic tracking-[0.035em] ${
+        lightbox ? 'text-base leading-[1.8] text-stone-200 md:text-lg' : 'text-[0.95rem] leading-[1.75] text-stone-700'
+      }`
+    : `font-literary italic ${
+        lightbox ? 'text-lg leading-relaxed text-stone-200 md:text-xl' : 'text-[0.98rem] leading-[1.6] text-stone-700'
+      }`;
+  const translationClass = lightbox
+    ? 'mt-1.5 font-literary text-[0.95rem] italic leading-relaxed text-stone-400 md:text-base'
+    : 'mt-1.5 font-literary text-[0.875rem] italic leading-[1.6] text-stone-500';
+  const citationClass = lightbox
+    ? 'mt-2.5 block font-sans text-[0.7rem] not-italic tracking-[0.025em] text-stone-500 md:text-xs'
+    : 'mt-2 block font-sans text-[0.68rem] not-italic leading-relaxed tracking-[0.02em] text-stone-400';
+  return (
+    <blockquote className={verseClass} lang={language}>
+      <p className={quoteClass}>{photo.literaryQuote.text}</p>
+      {photo.literaryQuote.translation && (
+        <p className={translationClass} lang="en">{photo.literaryQuote.translation}</p>
+      )}
+      <cite className={citationClass}>
+        — {photo.literaryQuote.citation}
+      </cite>
+    </blockquote>
+  );
+};
+
+const Photography: React.FC = () => {
+  const [showAll, setShowAll] = useState(false);
+  const [columnCount, setColumnCount] = useState(getColumnCount);
+  const [selectedPhotoId, setSelectedPhotoId] = useState<string | null>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const lastTriggerRef = useRef<HTMLButtonElement | null>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const nextColumnCount = getColumnCount();
+      setColumnCount((current) => current === nextColumnCount ? current : nextColumnCount);
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const visiblePhotos = useMemo(
+    () => PHOTOS
+      .filter((photo) => showAll || photo.featured)
+      .sort((a, b) => a.order - b.order || a.column - b.column),
+    [showAll],
+  );
+
+  const photoColumns = useMemo(() => {
+    const columns: Array<Array<{ photo: Photo; readingIndex: number }>> = Array.from(
+      { length: columnCount },
+      () => [],
+    );
+
+    visiblePhotos.forEach((photo, readingIndex) => {
+      columns[readingIndex % columnCount].push({ photo, readingIndex });
+    });
+
+    return columns;
+  }, [columnCount, visiblePhotos]);
+
+  const selectedPhotoIndex = selectedPhotoId === null
+    ? -1
+    : visiblePhotos.findIndex((photo) => photo.id === selectedPhotoId);
+  const selectedPhoto = selectedPhotoIndex >= 0 ? visiblePhotos[selectedPhotoIndex] : null;
+  const isLightboxOpen = selectedPhoto !== null;
+  const remainingPhotoCount = PHOTOS.length - visiblePhotos.length;
+
+  const openLightbox = (photoId: string, trigger: HTMLButtonElement) => {
+    lastTriggerRef.current = trigger;
+    setSelectedPhotoId(photoId);
   };
 
   const closeLightbox = () => {
-    setSelectedPhotoIndex(null);
+    setSelectedPhotoId(null);
   };
 
-  const nextPhoto = (e?: React.MouseEvent) => {
-    e?.stopPropagation();
-    if (selectedPhotoIndex !== null) {
-      setSelectedPhotoIndex((selectedPhotoIndex + 1) % PHOTOS.length);
-    }
-  };
-
-  const prevPhoto = (e?: React.MouseEvent) => {
-    e?.stopPropagation();
-    if (selectedPhotoIndex !== null) {
-      setSelectedPhotoIndex((selectedPhotoIndex - 1 + PHOTOS.length) % PHOTOS.length);
-    }
+  const movePhoto = (direction: -1 | 1) => {
+    if (selectedPhotoIndex < 0) return;
+    const nextIndex = (
+      selectedPhotoIndex + direction + visiblePhotos.length
+    ) % visiblePhotos.length;
+    setSelectedPhotoId(visiblePhotos[nextIndex].id);
   };
 
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (selectedPhotoIndex === null) return;
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowRight') nextPhoto();
-      if (e.key === 'ArrowLeft') prevPhoto();
+    if (!isLightboxOpen) return;
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    closeButtonRef.current?.focus({ preventScroll: true });
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      lastTriggerRef.current?.focus({ preventScroll: true });
+    };
+  }, [isLightboxOpen]);
+
+  useEffect(() => {
+    if (!isLightboxOpen) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault();
+        closeLightbox();
+        return;
+      }
+
+      if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        movePhoto(1);
+        return;
+      }
+
+      if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        movePhoto(-1);
+        return;
+      }
+
+      if (event.key !== 'Tab' || !dialogRef.current) return;
+
+      const focusableElements = Array.from(
+        dialogRef.current.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+        ),
+      ).filter((element) => element.offsetParent !== null);
+
+      if (focusableElements.length === 0) return;
+      const firstElement = focusableElements[0];
+      const lastElement = focusableElements[focusableElements.length - 1];
+
+      if (event.shiftKey && document.activeElement === firstElement) {
+        event.preventDefault();
+        lastElement.focus();
+      } else if (!event.shiftKey && document.activeElement === lastElement) {
+        event.preventDefault();
+        firstElement.focus();
+      }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [selectedPhotoIndex]);
+  }, [isLightboxOpen, selectedPhotoIndex, visiblePhotos]);
 
-  const renderPhotoCard = (photo: Photo) => {
-    let aspectRatioClass = 'aspect-square';
-    if (photo.aspectRatio) {
-      // Tailwind arbitrary value for aspect ratio
-      aspectRatioClass = `aspect-[${photo.aspectRatio}]`;
-    } else {
-      switch (photo.size) {
-        case 'tall': aspectRatioClass = 'aspect-[3/4]'; break;
-        case 'extra-tall': aspectRatioClass = 'aspect-[2/3]'; break;
-        case 'wide': aspectRatioClass = 'aspect-[4/3]'; break;
-        case 'extra-wide': aspectRatioClass = 'aspect-[16/9]'; break;
-        case 'large': aspectRatioClass = 'aspect-square'; break;
-        default: aspectRatioClass = 'aspect-square';
-      }
-    }
-
-    const globalIndex = PHOTOS.findIndex(p => p.id === photo.id);
-
-    return (
-      <div 
-        key={photo.id}
-        className="group cursor-pointer relative overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-500 bg-stone-200"
-        onClick={() => openLightbox(globalIndex)}
+  const renderPhotoCard = (photo: Photo, readingIndex: number) => (
+    <figure key={photo.id} className="group">
+      <button
+        type="button"
+        className="block w-full rounded-lg text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-academic-500 focus-visible:ring-offset-4 focus-visible:ring-offset-stone-50"
+        aria-label={`Open ${photo.title}, ${photo.location}`}
+        onClick={(event) => openLightbox(photo.id, event.currentTarget)}
       >
-        <div className={`relative overflow-hidden ${aspectRatioClass}`}>
-          <img 
-            src={photo.url} 
-            alt={photo.caption}
-            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-            loading="lazy"
+        <span className="relative block overflow-hidden rounded-lg bg-stone-200">
+          <img
+            src={photo.url}
+            alt={`${photo.title}, ${photo.location}`}
+            className="block h-auto w-full transition-transform duration-700 ease-out group-hover:scale-[1.03] group-focus-within:scale-[1.03]"
+            loading={readingIndex < 3 ? 'eager' : 'lazy'}
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <ZoomIn className="w-10 h-10 text-white transform scale-75 group-hover:scale-100 transition-transform duration-300" strokeWidth={1.5} />
-            </div>
-            <div className="absolute bottom-0 left-0 right-0 p-4 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-              <p className="text-white text-sm font-medium leading-tight">{photo.caption}</p>
-              {photo.location && (
-                <p className="text-white/70 text-xs mt-1 flex items-center gap-1">
-                  <MapPin size={10} /> {photo.location}
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
+          <span className="absolute inset-0 flex items-center justify-center bg-black/0 opacity-0 transition-all duration-300 group-hover:bg-black/15 group-hover:opacity-100 group-focus-within:bg-black/15 group-focus-within:opacity-100" aria-hidden="true">
+            <ZoomIn className="h-9 w-9 text-white drop-shadow" strokeWidth={1.5} />
+          </span>
+        </span>
+      </button>
+
+      <figcaption className="mt-[1.125rem]">
+        <h2 className="font-serif text-[1.3rem] font-medium leading-snug tracking-[-0.015em] text-academic-900">
+          {photo.title}
+        </h2>
+        <p className="mt-1.5 flex items-start gap-1.5 text-[0.8rem] leading-5 tracking-[-0.005em] text-stone-500">
+          <MapPin className="mt-[0.2rem] h-3.5 w-3.5 shrink-0 text-stone-400" strokeWidth={1.4} aria-hidden="true" />
+          <span>
+            {photo.location}
+            {photo.year !== undefined && <><span aria-hidden="true"> · </span>{photo.year}</>}
+          </span>
+        </p>
+        <PhotoVerse photo={photo} />
+      </figcaption>
+    </figure>
+  );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-16 sm:px-6 lg:px-8">
-      {/* Header */}
-      <div className="mb-12">
-        <h1 className="text-4xl font-serif font-bold text-academic-900 mb-4 flex items-center gap-3">
-          <Camera className="text-academic-500" size={32} strokeWidth={1.5} />
+    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <header className="mb-12">
+        <h1 className="mb-4 flex items-center gap-3 font-serif text-4xl font-bold text-academic-900">
+          <Camera className="text-academic-500" size={32} strokeWidth={1.5} aria-hidden="true" />
           Photography
         </h1>
-        <p className="text-stone-500 text-xl">
-          Capturing perspectives from academic journeys and personal explorations. 
-          Each frame tells a story of place, light, and moment.
+        <p className="max-w-4xl text-xl leading-relaxed text-stone-500">
+          Light leaves; the frame remembers.
         </p>
+      </header>
+
+      <div
+        id="photography-gallery"
+        className={`grid gap-8 md:gap-10 ${
+          columnCount === 3 ? 'grid-cols-3' : columnCount === 2 ? 'grid-cols-2' : 'grid-cols-1'
+        }`}
+      >
+        {photoColumns.map((column, columnIndex) => (
+          <div key={columnIndex} className="flex min-w-0 flex-col gap-10">
+            {column.map(({ photo, readingIndex }) => renderPhotoCard(photo, readingIndex))}
+          </div>
+        ))}
       </div>
 
-      {/* Manual Column Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {/* Column 1 */}
-        <div className="flex flex-col gap-6">
-          {PHOTOS
-            .filter(photo => photo.column === 1)
-            .sort((a, b) => a.order - b.order)
-            .map(renderPhotoCard)}
-        </div>
-
-        {/* Column 2 */}
-        <div className="flex flex-col gap-6">
-          {PHOTOS
-            .filter(photo => photo.column === 2)
-            .sort((a, b) => a.order - b.order)
-            .map(renderPhotoCard)}
-        </div>
-
-        {/* Column 3 */}
-        <div className="flex flex-col gap-6">
-          {PHOTOS
-            .filter(photo => photo.column === 3)
-            .sort((a, b) => a.order - b.order)
-            .map(renderPhotoCard)}
-        </div>
-      </div>
-
-      {/* Lightbox Modal */}
-      {selectedPhotoIndex !== null && (
-        <div 
-          className="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-200"
-          onClick={closeLightbox}
-        >
-          {/* Close Button */}
+      {!showAll && remainingPhotoCount > 0 && (
+        <div className="mt-16 flex justify-center">
           <button
+            type="button"
+            className="rounded-full border border-academic-300 bg-white px-7 py-3 text-base font-medium text-academic-800 transition-colors hover:border-academic-500 hover:bg-academic-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-academic-500 focus-visible:ring-offset-4 focus-visible:ring-offset-stone-50"
+            aria-controls="photography-gallery"
+            onClick={() => setShowAll(true)}
+          >
+            View {remainingPhotoCount} more photographs
+          </button>
+        </div>
+      )}
+
+      {selectedPhoto && (
+        <div
+          ref={dialogRef}
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 md:p-8"
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="photo-lightbox-title"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) closeLightbox();
+          }}
+        >
+          <button
+            ref={closeButtonRef}
+            type="button"
+            className="absolute right-4 top-4 z-10 rounded-full p-2 text-white/70 transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white md:right-6 md:top-6"
+            aria-label="Close photograph"
             onClick={closeLightbox}
-            className="absolute top-6 right-6 text-white/70 hover:text-white transition-colors z-10 p-2 hover:bg-white/10 rounded-full"
-            aria-label="Close"
           >
             <X size={32} />
           </button>
 
-          {/* Navigation Buttons */}
           <button
-            onClick={prevPhoto}
-            className="absolute left-4 md:left-8 text-white/50 hover:text-white transition-colors z-10 p-3 hover:bg-white/10 rounded-full"
-            aria-label="Previous"
+            type="button"
+            className="absolute left-2 z-10 rounded-full p-2 text-white/60 transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white md:left-8 md:p-3"
+            aria-label="Previous photograph"
+            onClick={() => movePhoto(-1)}
           >
-            <ChevronLeft size={48} strokeWidth={1} />
+            <ChevronLeft className="h-10 w-10 md:h-12 md:w-12" strokeWidth={1} />
           </button>
 
           <button
-            onClick={nextPhoto}
-            className="absolute right-4 md:right-8 text-white/50 hover:text-white transition-colors z-10 p-3 hover:bg-white/10 rounded-full"
-            aria-label="Next"
+            type="button"
+            className="absolute right-2 z-10 rounded-full p-2 text-white/60 transition-colors hover:bg-white/10 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white md:right-8 md:p-3"
+            aria-label="Next photograph"
+            onClick={() => movePhoto(1)}
           >
-            <ChevronRight size={48} strokeWidth={1} />
+            <ChevronRight className="h-10 w-10 md:h-12 md:w-12" strokeWidth={1} />
           </button>
 
-          {/* Image Container */}
-          <div className="max-w-5xl w-full max-h-full flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
-            <div className="relative group">
-              <img 
-                src={PHOTOS[selectedPhotoIndex].url}
-                alt={PHOTOS[selectedPhotoIndex].caption}
-                className="max-w-full max-h-[75vh] object-contain rounded shadow-2xl"
-              />
-            </div>
-            <div className="mt-8 text-center max-w-3xl px-4">
-              <h3 className="text-white text-2xl font-serif font-medium mb-3">
-                {PHOTOS[selectedPhotoIndex].caption}
-              </h3>
-              {PHOTOS[selectedPhotoIndex].description && (
-                <p className="text-stone-400 text-lg font-light leading-relaxed italic">
-                  "{PHOTOS[selectedPhotoIndex].description}"
-                </p>
-              )}
-              <div className="flex items-center justify-center gap-4 mt-6">
-                {PHOTOS[selectedPhotoIndex].location && (
-                  <p className="text-stone-500 text-sm flex items-center gap-1.5">
-                    <MapPin size={14} className="text-academic-400" /> {PHOTOS[selectedPhotoIndex].location}
-                  </p>
-                )}
-                <span className="text-stone-600 text-sm">
-                  {selectedPhotoIndex + 1} / {PHOTOS.length}
-                </span>
-              </div>
+          <div className="flex max-h-full w-full max-w-5xl flex-col items-center px-8 md:px-16">
+            <img
+              src={selectedPhoto.url}
+              alt={`${selectedPhoto.title}, ${selectedPhoto.location}`}
+              className="max-h-[68vh] max-w-full rounded object-contain shadow-2xl md:max-h-[72vh]"
+            />
+            <div className="mt-5 max-w-3xl px-2 text-center md:mt-7 md:px-4">
+              <h2 id="photo-lightbox-title" className="font-serif text-2xl font-medium text-white">
+                {selectedPhoto.title}
+              </h2>
+              <p className="mt-2 text-sm text-stone-400">
+                {selectedPhoto.location}
+                {selectedPhoto.year !== undefined && <><span aria-hidden="true"> · </span>{selectedPhoto.year}</>}
+              </p>
+              <PhotoVerse photo={selectedPhoto} lightbox />
+              <p className="mt-4 text-sm text-stone-500" aria-live="polite">
+                {selectedPhotoIndex + 1} / {visiblePhotos.length}
+              </p>
             </div>
           </div>
         </div>

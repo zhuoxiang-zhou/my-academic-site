@@ -96,182 +96,286 @@ export const PHOTOS: Photo[] = [
   { 
     id: 'ph1',
     url: '/photos/PKU_tower.jpg', 
-    caption: 'Boya (Liberal Education) Tower, Peking University, Beijing, China', 
-    description: 'Where thought climbs higher than the stone that bears it.',
-    size: 'tall',
+    title: 'Double Sky',
+    location: 'Peking University, Beijing, China',
+    literaryQuote: {
+      text: '天光雲影共徘徊。',
+      translation: 'Sky-light and cloud-shadows wander together.',
+      citation: '朱熹，《觀書有感》',
+      language: 'zh-Hant',
+    },
     column: 1,
-    order: 1
+    order: 1,
+    featured: true
   },
   { 
     id: 'ph2',
     url: '/photos/SF_beach_far_bridge.jpg', 
-    caption: 'Golden Gate Bridge, San Francisco, USA', 
-    description: 'Fog drifts like memory over the sea, where a bridge threads the world to its horizon.',
-    size: 'tall',
+    title: 'Half-Seen',
+    location: 'San Francisco, California, USA',
+    literaryQuote: {
+      text: 'The fog comes on little cat feet.',
+      citation: 'Carl Sandburg, “Fog”',
+      language: 'en',
+    },
     column: 1,
-    order: 2
+    order: 5,
+    featured: false
   },
   { 
     id: 'ph3',
     url: '/photos/Cangnan_facing_sun.jpg', 
-    caption: 'Cangnan, Zhejiang, China', 
-    description: 'Give me light, and let me see.',
-    size: 'tall',
+    title: 'Open Hands',
+    location: 'Cangnan, Zhejiang, China',
+    literaryQuote: {
+      text: 'I am large, I contain multitudes.',
+      citation: 'Walt Whitman, “Song of Myself”',
+      language: 'en',
+    },
     column: 1,
-    order: 3
+    order: 2,
+    featured: true
   },
   { 
     id: 'ph4',
     url: '/photos/SF_fishing.jpg', 
-    caption: 'Golden Gate Bridge, San Francisco, USA', 
-    description: 'A man got a crab.',
-    size: 'tall',
+    title: 'The Tender Line',
+    location: 'San Francisco, California, USA',
+    literaryQuote: {
+      text: 'The readiness is all.',
+      citation: 'William Shakespeare, Hamlet',
+      language: 'en',
+    },
     column: 1,
-    order: 4
+    order: 6,
+    featured: false
   },
   { 
     id: 'ph5',
     url: '/photos/SF_golden_gate_bridge.jpg', 
-    caption: 'Boston, Massachusetts, USA',  
-    description: 'The Golden Gate rises through sea and sky, a bridge of steel and light linking horizons and dreams.',
-    aspectRatio: '9/20',
+    title: 'Across',
+    location: 'San Francisco, California, USA',
+    literaryQuote: {
+      text: 'I am a part of all that I have met;',
+      citation: 'Alfred, Lord Tennyson, “Ulysses”',
+      language: 'en',
+    },
     column: 1,
-    order: 5
+    order: 3,
+    featured: true
   },
   { 
     id: 'ph6',
     url: '/photos/Yanling_rural.jpg', 
-    caption: 'Yanling, Henan, China',  
-    description: 'Beneath the turning blades of a windmill, two farmers rest by their tricycles.',
-    aspectRatio: '9/20',
+    title: 'After Labor',
+    location: 'Yanling, Henan, China',
+    literaryQuote: {
+      text: 'The labour we delight in physics pain.',
+      citation: 'William Shakespeare, Macbeth',
+      language: 'en',
+    },
     column: 1,
-    order: 6
+    order: 7,
+    featured: false
   },
   { 
     id: 'ph7',
     url: '/photos/Beihai_Park_cat.jpg', 
-    caption: 'Beihai Park, Beijing, China',  
-    description: 'A golden cat walks along a sunlit roof',
-    aspectRatio: '9/20',
+    title: 'Minor Majesty',
+    location: 'Beihai Park, Beijing, China',
+    literaryQuote: {
+      text: 'For I will consider my Cat Jeoffry.',
+      citation: 'Christopher Smart, Jubilate Agno',
+      language: 'en',
+    },
     column: 1,
-    order: 7
+    order: 4,
+    featured: true
   },
   { 
     id: 'ph8',
     url: '/photos/Wuyuan_reflection.jpg', 
-    caption: 'Likeng, Wuyuan, Jiangxi, China', 
-    description: 'A serene morning in Likeng, capturing the traditional architecture reflected in the water.',
-    size: 'normal',
+    title: 'Below the Morning',
+    location: 'Likeng, Wuyuan, Jiangxi, China',
+    literaryQuote: {
+      text: '行到水窮處，坐看雲起時。',
+      translation: 'I walk to where the water ends and sit to watch the clouds arise.',
+      citation: '王維，《終南別業》',
+      language: 'zh-Hant',
+    },
     column: 2,
-    order: 1
+    order: 1,
+    featured: true
   },
   { 
     id: 'ph9',
     url: '/photos/SF_palace.jpg', 
-    caption: 'Palace of Fine Arts, San Francisco, USA', 
-    description: 'Give me light, and let me see.',
-    size: 'extra-tall',
+    title: 'The Long Threshold',
+    location: 'San Francisco, California, USA',
+    literaryQuote: {
+      text: 'A thing of beauty is a joy for ever:',
+      citation: 'John Keats, Endymion',
+      language: 'en',
+    },
     column: 2,
-    order: 2
+    order: 2,
+    featured: true
   },
   { 
     id: 'ph10',
     url: '/photos/Summer_Palace_reflection_tree.jpg', 
-    caption: 'Summer Palace, Beijing, China',  
-    description: 'Winter sketches its memory across a frozen mirror.',
-    aspectRatio: '9/20',
+    title: 'Frozen Grammar',
+    location: 'Summer Palace, Beijing, China',
+    literaryQuote: {
+      text: 'If Winter comes, can Spring be far behind?',
+      citation: 'Percy Bysshe Shelley, “Ode to the West Wind”',
+      language: 'en',
+    },
     column: 2,
-    order: 3
+    order: 5,
+    featured: false
   },
   { 
     id: 'ph11',
     url: '/photos/Boston_snow_park.jpg', 
-    caption: 'Boston, Massachusetts, USA',  
-    description: 'A lone runner crosses a quiet, snow-covered park—motion etched against the stillness of winter.',
-    aspectRatio: '9/20',
+    title: 'White Interval',
+    location: 'Boston, Massachusetts, USA',
+    literaryQuote: {
+      text: 'The woods are lovely, dark and deep,',
+      citation: 'Robert Frost, “Stopping by Woods on a Snowy Evening”',
+      language: 'en',
+    },
     column: 2,
-    order: 4
+    order: 3,
+    featured: true
   },
   { 
     id: 'ph12',
     url: '/photos/Summer_Palace_lotus_leaves.jpg', 
-    caption: 'Summer Palace, Beijing, China',  
-    description: 'Golden light drifts over still water, where withered lotus leaves stand like memories of a passing summer.',
-    size: 'tall',
+    title: 'Amber Relics',
+    location: 'Summer Palace, Beijing, China',
+    literaryQuote: {
+      text: '留得枯荷聽雨聲。',
+      translation: 'The withered lotus remains to listen to the rain.',
+      citation: '李商隱，《宿駱氏亭寄懷崔雍崔袞》',
+      language: 'zh-Hant',
+    },
     column: 2,
-    order: 5
+    order: 4,
+    featured: true
   },
   { 
     id: 'ph13',
     url: '/photos/SF_beach.jpg', 
-    caption: 'Ocean Beach, San Francisco, USA',  
-    description: 'Wings, wind, and waves—three kinds of motion, one kind of peace.',
-    size: 'tall',
+    title: 'Between Motions',
+    location: 'Ocean Beach, San Francisco, California, USA',
+    literaryQuote: {
+      text: 'The sea is calm to-night.',
+      citation: 'Matthew Arnold, “Dover Beach”',
+      language: 'en',
+    },
     column: 2,
-    order: 6
+    order: 6,
+    featured: false
   },
   { 
     id: 'ph14',
     url: '/photos/Boston_snowman.jpg', 
-    caption: 'Boston, Massachusetts, USA',  
-    description: 'A tiny snowman reaches toward the winter sun, melting slowly into the light.',
-    size: 'tall',
+    title: 'Brief Figure',
+    location: 'Boston, Massachusetts, USA',
+    literaryQuote: {
+      text: 'We are such stuff as dreams are made on,',
+      citation: 'William Shakespeare, The Tempest',
+      language: 'en',
+    },
     column: 2,
-    order: 7
+    order: 7,
+    featured: false
   },
   { 
     id: 'ph15',
     url: '/photos/Plane_overlook.jpg', 
-    caption: 'Overlooking the landscape from a plane to Beijing', 
-    description: 'Color adjusted for effect.',
-    aspectRatio: '9/20',
+    title: 'Cartography of Air',
+    location: 'En route to Beijing, China',
+    literaryQuote: {
+      text: 'To see a World in a Grain of Sand',
+      citation: 'William Blake, “Auguries of Innocence”',
+      language: 'en',
+    },
     column: 3,
-    order: 1
+    order: 1,
+    featured: true
   },
   { 
     id: 'ph16',
     url: '/photos/Cangnan_boat_flag.jpg', 
-    caption: 'Cangnan, Zhejiang, China', 
-    description: 'An abandoned boat greets the dawn with its one red whisper.',
-    size: 'wide',
+    title: 'Dawn Signal',
+    location: 'Cangnan, Zhejiang, China',
+    literaryQuote: {
+      text: 'I’ll tell you how the Sun rose –',
+      citation: 'Emily Dickinson, “I’ll tell you how the Sun rose”',
+      language: 'en',
+    },
     column: 3,
-    order: 2
+    order: 2,
+    featured: true
   },
   { 
     id: 'ph17',
     url: '/photos/Chengze_Garden_green.jpg', 
-    caption: 'Chengze Garden, Beijing, China',  
-    description: 'Lush greenery, a peaceful retreat in the heart of the city.',
-    aspectRatio: '9/20',
+    title: 'Quiet Invasion',
+    location: 'Chengze Garden, Beijing, China',
+    literaryQuote: {
+      text: 'Annihilating all that’s made to a green thought in a green shade.',
+      citation: 'Andrew Marvell, “The Garden”',
+      language: 'en',
+    },
     column: 3,
-    order: 3
+    order: 5,
+    featured: false
   },
   { 
     id: 'ph18',
     url: '/photos/Boston_airplane.jpg', 
-    caption: 'Boston, Massachusetts, USA',  
-    description: 'A plane carves a silver line across the sky, while sunlight filters through the leaves.',
-    aspectRatio: '9/20',
+    title: 'Transit',
+    location: 'Boston, Massachusetts, USA',
+    literaryQuote: {
+      text: 'The world is charged with the grandeur of God.',
+      citation: 'Gerard Manley Hopkins, “God’s Grandeur”',
+      language: 'en',
+    },
     column: 3,
-    order: 4
+    order: 6,
+    featured: false
   },
   { 
     id: 'ph19',
     url: '/photos/Beihai_Park_mandarin_ducks.jpg', 
-    caption: 'Beihai Park, Beijing, China',  
-    description: 'A pair of mandarin ducks glide together across the water, their quiet grace reflecting harmony and devotion.',
-    aspectRatio: '9/20',
+    title: 'Vermilion Pair',
+    location: 'Beihai Park, Beijing, China',
+    literaryQuote: {
+      text: '身無彩鳳雙飛翼，心有靈犀一點通。',
+      translation: 'Though we have no paired phoenix wings, our hearts are joined at one point.',
+      citation: '李商隱，《無題二首·昨夜星辰昨夜風》',
+      language: 'zh-Hant',
+    },
     column: 3,
-    order: 5
+    order: 3,
+    featured: true
   },
   { 
     id: 'ph20',
     url: '/photos/Nanluoguxiang_bird.jpg', 
-    caption: 'Nanluoguxiang, Beijing, China',  
-    description: 'A flock rises into the pale sky, leaving the bare branches below in quiet stillness.',
-    aspectRatio: '9/20',
+    title: 'Release',
+    location: 'Nanluoguxiang, Beijing, China',
+    literaryQuote: {
+      text: '“Hope” is the thing with feathers',
+      citation: 'Emily Dickinson, “Hope” is the thing with feathers',
+      language: 'en',
+    },
     column: 3,
-    order: 6
+    order: 4,
+    featured: true
   },
 ];
 
