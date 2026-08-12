@@ -26,13 +26,18 @@ export interface Course {
 export interface Photo {
   id: string;
   url: string;
-  caption: string;
-  location?: string;
-  description?: string;
-  size?: 'tall' | 'extra-tall' | 'wide' | 'extra-wide' | 'normal' | 'large' | null;
-  aspectRatio?: string | null;
-  column: number;
+  title: string;
+  location: string;
+  year?: number;
+  literaryQuote: {
+    text: string;
+    translation?: string;
+    citation: string;
+    language?: string;
+  };
+  column: 1 | 2 | 3;
   order: number;
+  featured: boolean;
 }
 
 export interface Note {
