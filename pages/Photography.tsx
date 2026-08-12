@@ -183,11 +183,8 @@ const Photography: React.FC = () => {
         </span>
       </button>
 
-      <figcaption className="mt-[1.125rem]">
-        <h2 className="font-serif text-[1.3rem] font-medium leading-snug tracking-[-0.015em] text-academic-900">
-          {photo.title}
-        </h2>
-        <p className="mt-1.5 flex items-start gap-1.5 text-[0.8rem] leading-5 tracking-[-0.005em] text-stone-500">
+      <figcaption className="mt-3">
+        <p className="flex items-start gap-1.5 text-[0.8rem] leading-5 tracking-[-0.005em] text-stone-500">
           <MapPin className="mt-[0.2rem] h-3.5 w-3.5 shrink-0 text-stone-400" strokeWidth={1.4} aria-hidden="true" />
           <span>
             {photo.location}
@@ -283,10 +280,10 @@ const Photography: React.FC = () => {
               className="max-h-[68vh] max-w-full rounded object-contain shadow-2xl md:max-h-[72vh]"
             />
             <div className="mt-5 max-w-3xl px-2 text-center md:mt-7 md:px-4">
-              <h2 id="photo-lightbox-title" className="font-serif text-2xl font-medium text-white">
+              <h2 id="photo-lightbox-title" className="sr-only">
                 {selectedPhoto.title}
               </h2>
-              <p className="mt-2 text-sm text-stone-400">
+              <p className="text-sm text-stone-400">
                 {selectedPhoto.location}
                 {selectedPhoto.year !== undefined && <><span aria-hidden="true"> · </span>{selectedPhoto.year}</>}
               </p>
