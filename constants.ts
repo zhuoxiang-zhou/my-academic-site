@@ -29,7 +29,7 @@ export const PAPERS: Paper[] = [
   },
   {
     id: 'p2',
-    title: "When Scientific Rankings Become Rewards: How Evaluation Thresholds Reallocate Scientific Visibility",
+    title: "Domestic Rewards, Global Incidence: Evidence from China’s Journal-Ranking Cutoff",
     authors: ["Wei Huang", "Qingfeng Liu", "Shilin Zheng"],
     authorLinks: { "Wei Huang": "https://huangweipku.com/" },
     year: 2026,
