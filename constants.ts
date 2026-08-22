@@ -39,7 +39,7 @@ export const PAPERS: Paper[] = [
   },
   {
     id: 'p3',
-    title: "Contraceptive Methods, Health, and Welfare: Evidence from India's NFHS",
+    title: "Contraceptive Methods and Anemia in India: A Cost-Benefit Simulation of Hormonal IUD Provision",
     authors: ["David I. Levine"],
     authorLinks: { "David I. Levine": "https://haas.berkeley.edu/faculty/david-i-levine/" },
     year: 2026,

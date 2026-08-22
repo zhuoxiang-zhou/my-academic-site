@@ -157,7 +157,7 @@ const Research: React.FC = () => {
 
       <div className="space-y-12">
         <ResearchSection title="Working Papers" papers={working} />
-        <ResearchSection title="Work in Progress" papers={wip} isWip={true} />
+        <ResearchSection title="Selected Work in Progress" papers={wip} isWip={true} />
         <ResearchSection title="Book Chapters" papers={BOOK_CHAPTERS} />
       </div>
     </div>
