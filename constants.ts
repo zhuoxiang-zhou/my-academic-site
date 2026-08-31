@@ -76,7 +76,8 @@ export const BOOK_CHAPTERS: Paper[] = [];
 export const CHINESE_PUBLICATIONS = [
   {
     id: 'cp1',
-    citation: "黄炜、蔡睿思、周卓翔*. 人工智能如何重塑科研生产与国际化：来自中国经管学者国际发表的大样本证据. 管理世界，返修。"
+    citation: "黄炜、蔡睿思、周卓翔*. 人工智能如何重塑科研生产与国际化：来自中国经管学者国际发表的大样本证据. 管理世界",
+    status: "返修"
   }
 ];
 

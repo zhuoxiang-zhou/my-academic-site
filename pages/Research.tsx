@@ -95,10 +95,11 @@ const Research: React.FC = () => {
           </ResearchSection>
         )}
         {CHINESE_PUBLICATIONS.length > 0 && (
-          <ResearchSection title={<><span lang="zh-Hans" className="font-cjk-sc">中文发表</span><br />Chinese Publications</>}>
+          <ResearchSection title={<><span lang="zh-Hans" className="font-research">中文发表</span><br />Chinese Publications</>}>
             {CHINESE_PUBLICATIONS.map(publication => (
-              <li key={publication.id} lang="zh-Hans" className="font-cjk-sc text-base sm:text-lg text-stone-600 leading-relaxed">
-                {publication.citation}
+              <li key={publication.id} lang="zh-Hans" className="font-research text-base sm:text-lg text-stone-600 leading-relaxed">
+                <strong className="font-bold text-stone-800">{publication.citation}</strong>
+                {publication.status ? `，${publication.status}。` : '。'}
               </li>
             ))}
           </ResearchSection>
