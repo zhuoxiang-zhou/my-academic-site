@@ -269,7 +269,8 @@ test('Chinese publications use the same title, collaborator, and journal layout'
   const html = renderPage('/research');
   const entry = html.match(/<li lang="zh-Hans" class="research-entry font-research">([\s\S]*?)<\/li>/)[1];
   assert.ok(entry.includes(`<h3 class="research-paper-title">${escapeText(publication.title)}</h3>`));
-  assert.match(entry, /<p class="research-authors">\(with /);
+  const authorRow = entry.match(/<p class="research-authors">([\s\S]*?)<\/p>/)[1];
+  assert.equal(authorRow.replace(/<[^>]*>/g, ''), `(与 ${publication.authors.join('、')}）`);
   for (const author of publication.authors) assert.ok(entry.includes(escapeText(author)));
   assert.ok(entry.includes(`<em>${escapeText(publication.journal)}</em>`));
   assert.ok(entry.includes(escapeText(`${publication.journalStatus}.`)));

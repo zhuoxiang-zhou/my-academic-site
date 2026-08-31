@@ -14,6 +14,7 @@ export const ResearchEntry: React.FC<{
 }> = ({ paper, language, className }) => {
   const otherAuthors = paper.authors.filter(author => author !== SITE_CONFIG.name);
   const journalStatus = paper.journalStatus?.trim().replace(/[,.;:]+$/, '');
+  const isChinese = language?.startsWith('zh') ?? false;
 
   return (
     <li
@@ -23,12 +24,18 @@ export const ResearchEntry: React.FC<{
       <h3 className="research-paper-title">{paper.title}</h3>
       {otherAuthors.length > 0 && (
         <p className="research-authors">
-          {'(with '}
+          {isChinese ? '(与 ' : '(with '}
           {otherAuthors.map((author, i) => {
             const url = paper.authorLinks?.[author];
             const isLast = i === otherAuthors.length - 1;
-            const separator = i === 0 ? '' : otherAuthors.length > 2 ? ', ' : ' ';
-            const prefix = isLast && i > 0 ? separator + 'and ' : separator;
+            const separator = i === 0
+              ? ''
+              : isChinese
+                ? '、'
+                : otherAuthors.length > 2 ? ', ' : ' ';
+            const prefix = !isChinese && isLast && i > 0
+              ? separator + 'and '
+              : separator;
 
             return (
               <React.Fragment key={author}>
@@ -41,7 +48,7 @@ export const ResearchEntry: React.FC<{
               </React.Fragment>
             );
           })}
-          {')'}
+          {isChinese ? '）' : ')'}
         </p>
       )}
       {(paper.journal || journalStatus) && (
