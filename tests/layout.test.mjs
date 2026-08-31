@@ -12,6 +12,7 @@ let renderResearchEntry;
 let content;
 let getPhotoColumnCount;
 let stylesheet;
+let documentMarkup;
 
 before(async () => {
   // Use the production compiler without a browser, network port, or generated
@@ -34,6 +35,7 @@ before(async () => {
   runModule(createRequire(import.meta.url), compiledModule, compiledModule.exports);
   ({ renderPage, renderResearchEntry, content, getPhotoColumnCount } = compiledModule.exports);
   stylesheet = await readFile(new URL('../index.css', import.meta.url), 'utf8');
+  documentMarkup = await readFile(new URL('../index.html', import.meta.url), 'utf8');
 });
 
 function escapeText(text) {
@@ -227,8 +229,12 @@ test('research reference uses unbulleted sections without divider classes', () =
   assert.ok(research.includes('<h2 id="working-papers">Working Papers</h2>'));
   assert.doesNotMatch(research, /list-disc|border-t|border-b/);
   const listStyles = stylesheet.match(/\.research-list\s*\{([^}]+)\}/)[1];
+  const headingStyles = stylesheet.match(/\.research-section h2\s*\{([^}]+)\}/)[1];
   assert.match(listStyles, /list-style:\s*none/);
   assert.match(listStyles, /padding:\s*0/);
+  assert.match(listStyles, /gap:\s*2\.125rem/);
+  assert.match(headingStyles, /color:\s*#111/);
+  assert.match(headingStyles, /font-weight:\s*700/);
 });
 
 test('research titles, authors, and journal details occupy distinct blocks', () => {
@@ -247,6 +253,12 @@ test('research titles, authors, and journal details occupy distinct blocks', () 
   const titleStyles = stylesheet.match(/\.research-paper-title\s*\{([^}]+)\}/)[1];
   assert.match(titleStyles, /color:\s*#111/);
   assert.match(titleStyles, /font-weight:\s*700/);
+  assert.match(titleStyles, /margin:\s*0 0 0\.5rem/);
+  assert.match(titleStyles, /line-height:\s*1\.45/);
+  assert.match(stylesheet, /\.research-authors,\s*\.research-journal\s*\{[^}]*line-height:\s*1\.6/);
+  assert.match(stylesheet, /\.research-authors\s*\{\s*margin:\s*0 0 0\.5rem/);
+  assert.match(stylesheet, /\.research-journal em\s*\{\s*font-style:\s*italic/);
+  assert.ok(documentMarkup.includes('family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400'));
 });
 
 test('research author rows handle zero, one, two, and three collaborators', () => {
