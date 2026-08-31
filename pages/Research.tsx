@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PAPERS, BOOK_CHAPTERS, SITE_CONFIG } from '../constants';
+import { PAPERS, BOOK_CHAPTERS, CHINESE_PUBLICATIONS, SITE_CONFIG } from '../constants';
 import { Paper } from '../types';
 import { FileText, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 
@@ -144,8 +144,6 @@ const Research: React.FC = () => {
   const working = PAPERS.filter(p => p.status === 'Working Paper');
   const wip = PAPERS.filter(p => p.status === 'Work in Progress');
   
-  // Note: "Publications" section is removed as per request.
-
   return (
     <div className="max-w-7xl mx-auto px-4 py-20 sm:px-6 lg:px-8">
       <div className="mb-16 border-b border-stone-200 pb-10">
@@ -159,6 +157,24 @@ const Research: React.FC = () => {
         <ResearchSection title="Working Papers" papers={working} />
         <ResearchSection title="Selected Work in Progress" papers={wip} isWip={true} />
         <ResearchSection title="Book Chapters" papers={BOOK_CHAPTERS} />
+        <section className="flex flex-col md:flex-row gap-8 md:gap-12 border-t border-stone-200 pt-10">
+          <div className="md:w-64 shrink-0">
+            <h2 className="text-2xl font-serif font-bold text-academic-900 sticky top-24">
+              <span lang="zh-Hans" className="font-cjk-sc">中文发表</span>
+              <br />
+              Chinese Publications
+            </h2>
+          </div>
+          <div className="flex-1 min-w-0">
+            {CHINESE_PUBLICATIONS.map(publication => (
+              <div key={publication.id} lang="zh-Hans" className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm mb-6">
+                <p className="font-cjk-sc text-lg text-stone-700 leading-relaxed">
+                  {publication.citation}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
       </div>
     </div>
   );
