@@ -1,0 +1,346 @@
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import { createRequire } from 'node:module';
+import { before, test } from 'node:test';
+import { fileURLToPath } from 'node:url';
+import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
+import { build } from 'vite';
+
+let renderPage;
+let renderResearchEntry;
+let content;
+let getPhotoColumnCount;
+let stylesheet;
+let documentMarkup;
+
+before(async () => {
+  // Use the production compiler without a browser, network port, or generated
+  // files. CommonJS keeps the router and renderer on the same module instance.
+  const bundle = await build({
+    root: fileURLToPath(new URL('..', import.meta.url)),
+    configFile: false,
+    logLevel: 'silent',
+    build: {
+      ssr: fileURLToPath(new URL('./layout-renderer.tsx', import.meta.url)),
+      write: false,
+      minify: false,
+      rollupOptions: { output: { format: 'cjs' } },
+    },
+  });
+  const chunks = bundle.output.filter(output => output.type === 'chunk');
+  assert.equal(chunks.length, 1);
+  const compiledModule = { exports: {} };
+  const runModule = new Function('require', 'module', 'exports', chunks[0].code);
+  runModule(createRequire(import.meta.url), compiledModule, compiledModule.exports);
+  ({ renderPage, renderResearchEntry, content, getPhotoColumnCount } = compiledModule.exports);
+  stylesheet = await readFile(new URL('../index.css', import.meta.url), 'utf8');
+  documentMarkup = await readFile(new URL('../index.html', import.meta.url), 'utf8');
+});
+
+function escapeText(text) {
+  return renderToStaticMarkup(React.createElement('span', null, text))
+    .replace(/^<span>|<\/span>$/g, '');
+}
+
+for (const pathname of ['/', '/research', '/teaching', '/photography']) {
+  test(`${pathname} retains the name, all navigation links, and one active page`, () => {
+    const html = renderPage(pathname);
+    assert.ok(html.includes('class="site-sidebar"'));
+    assert.ok(html.includes(escapeText(`${content.SITE_CONFIG.name} — Home`)));
+    assert.ok(html.includes('<nav class="sidebar-navigation" aria-label="Main navigation">'));
+    for (const label of ['Home', 'Research', 'Teaching', 'Photography']) {
+      assert.ok(html.includes(`>${label}</a>`), `Missing navigation: ${label}`);
+    }
+    const activeLinks = html.match(/<a\b[^>]*aria-current="page"[^>]*>/g) || [];
+    assert.equal(activeLinks.length, 1);
+    assert.ok(activeLinks[0].includes(`href="${pathname}"`));
+    assert.match(html, /<main id="main-content" tabindex="-1"/);
+    assert.ok(html.includes('Skip to content'));
+    assert.doesNotMatch(html, /<footer\b|site-footer|All rights reserved\./);
+  });
+}
+
+test('home preserves the biography, portrait, full name, and contact links', () => {
+  const html = renderPage('/');
+  const text = html.replace(/<[^>]+>/g, '');
+  assert.equal(content.SITE_CONFIG.name, 'Zhuoxiang (Shawn) Zhou');
+  assert.ok(text.includes(content.SITE_CONFIG.bio));
+  assert.ok(html.includes(escapeText(content.SITE_CONFIG.bio2)));
+  assert.ok(html.includes('src="/images/bio.jpg"'));
+  assert.ok(html.includes(`<h1 class="sr-only">${content.SITE_CONFIG.name}</h1>`));
+  assert.ok(html.includes(`href="mailto:${content.SITE_CONFIG.email}"`));
+  assert.ok(html.includes('href="/cv.pdf"'));
+  assert.ok(html.includes(`href="${content.SITE_CONFIG.linkedin}"`));
+  assert.match(html, new RegExp(`<a href="${content.SITE_CONFIG.advisor.url}" target="_blank" rel="noopener noreferrer">${content.SITE_CONFIG.advisor.name}</a>`));
+});
+
+test('home contact links replace the job caption directly below the portrait', () => {
+  const html = renderPage('/');
+  const profile = html.match(/<div class="home-profile">([\s\S]*?)<div class="home-biography">/)[1];
+  assert.ok(profile.includes('src="/images/bio.jpg"'));
+  assert.ok(profile.indexOf('class="home-portrait"') < profile.indexOf('class="home-links"'));
+  assert.equal((html.match(/class="home-links"/g) || []).length, 1);
+  for (const [label, href] of [
+    ['Email', `mailto:${content.SITE_CONFIG.email}`],
+    ['CV', '/cv.pdf'],
+    ['LinkedIn', content.SITE_CONFIG.linkedin],
+  ]) {
+    assert.ok(profile.includes(`href="${href}"`));
+    assert.equal((html.match(new RegExp(`>${label}</a>`, 'g')) || []).length, 1);
+  }
+  assert.doesNotMatch(profile, /home-affiliation|Predoctoral Research Fellow/);
+  assert.ok(!profile.includes(escapeText(content.SITE_CONFIG.title)));
+  assert.doesNotMatch(stylesheet, /\.home-affiliation\b|\.site-footer\b/);
+
+  const profileStyles = stylesheet.match(/\.home-profile\s*\{([^}]+)\}/)[1];
+  const linkStyles = stylesheet.match(/\.home-links\s*\{([^}]+)\}/)[1];
+  const anchorStyles = stylesheet.match(/\.home-links a\s*\{([^}]+)\}/)[1];
+  assert.match(profileStyles, /max-width:\s*var\(--portrait-width\)/);
+  assert.match(linkStyles, /display:\s*flex/);
+  assert.match(linkStyles, /flex-wrap:\s*wrap/);
+  assert.match(linkStyles, /justify-content:\s*center/);
+  assert.match(linkStyles, /gap:\s*0\.25rem 2rem/);
+  assert.match(linkStyles, /width:\s*100%/);
+  assert.match(linkStyles, /margin-top:\s*0\.5rem/);
+  assert.match(anchorStyles, /font-size:\s*1\.0625rem/);
+  assert.match(stylesheet, /@container site-content \(max-width: 44rem\)[\s\S]*?\.home-biography p,\s*\.home-links a\s*\{\s*font-size:\s*1rem/);
+  assert.match(stylesheet, /@media \(max-width: 600px\)[\s\S]*?\.home-biography p,\s*\.home-links a\s*\{\s*font-size:\s*0\.9375rem/);
+  assert.doesNotMatch(stylesheet, /\.home-links a:(?:first-child|nth-child)[^{]*\{[^}]*justify-self/);
+});
+
+test('research preserves papers, collaborators, and Chinese publications', () => {
+  const html = renderPage('/research');
+  for (const paper of [...content.PAPERS, ...content.BOOK_CHAPTERS]) {
+    assert.ok(html.includes(escapeText(paper.title)), paper.title);
+    for (const author of paper.authors) assert.ok(html.includes(escapeText(author)), author);
+  }
+  for (const publication of content.CHINESE_PUBLICATIONS) {
+    assert.ok(html.includes(escapeText(publication.citation)));
+  }
+  assert.ok(!html.includes('sticky top-24'), 'Section headings must not overlap other content');
+});
+
+test('teaching preserves each course and its description', () => {
+  const html = renderPage('/teaching');
+  for (const course of content.COURSES) {
+    assert.ok(html.includes(escapeText(course.title)));
+    assert.ok(html.includes(escapeText(course.description)));
+    assert.ok(html.includes(escapeText(course.semester)));
+    assert.ok(html.includes(escapeText(`${course.semester} · Peking University`)));
+  }
+  assert.doesNotMatch(html, /\(PhD-level\)|>ECON\b|ECON ·/);
+});
+
+test('teaching matches the Research page hierarchy and vertical rhythm', () => {
+  const html = renderPage('/teaching');
+  assert.ok(html.includes('<h1 class="sr-only">Teaching</h1>'));
+  assert.ok(html.includes('<div class="teaching-sections">'));
+  assert.ok(html.includes('<section class="teaching-section" aria-labelledby="phd-level-heading">'));
+  assert.ok(html.includes('<h2 id="phd-level-heading">PhD Level</h2>'));
+  assert.ok(html.includes('<section class="teaching-section" aria-labelledby="undergraduate-level-heading">'));
+  assert.ok(html.includes('<h2 id="undergraduate-level-heading">Undergraduate Level</h2>'));
+  assert.ok(html.includes('<ul class="teaching-list" role="list">'));
+  assert.equal((html.match(/class="teaching-entry"/g) || []).length, content.COURSES.length);
+  assert.ok(html.indexOf('PhD Level') < html.indexOf('Undergraduate Level'));
+  assert.equal((html.match(/Fall 2025 · Peking University/g) || []).length, content.COURSES.length);
+  assert.doesNotMatch(html, /Current and past courses|text-4xl|<article/);
+
+  assert.match(stylesheet, /\.research-page,\s*\.teaching-page\s*\{\s*padding-top:\s*9\.5rem/);
+  assert.match(stylesheet, /\.research-sections,\s*\.teaching-sections\s*\{\s*display:\s*grid;\s*gap:\s*3\.5rem/);
+  assert.match(stylesheet, /\.research-section h2,\s*\.teaching-section h2\s*\{[^}]*font-weight:\s*700/);
+  assert.match(stylesheet, /\.research-paper-title,\s*\.teaching-course-title\s*\{[^}]*color:\s*#111[^}]*font-weight:\s*700/);
+  assert.match(stylesheet, /@media \(max-width: 600px\)[\s\S]*?\.research-page,\s*\.teaching-page\s*\{\s*padding-top:\s*5rem/);
+});
+
+test('photography preserves featured images, quotations, and the expand control', () => {
+  const html = renderPage('/photography');
+  assert.ok(html.includes('<h1 class="sr-only">Photography</h1>'));
+  assert.doesNotMatch(html, /photography-heading|Light leaves; the frame remembers|<header/);
+  const featured = content.PHOTOS.filter(photo => photo.featured);
+  for (const photo of featured) {
+    assert.ok(html.includes(`src="${photo.url}"`));
+    assert.ok(html.includes(escapeText(photo.literaryQuote.text)));
+  }
+  assert.ok(html.includes(`View ${content.PHOTOS.length - featured.length} more photographs`));
+});
+
+test('photography columns adapt to available gallery width at both boundaries', () => {
+  for (const [width, expected] of [[0, 1], [180, 1], [599, 1], [600, 2], [959, 2], [960, 3], [1400, 3]]) {
+    assert.equal(getPhotoColumnCount(width), expected, `Gallery width ${width}`);
+  }
+});
+
+test('layout contract fixes the rail and reserves the same width in the page', () => {
+  const sidebar = stylesheet.match(/\.site-sidebar\s*\{([^}]+)\}/)[1];
+  const page = stylesheet.match(/\.site-content\s*\{([^}]+)\}/)[1];
+  assert.match(sidebar, /position:\s*fixed/);
+  assert.match(sidebar, /width:\s*var\(--sidebar-width\)/);
+  assert.match(page, /margin-left:\s*var\(--sidebar-width\)/);
+  assert.match(sidebar, /overflow-y:\s*auto/);
+  assert.doesNotMatch(page, /overflow(?:-y)?:\s*(?:auto|scroll|hidden)/);
+});
+
+test('narrow-screen layout keeps a compact rail and stacks the home content', () => {
+  assert.match(stylesheet, /@media \(max-width: 600px\)/);
+  assert.match(stylesheet, /--sidebar-width:\s*7\.5rem/);
+  assert.match(stylesheet, /@container site-content \(max-width: 44rem\)/);
+  assert.match(stylesheet, /\.home-grid\s*\{\s*grid-template-columns:\s*minmax\(0, 1fr\)/);
+});
+
+test('desktop proportions use a narrower rail and a bounded portrait column', () => {
+  const root = stylesheet.match(/:root\s*\{([^}]+)\}/)[1];
+  const grid = stylesheet.match(/\.home-grid\s*\{([^}]+)\}/)[1];
+  const portrait = stylesheet.match(/\.home-portrait\s*\{([^}]+)\}/)[1];
+  assert.match(root, /--sidebar-width:\s*clamp\(12\.5rem, 20vw, 20rem\)/);
+  assert.match(root, /--portrait-width:\s*17rem/);
+  assert.match(root, /--home-offset:\s*clamp\(13\.5rem, 28vh, 18rem\)/);
+  assert.match(grid, /grid-template-columns:\s*minmax\(0, var\(--portrait-width\)\) minmax\(0, 1fr\)/);
+  assert.match(portrait, /width:\s*100%/);
+  assert.match(portrait, /max-width:\s*var\(--portrait-width\)/);
+});
+
+test('base page layout retains the original narrower gutter for Photography', () => {
+  const root = stylesheet.match(/:root\s*\{([^}]+)\}/)[1];
+  const page = stylesheet.match(/\.site-page\s*\{([^}]+)\}/)[1];
+  assert.match(root, /--content-right-inset:\s*clamp\(1rem, 2vw, 2rem\)/);
+  assert.match(page, /max-width:\s*90rem/);
+  assert.match(page, /padding:\s*4\.5rem var\(--content-right-inset\) 3rem var\(--content-inset\)/);
+});
+
+test('text pages gain right whitespace while Photography is excluded', () => {
+  const textPage = stylesheet.match(/\.site-page:not\(\.photography-page\)\s*\{([^}]+)\}/)[1];
+  assert.match(textPage, /--content-right-inset:\s*clamp\(3rem, 12vw, 12rem\)/);
+  assert.match(stylesheet, /@media \(max-width: 600px\)[\s\S]*?\.site-page:not\(\.photography-page\)\s*\{\s*--content-right-inset:\s*1\.5rem/);
+  for (const [pathname, pageClass] of [
+    ['/', 'home-page'],
+    ['/research', 'research-page'],
+    ['/teaching', 'teaching-page'],
+    ['/photography', 'photography-page'],
+  ]) {
+    assert.ok(renderPage(pathname).includes(`<div class="site-page ${pageClass}">`));
+  }
+});
+
+test('non-photography pages use sans serif while Photography keeps its serif styling', () => {
+  const root = stylesheet.match(/:root\s*\{([^}]+)\}/)[1];
+  assert.match(root, /font-family:\s*Inter, "Helvetica Neue", Arial, sans-serif/);
+  for (const pathname of ['/', '/research', '/teaching']) {
+    assert.doesNotMatch(renderPage(pathname), /font-serif/);
+  }
+  const researchHeading = stylesheet.match(/\.research-section h2,\s*\.teaching-section h2\s*\{([^}]+)\}/)[1];
+  assert.doesNotMatch(researchHeading, /font-family/);
+  assert.match(renderPage('/photography'), /font-literary|font-cjk-(?:tc|sc)/);
+});
+
+test('reference sidebar uses a bold uppercase name and undecorated navigation', () => {
+  const html = renderPage('/research');
+  const sidebar = html.match(/<aside\b[^>]*>([\s\S]*?)<\/aside>/)[1];
+  const name = stylesheet.match(/\.sidebar-name\s*\{([^}]+)\}/)[1];
+  assert.ok(sidebar.includes(`<span>${content.PROFILE_NAME.given}</span>`));
+  assert.ok(sidebar.includes(`<span>${content.PROFILE_NAME.family}</span>`));
+  assert.ok(!sidebar.includes('sidebar-nickname'));
+  assert.ok(!sidebar.includes('sidebar-affiliation'));
+  assert.match(name, /font-family:\s*Arial,/);
+  assert.match(name, /font-weight:\s*700/);
+  assert.match(name, /text-transform:\s*uppercase/);
+  assert.doesNotMatch(stylesheet, /\.sidebar-navigation[^{}]*::before/);
+});
+
+test('reference sidebar navigation spacing is independent of the home content', () => {
+  const sidebar = stylesheet.match(/\.site-sidebar\s*\{([^}]+)\}/)[1];
+  assert.match(sidebar, /grid-template-rows:\s*var\(--sidebar-nav-offset\) auto/);
+  assert.match(stylesheet, /--sidebar-nav-offset:\s*clamp\(14rem, 36vh, 27rem\)/);
+  assert.match(stylesheet, /--sidebar-nav-offset:\s*8rem/);
+});
+
+test('research starts with blank space instead of an introduction and retains an accessible heading', () => {
+  const html = renderPage('/research');
+  assert.ok(html.includes('<h1 class="sr-only">Research</h1>'));
+  assert.ok(!html.includes('Labor economics and the economics of technology and innovation.'));
+  assert.doesNotMatch(html, /research-header/);
+  assert.doesNotMatch(stylesheet, /\.research-header\b/);
+  assert.match(stylesheet, /\.research-page,\s*\.teaching-page\s*\{\s*padding-top:\s*9\.5rem/);
+  assert.match(stylesheet, /@media \(max-width: 600px\)[\s\S]*?\.research-page,\s*\.teaching-page\s*\{\s*padding-top:\s*5rem/);
+});
+
+test('research reference uses unbulleted sections without divider classes', () => {
+  const html = renderPage('/research');
+  const research = html.match(/<div class="site-page research-page">([\s\S]*?)<\/main>/)[1];
+  assert.ok(research.includes('<ul class="research-list" role="list">'));
+  assert.ok(research.includes('aria-labelledby="working-papers"'));
+  assert.ok(research.includes('<h2 id="working-papers">Working Papers</h2>'));
+  const chineseHeading = research.match(/<h2 id="chinese-publications">([\s\S]*?)<\/h2>/)[1];
+  assert.equal(chineseHeading.replace(/<[^>]*>/g, ''), '中文发表 / Chinese Publications');
+  assert.doesNotMatch(chineseHeading, /<br\b/);
+  assert.doesNotMatch(research, /list-disc|border-t|border-b/);
+  const listStyles = stylesheet.match(/\.research-list,\s*\.teaching-list\s*\{([^}]+)\}/)[1];
+  const headingStyles = stylesheet.match(/\.research-section h2,\s*\.teaching-section h2\s*\{([^}]+)\}/)[1];
+  assert.match(listStyles, /list-style:\s*none/);
+  assert.match(listStyles, /padding:\s*0/);
+  assert.match(listStyles, /gap:\s*2\.125rem/);
+  assert.match(headingStyles, /color:\s*#111/);
+  assert.match(headingStyles, /font-weight:\s*700/);
+});
+
+test('research titles, authors, and journal details occupy distinct blocks', () => {
+  const paper = content.PAPERS[0];
+  const html = renderResearchEntry(paper);
+  assert.ok(html.includes(`<h3 class="research-paper-title">${escapeText(paper.title)}</h3>`));
+  assert.match(html, /<\/h3><p class="research-authors">\(with /);
+  assert.match(html, /<\/p><p class="research-journal">/);
+  assert.ok(html.includes(`<em>${escapeText(paper.journal)}</em>`));
+  const journalRow = html.match(/<p class="research-journal">([\s\S]*?)<\/p>/)[1];
+  const journalText = journalRow.replace(/<[^>]*>/g, '');
+  const status = paper.journalStatus.trim().replace(/[,.;:]+$/, '');
+  assert.equal(journalText, `${paper.journal}. ${status}.`);
+  assert.doesNotMatch(html, /last updated/i);
+  assert.ok(html.includes(`href="${paper.authorLinks['Wei Huang']}"`));
+  const titleStyles = stylesheet.match(/\.research-paper-title,\s*\.teaching-course-title\s*\{([^}]+)\}/)[1];
+  assert.match(titleStyles, /color:\s*#111/);
+  assert.match(titleStyles, /font-weight:\s*700/);
+  assert.match(titleStyles, /margin:\s*0 0 0\.5rem/);
+  assert.match(titleStyles, /line-height:\s*1\.45/);
+  assert.match(stylesheet, /\.research-authors,\s*\.research-journal,\s*\.teaching-meta,\s*\.teaching-description\s*\{[^}]*line-height:\s*1\.6/);
+  assert.match(stylesheet, /\.research-authors\s*\{\s*margin:\s*0 0 0\.5rem/);
+  assert.match(stylesheet, /\.research-journal em\s*\{\s*font-style:\s*italic/);
+  assert.ok(documentMarkup.includes('family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400'));
+});
+
+test('Chinese publications render the exact requested citation on one row', () => {
+  const publication = content.CHINESE_PUBLICATIONS[0];
+  const html = renderPage('/research');
+  const entry = html.match(/<li lang="zh-Hans" class="research-entry font-research">([\s\S]*?)<\/li>/)[1];
+  assert.equal(
+    publication.citation,
+    '黄炜、蔡睿思、周卓翔*. 人工智能如何重塑科研生产与国际化：来自中国经管学者国际发表的大样本证据. 管理世界，返修.',
+  );
+  assert.equal(entry, `<p class="research-citation">${escapeText(publication.citation)}</p>`);
+  assert.doesNotMatch(entry, /research-paper-title|research-authors|research-journal|<em>/);
+});
+
+test('research author rows handle zero, one, two, and three collaborators', () => {
+  for (const [authors, expected] of [
+    [[], null],
+    [[content.SITE_CONFIG.name], null],
+    [['Alice'], '(with Alice)'],
+    [['Alice', 'Bob'], '(with Alice and Bob)'],
+    [['Alice', content.SITE_CONFIG.name, 'Bob', 'Carol'], '(with Alice, Bob, and Carol)'],
+  ]) {
+    const html = renderResearchEntry({ ...content.PAPERS[4], authors });
+    const row = html.match(/<p class="research-authors">([\s\S]*?)<\/p>/);
+    assert.equal(row ? row[1].replace(/<[^>]*>/g, '') : null, expected);
+  }
+});
+
+test('research optional metadata and PDF links do not create empty lines', () => {
+  const paper = { ...content.PAPERS[4], authors: [] };
+  const plain = renderResearchEntry(paper);
+  assert.ok(!plain.includes('research-authors'));
+  assert.ok(!plain.includes('research-journal'));
+  assert.ok(!plain.includes('research-download'));
+  const linked = renderResearchEntry({ ...paper, pdfUrl: '/test-paper.pdf', journalStatus: 'Under review' });
+  assert.ok(linked.includes('<p class="research-journal">Under review.</p>'));
+  assert.ok(linked.includes('href="/test-paper.pdf"'));
+  assert.ok(linked.includes(`aria-label="Download PDF: ${escapeText(paper.title)}"`));
+});

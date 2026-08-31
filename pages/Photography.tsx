@@ -1,12 +1,13 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
-import { Camera, ChevronLeft, ChevronRight, MapPin, X, ZoomIn } from 'lucide-react';
+import { createPortal } from 'react-dom';
+import { ChevronLeft, ChevronRight, MapPin, X, ZoomIn } from 'lucide-react';
 import { PHOTOS } from '../constants';
 import { Photo } from '../types';
 
-const getColumnCount = () => {
-  if (typeof window === 'undefined') return 1;
-  if (window.innerWidth >= 1024) return 3;
-  if (window.innerWidth >= 768) return 2;
+// Measure the gallery, not the viewport: the fixed sidebar reserves screen space.
+export const getPhotoColumnCount = (width: number) => {
+  if (width >= 960) return 3;
+  if (width >= 600) return 2;
   return 1;
 };
 
@@ -42,20 +43,24 @@ const PhotoVerse: React.FC<{ photo: Photo; lightbox?: boolean }> = ({ photo, lig
 
 const Photography: React.FC = () => {
   const [showAll, setShowAll] = useState(false);
-  const [columnCount, setColumnCount] = useState(getColumnCount);
+  const [columnCount, setColumnCount] = useState(1);
   const [selectedPhotoId, setSelectedPhotoId] = useState<string | null>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
+  const galleryRef = useRef<HTMLDivElement>(null);
   const closeButtonRef = useRef<HTMLButtonElement>(null);
   const lastTriggerRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
-    const handleResize = () => {
-      const nextColumnCount = getColumnCount();
-      setColumnCount((current) => current === nextColumnCount ? current : nextColumnCount);
-    };
+    const gallery = galleryRef.current;
+    if (!gallery) return;
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    const observer = new ResizeObserver(([entry]) => {
+      const nextColumnCount = getPhotoColumnCount(entry.contentRect.width);
+      setColumnCount((current) => current === nextColumnCount ? current : nextColumnCount);
+    });
+
+    observer.observe(gallery);
+    return () => observer.disconnect();
   }, []);
 
   const visiblePhotos = useMemo(
@@ -139,7 +144,7 @@ const Photography: React.FC = () => {
 
       if (event.key !== 'Tab' || !dialogRef.current) return;
 
-      const focusableElements = Array.from(
+      const focusableElements = Array.from<HTMLElement>(
         dialogRef.current.querySelectorAll<HTMLElement>(
           'button:not([disabled]), [href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
         ),
@@ -197,19 +202,12 @@ const Photography: React.FC = () => {
   );
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <header className="mb-12">
-        <h1 className="mb-4 flex items-center gap-3 font-serif text-4xl font-bold text-academic-900">
-          <Camera className="text-academic-500" size={32} strokeWidth={1.5} aria-hidden="true" />
-          Photography
-        </h1>
-        <p className="max-w-4xl text-xl leading-relaxed text-stone-500">
-          Light leaves; the frame remembers.
-        </p>
-      </header>
+    <div className="site-page photography-page">
+      <h1 className="sr-only">Photography</h1>
 
       <div
         id="photography-gallery"
+        ref={galleryRef}
         className={`grid gap-8 md:gap-10 ${
           columnCount === 3 ? 'grid-cols-3' : columnCount === 2 ? 'grid-cols-2' : 'grid-cols-1'
         }`}
@@ -234,7 +232,7 @@ const Photography: React.FC = () => {
         </div>
       )}
 
-      {selectedPhoto && (
+      {selectedPhoto && createPortal(
         <div
           ref={dialogRef}
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4 md:p-8"
@@ -293,7 +291,8 @@ const Photography: React.FC = () => {
               </p>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body,
       )}
     </div>
   );

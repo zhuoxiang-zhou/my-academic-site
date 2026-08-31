@@ -1,13 +1,23 @@
 import { Paper, Course, Photo, Note } from './types';
 
+export const PROFILE_NAME = {
+  given: 'Zhuoxiang',
+  family: 'Zhou',
+  preferred: 'Shawn',
+};
+
 export const SITE_CONFIG = {
-  name: "Zhuoxiang (Shawn) Zhou",
+  name: `${PROFILE_NAME.given} (${PROFILE_NAME.preferred}) ${PROFILE_NAME.family}`,
   title: "Stanford Institute for Economic Policy Research",
   institution: "Stanford University",
   email: "zhuoxiang.zhou@gmail.com",
   twitter: "",
   github: "",
   linkedin: "https://linkedin.com/in/zhuoxiang-zhou-b25478288/",
+  advisor: {
+    name: "Matthew Gentzkow",
+    url: "https://matthewgentzkow.com/"
+  },
   bio: "I am a predoctoral research fellow in economics at Stanford University, working with Professor Matthew Gentzkow. I received my B.A. in Economics from Peking University.",
   bio2: "My research focuses on labor economics and the economics of technology and innovation. I study how policy instruments shape individual behavior and human capital formation, and how access to and adoption of new technologies affect productivity, welfare, and inequality.",
   office: ""
@@ -76,8 +86,7 @@ export const BOOK_CHAPTERS: Paper[] = [];
 export const CHINESE_PUBLICATIONS = [
   {
     id: 'cp1',
-    citation: "黄炜、蔡睿思、周卓翔*. 人工智能如何重塑科研生产与国际化：来自中国经管学者国际发表的大样本证据. 管理世界",
-    status: "返修"
+    citation: "黄炜、蔡睿思、周卓翔*. 人工智能如何重塑科研生产与国际化：来自中国经管学者国际发表的大样本证据. 管理世界，返修."
   }
 ];
 
@@ -85,7 +94,7 @@ export const COURSES: Course[] = [
   {
     id: 'c1',
     code: "ECON",
-    title: "Applied Econometrics (PhD-level)",
+    title: "Applied Econometrics",
     level: "PhD",
     semester: "Fall 2025",
     description: "Taught in English; led weekly tutorial and Q&A sessions. Topics cover randomized controlled trials (RCT), instrumental variables (IV), regression discontinuity (RD), difference-in-differences (DiD), and event-study designs."
