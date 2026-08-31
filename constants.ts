@@ -18,10 +18,7 @@ export const PAPERS: Paper[] = [
     id: 'p1',
     title: "Crossing the Line: The Role of Academic Excellence Recognition in Shaping Academic and Career Trajectories",
     authors: ["Wei Huang", "Ziyao Zhang"],
-    authorLinks: {
-      "Wei Huang": "https://huangweipku.com/",
-      "Ziyao Zhang": "https://csxy.zuel.edu.cn/2022/0826/c7501a304283/pagem.htm"
-    },
+    authorLinks: { "Wei Huang": "https://huangweipku.com/" },
     journalStatus: "Reject and Resubmit, ",
     journal: "American Economic Journal: Economic Policy",
     year: 2026,
