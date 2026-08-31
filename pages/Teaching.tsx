@@ -29,7 +29,7 @@ const Teaching: React.FC = () => {
                   <li key={course.id} className="teaching-entry">
                     <h3 className="teaching-course-title">{course.title}</h3>
                     <p className="teaching-meta">
-                      {course.code} · {course.semester} · Peking University
+                      {course.semester} · Peking University
                     </p>
                     <p className="teaching-description">{course.description}</p>
                     {course.syllabusUrl && (

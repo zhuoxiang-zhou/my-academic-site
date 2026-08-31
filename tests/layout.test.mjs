@@ -110,9 +110,9 @@ test('teaching preserves each course and its description', () => {
     assert.ok(html.includes(escapeText(course.title)));
     assert.ok(html.includes(escapeText(course.description)));
     assert.ok(html.includes(escapeText(course.semester)));
-    assert.ok(html.includes(escapeText(course.code)));
-    assert.ok(html.includes(escapeText(`${course.code} · ${course.semester} · Peking University`)));
+    assert.ok(html.includes(escapeText(`${course.semester} · Peking University`)));
   }
+  assert.doesNotMatch(html, /\(PhD-level\)|>ECON\b|ECON ·/);
 });
 
 test('teaching matches the Research page hierarchy and vertical rhythm', () => {
@@ -126,7 +126,7 @@ test('teaching matches the Research page hierarchy and vertical rhythm', () => {
   assert.ok(html.includes('<ul class="teaching-list" role="list">'));
   assert.equal((html.match(/class="teaching-entry"/g) || []).length, content.COURSES.length);
   assert.ok(html.indexOf('PhD Level') < html.indexOf('Undergraduate Level'));
-  assert.equal((html.match(/ECON · Fall 2025 · Peking University/g) || []).length, content.COURSES.length);
+  assert.equal((html.match(/Fall 2025 · Peking University/g) || []).length, content.COURSES.length);
   assert.doesNotMatch(html, /Current and past courses|text-4xl|<article/);
 
   assert.match(stylesheet, /\.research-page,\s*\.teaching-page\s*\{\s*padding-top:\s*9\.5rem/);

@@ -90,7 +90,7 @@ export const COURSES: Course[] = [
   {
     id: 'c1',
     code: "ECON",
-    title: "Applied Econometrics (PhD-level)",
+    title: "Applied Econometrics",
     level: "PhD",
     semester: "Fall 2025",
     description: "Taught in English; led weekly tutorial and Q&A sessions. Topics cover randomized controlled trials (RCT), instrumental variables (IV), regression discontinuity (RD), difference-in-differences (DiD), and event-study designs."

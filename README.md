@@ -75,9 +75,9 @@ citation stored in `constants.ts`, under the one-line section label
 The Teaching page uses the same hierarchy and rhythm: blank space before
 separate bold sans serif PhD Level and Undergraduate Level sections, unbulleted
 single-column lists, bold black course titles, and compact metadata and
-description lines. Each course metadata row lists the code, semester, and
-Peking University. The page keeps a screen-reader-only Teaching heading and
-preserves syllabus links when present.
+description lines. Each course metadata row lists the semester and Peking
+University. The page keeps a screen-reader-only Teaching heading and preserves
+syllabus links when present.
 
 `index.html` retains the existing external Tailwind browser CDN and Google Fonts
 resources. Those styles and fonts require internet access. Application
