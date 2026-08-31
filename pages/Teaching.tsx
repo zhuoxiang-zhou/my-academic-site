@@ -5,8 +5,8 @@ const Teaching: React.FC = () => {
   return (
     <div className="site-page teaching-page">
       <h1 className="sr-only">Teaching</h1>
-      <section className="teaching-section" aria-labelledby="courses-heading">
-        <h2 id="courses-heading">Courses</h2>
+      <section className="teaching-section" aria-labelledby="peking-university-heading">
+        <h2 id="peking-university-heading">Peking University</h2>
         <ul className="teaching-list" role="list">
           {COURSES.map(course => (
             <li key={course.id} className="teaching-entry">

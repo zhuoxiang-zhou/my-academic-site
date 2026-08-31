@@ -71,9 +71,10 @@ citation stored in `constants.ts`, under the one-line section label
 “中文发表 / Chinese Publications.”
 
 The Teaching page uses the same hierarchy and rhythm: blank space before a
-bold sans serif Courses heading, an unbulleted single-column list, bold black
-course titles, and compact metadata and description lines. The page keeps a
-screen-reader-only Teaching heading and preserves syllabus links when present.
+bold sans serif Peking University heading, an unbulleted single-column list,
+bold black course titles, and compact metadata and description lines. The page
+keeps a screen-reader-only Teaching heading and preserves syllabus links when
+present.
 
 `index.html` retains the existing external Tailwind browser CDN and Google Fonts
 resources. Those styles and fonts require internet access. Application

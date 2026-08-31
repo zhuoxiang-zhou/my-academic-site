@@ -118,8 +118,8 @@ test('teaching preserves each course and its description', () => {
 test('teaching matches the Research page hierarchy and vertical rhythm', () => {
   const html = renderPage('/teaching');
   assert.ok(html.includes('<h1 class="sr-only">Teaching</h1>'));
-  assert.ok(html.includes('<section class="teaching-section" aria-labelledby="courses-heading">'));
-  assert.ok(html.includes('<h2 id="courses-heading">Courses</h2>'));
+  assert.ok(html.includes('<section class="teaching-section" aria-labelledby="peking-university-heading">'));
+  assert.ok(html.includes('<h2 id="peking-university-heading">Peking University</h2>'));
   assert.ok(html.includes('<ul class="teaching-list" role="list">'));
   assert.equal((html.match(/class="teaching-entry"/g) || []).length, content.COURSES.length);
   assert.doesNotMatch(html, /Current and past courses|text-4xl|<article/);
