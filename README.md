@@ -39,7 +39,8 @@ If developing that optional feature, keep its `GEMINI_API_KEY` in an ignored
 The layout follows the approved fixed-left preview inspired by
 [Matthew Gentzkow's site](https://matthewgentzkow.com/). The left panel follows
 the user's reference: a bold, uppercase, two-line name near the upper-left
-corner and plain navigation farther down, with bold text for the active page.
+corner and plain navigation lower in the rail but slightly closer to the name,
+with bold text for the active page.
 The sidebar has no nickname subtitle, active-page dot, or affiliation label;
 the full name and affiliation remain in the site content and accessible name.
 Navigation placement is independent of the homepage's content spacing. Home,

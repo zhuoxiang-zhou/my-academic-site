@@ -5,7 +5,7 @@
   font-synthesis: none;
   --sidebar-width: clamp(12.5rem, 20vw, 20rem);
   --sidebar-inset: clamp(1.75rem, 4vw, 5rem);
-  --sidebar-nav-offset: clamp(15rem, 40vh, 30rem);
+  --sidebar-nav-offset: clamp(14rem, 36vh, 27rem);
   --content-inset: clamp(1.5rem, 3.5vw, 4rem);
   --content-right-inset: clamp(1rem, 2vw, 2rem);
   --portrait-width: 17rem;
@@ -261,7 +261,7 @@ body { margin: 0; }
   :root {
     --sidebar-width: 7.5rem;
     --sidebar-inset: 1rem;
-    --sidebar-nav-offset: clamp(10rem, 36vh, 17rem);
+    --sidebar-nav-offset: clamp(9.5rem, 33vh, 16rem);
     --content-inset: 1rem;
     --home-offset: 10.5rem;
   }

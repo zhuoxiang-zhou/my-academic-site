@@ -208,7 +208,7 @@ test('reference sidebar uses a bold uppercase name and undecorated navigation', 
 test('reference sidebar navigation spacing is independent of the home content', () => {
   const sidebar = stylesheet.match(/\.site-sidebar\s*\{([^}]+)\}/)[1];
   assert.match(sidebar, /grid-template-rows:\s*var\(--sidebar-nav-offset\) auto/);
-  assert.match(stylesheet, /--sidebar-nav-offset:\s*clamp\(15rem, 40vh, 30rem\)/);
+  assert.match(stylesheet, /--sidebar-nav-offset:\s*clamp\(14rem, 36vh, 27rem\)/);
   assert.match(stylesheet, /--sidebar-nav-offset:\s*8rem/);
 });
 
