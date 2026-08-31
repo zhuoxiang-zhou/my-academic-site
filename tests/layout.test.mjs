@@ -155,12 +155,26 @@ test('desktop proportions use a narrower rail and a bounded portrait column', ()
   assert.match(portrait, /max-width:\s*var\(--portrait-width\)/);
 });
 
-test('page uses the smaller right gutter to widen the content area', () => {
+test('base page layout retains the original narrower gutter for Photography', () => {
   const root = stylesheet.match(/:root\s*\{([^}]+)\}/)[1];
   const page = stylesheet.match(/\.site-page\s*\{([^}]+)\}/)[1];
   assert.match(root, /--content-right-inset:\s*clamp\(1rem, 2vw, 2rem\)/);
   assert.match(page, /max-width:\s*90rem/);
   assert.match(page, /padding:\s*4\.5rem var\(--content-right-inset\) 3rem var\(--content-inset\)/);
+});
+
+test('text pages gain right whitespace while Photography is excluded', () => {
+  const textPage = stylesheet.match(/\.site-page:not\(\.photography-page\)\s*\{([^}]+)\}/)[1];
+  assert.match(textPage, /--content-right-inset:\s*clamp\(2rem, 8vw, 8rem\)/);
+  assert.match(stylesheet, /@media \(max-width: 600px\)[\s\S]*?\.site-page:not\(\.photography-page\)\s*\{\s*--content-right-inset:\s*1\.5rem/);
+  for (const [pathname, pageClass] of [
+    ['/', 'home-page'],
+    ['/research', 'research-page'],
+    ['/teaching', 'teaching-page'],
+    ['/photography', 'photography-page'],
+  ]) {
+    assert.ok(renderPage(pathname).includes(`<div class="site-page ${pageClass}">`));
+  }
 });
 
 test('reference sidebar uses a bold uppercase name and undecorated navigation', () => {

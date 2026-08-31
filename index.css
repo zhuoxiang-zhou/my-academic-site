@@ -103,6 +103,11 @@ body { margin: 0; }
   overflow-wrap: anywhere;
 }
 
+/* Give text pages breathing room without narrowing the photo gallery. */
+.site-page:not(.photography-page) {
+  --content-right-inset: clamp(2rem, 8vw, 8rem);
+}
+
 .page-heading { letter-spacing: -0.025em; }
 .home-biography { max-width: 48rem; }
 
@@ -257,6 +262,7 @@ body { margin: 0; }
   .sidebar-navigation { gap: 0.375rem; padding-left: 0; }
   .sidebar-navigation a { font-size: 0.8125rem; }
   .site-page { padding-top: 2rem; padding-left: 0.5rem; }
+  .site-page:not(.photography-page) { --content-right-inset: 1.5rem; }
   .research-page { padding-top: 5rem; }
   .home-biography p { font-size: 0.9375rem; line-height: 1.85; }
   .home-links { gap: 0.25rem 1rem; }
