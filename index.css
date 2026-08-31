@@ -9,7 +9,7 @@
   --content-inset: clamp(1.5rem, 3.5vw, 4rem);
   --content-right-inset: clamp(1rem, 2vw, 2rem);
   --portrait-width: 17rem;
-  --home-offset: clamp(11.5rem, 22vh, 15rem);
+  --home-offset: clamp(13.5rem, 28vh, 18rem);
 }
 
 * { box-sizing: border-box; }
@@ -105,7 +105,7 @@ body { margin: 0; }
 
 /* Give text pages breathing room without narrowing the photo gallery. */
 .site-page:not(.photography-page) {
-  --content-right-inset: clamp(2rem, 8vw, 8rem);
+  --content-right-inset: clamp(3rem, 12vw, 12rem);
 }
 
 .page-heading { letter-spacing: -0.025em; }
@@ -241,7 +241,7 @@ body { margin: 0; }
 .skip-link:focus { transform: translateY(0); }
 
 /* Account for the sidebar when deciding whether the content can fit columns. */
-@container site-content (max-width: 42rem) {
+@container site-content (max-width: 44rem) {
   .home-grid { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
   .home-biography p { font-size: 1rem; }
 }

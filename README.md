@@ -48,9 +48,11 @@ Photography retains its existing serif and literary typography. Muted blue
 links remain unchanged.
 The desktop rail is narrower and the homepage portrait is capped at 17rem.
 Home, Research, and Teaching reserve a generous white right margin that scales
-with the viewport, with a compact 1.5rem gutter on mobile. Photography keeps its
-original narrower gutter and gallery width. The biography retains a readable
-maximum width, while the portrait and text still stack on small screens.
+up to 12rem with the viewport, with a compact 1.5rem gutter on mobile.
+Photography keeps its original narrower gutter and gallery width. The Home body
+also begins lower on larger screens using a height-aware top offset. The
+biography retains a readable maximum width, while the portrait and text still
+stack on small screens.
 Email, CV, and LinkedIn sit directly beneath the portrait in place of the job
 title caption. The copyright footer is omitted throughout the site.
 

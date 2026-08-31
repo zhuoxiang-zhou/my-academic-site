@@ -142,7 +142,7 @@ test('layout contract fixes the rail and reserves the same width in the page', (
 test('narrow-screen layout keeps a compact rail and stacks the home content', () => {
   assert.match(stylesheet, /@media \(max-width: 600px\)/);
   assert.match(stylesheet, /--sidebar-width:\s*7\.5rem/);
-  assert.match(stylesheet, /@container site-content \(max-width: 42rem\)/);
+  assert.match(stylesheet, /@container site-content \(max-width: 44rem\)/);
   assert.match(stylesheet, /\.home-grid\s*\{\s*grid-template-columns:\s*minmax\(0, 1fr\)/);
 });
 
@@ -152,6 +152,7 @@ test('desktop proportions use a narrower rail and a bounded portrait column', ()
   const portrait = stylesheet.match(/\.home-portrait\s*\{([^}]+)\}/)[1];
   assert.match(root, /--sidebar-width:\s*clamp\(12\.5rem, 20vw, 20rem\)/);
   assert.match(root, /--portrait-width:\s*17rem/);
+  assert.match(root, /--home-offset:\s*clamp\(13\.5rem, 28vh, 18rem\)/);
   assert.match(grid, /grid-template-columns:\s*minmax\(0, var\(--portrait-width\)\) minmax\(0, 1fr\)/);
   assert.match(portrait, /width:\s*100%/);
   assert.match(portrait, /max-width:\s*var\(--portrait-width\)/);
@@ -167,7 +168,7 @@ test('base page layout retains the original narrower gutter for Photography', ()
 
 test('text pages gain right whitespace while Photography is excluded', () => {
   const textPage = stylesheet.match(/\.site-page:not\(\.photography-page\)\s*\{([^}]+)\}/)[1];
-  assert.match(textPage, /--content-right-inset:\s*clamp\(2rem, 8vw, 8rem\)/);
+  assert.match(textPage, /--content-right-inset:\s*clamp\(3rem, 12vw, 12rem\)/);
   assert.match(stylesheet, /@media \(max-width: 600px\)[\s\S]*?\.site-page:not\(\.photography-page\)\s*\{\s*--content-right-inset:\s*1\.5rem/);
   for (const [pathname, pageClass] of [
     ['/', 'home-page'],
