@@ -57,8 +57,10 @@ from the sidebar: blank space above Working Papers instead of a visible page
 title or introductory sentence, large serif section headings, an unbulleted
 single-column paper list, and generous whitespace instead of divider lines.
 A screen-reader-only page heading remains. Paper titles, collaborators,
-and journal/status information occupy separate lines. Author and PDF links
-remain functional; the research data still comes from `constants.ts`.
+and journal/status information occupy separate lines. Paper titles are bold
+black; collaborator lines are parenthesized; and an italic journal name appears
+before its status. No update timestamp is displayed. Author and PDF links remain
+functional; the research data still comes from `constants.ts`.
 
 `index.html` retains the existing external Tailwind browser CDN and Google Fonts
 resources. Those styles and fonts require internet access. Application

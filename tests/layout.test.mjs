@@ -224,20 +224,27 @@ test('research titles, authors, and journal details occupy distinct blocks', () 
   const paper = content.PAPERS[0];
   const html = renderResearchEntry(paper);
   assert.ok(html.includes(`<h3 class="research-paper-title">${escapeText(paper.title)}</h3>`));
-  assert.match(html, /<\/h3><p class="research-authors">with /);
+  assert.match(html, /<\/h3><p class="research-authors">\(with /);
   assert.match(html, /<\/p><p class="research-journal">/);
   assert.ok(html.includes(`<em>${escapeText(paper.journal)}</em>`));
-  assert.ok(html.includes(escapeText(paper.journalStatus.trim())));
+  const journalRow = html.match(/<p class="research-journal">([\s\S]*?)<\/p>/)[1];
+  const journalText = journalRow.replace(/<[^>]*>/g, '');
+  const status = paper.journalStatus.trim().replace(/[,.;:]+$/, '');
+  assert.equal(journalText, `${paper.journal}. ${status}.`);
+  assert.doesNotMatch(html, /last updated/i);
   assert.ok(html.includes(`href="${paper.authorLinks['Wei Huang']}"`));
+  const titleStyles = stylesheet.match(/\.research-paper-title\s*\{([^}]+)\}/)[1];
+  assert.match(titleStyles, /color:\s*#111/);
+  assert.match(titleStyles, /font-weight:\s*700/);
 });
 
 test('research author rows handle zero, one, two, and three collaborators', () => {
   for (const [authors, expected] of [
     [[], null],
     [[content.SITE_CONFIG.name], null],
-    [['Alice'], 'with Alice'],
-    [['Alice', 'Bob'], 'with Alice and Bob'],
-    [['Alice', content.SITE_CONFIG.name, 'Bob', 'Carol'], 'with Alice, Bob, and Carol'],
+    [['Alice'], '(with Alice)'],
+    [['Alice', 'Bob'], '(with Alice and Bob)'],
+    [['Alice', content.SITE_CONFIG.name, 'Bob', 'Carol'], '(with Alice, Bob, and Carol)'],
   ]) {
     const html = renderResearchEntry({ ...content.PAPERS[4], authors });
     const row = html.match(/<p class="research-authors">([\s\S]*?)<\/p>/);
@@ -252,7 +259,7 @@ test('research optional metadata and PDF links do not create empty lines', () =>
   assert.ok(!plain.includes('research-journal'));
   assert.ok(!plain.includes('research-download'));
   const linked = renderResearchEntry({ ...paper, pdfUrl: '/test-paper.pdf', journalStatus: 'Under review' });
-  assert.ok(linked.includes('<p class="research-journal">Under review</p>'));
+  assert.ok(linked.includes('<p class="research-journal">Under review.</p>'));
   assert.ok(linked.includes('href="/test-paper.pdf"'));
   assert.ok(linked.includes(`aria-label="Download PDF: ${escapeText(paper.title)}"`));
 });

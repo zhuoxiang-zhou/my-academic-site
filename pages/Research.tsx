@@ -4,13 +4,14 @@ import { Paper } from '../types';
 
 export const ResearchEntry: React.FC<{ paper: Paper }> = ({ paper }) => {
   const otherAuthors = paper.authors.filter(author => author !== SITE_CONFIG.name);
+  const journalStatus = paper.journalStatus?.trim().replace(/[,.;:]+$/, '');
 
   return (
     <li className="research-entry">
       <h3 className="research-paper-title">{paper.title}</h3>
       {otherAuthors.length > 0 && (
         <p className="research-authors">
-          {'with '}
+          {'(with '}
           {otherAuthors.map((author, i) => {
             const url = paper.authorLinks?.[author];
             const isLast = i === otherAuthors.length - 1;
@@ -28,13 +29,15 @@ export const ResearchEntry: React.FC<{ paper: Paper }> = ({ paper }) => {
               </React.Fragment>
             );
           })}
+          {')'}
         </p>
       )}
-      {(paper.journal || paper.journalStatus) && (
+      {(paper.journal || journalStatus) && (
         <p className="research-journal">
-          {paper.journalStatus?.trim()}
-          {paper.journalStatus && paper.journal && ' '}
           {paper.journal && <em>{paper.journal}</em>}
+          {paper.journal && '.'}
+          {paper.journal && journalStatus && ' '}
+          {journalStatus && `${journalStatus}.`}
         </p>
       )}
       {paper.pdfUrl && (
