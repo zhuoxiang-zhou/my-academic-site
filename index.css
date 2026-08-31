@@ -102,7 +102,6 @@ body { margin: 0; }
 }
 
 .page-heading { letter-spacing: -0.025em; }
-.research-section h2 { line-height: 1.35; }
 .home-biography { max-width: 42rem; }
 
 .home-page { padding-top: var(--home-offset); }
@@ -168,8 +167,82 @@ body { margin: 0; }
 }
 
 .site-footer p { margin: 0; }
-.research-section { display: grid; gap: 1.25rem; }
 .teaching-list { display: grid; gap: 2.5rem; }
+
+/* Research follows the spacious, unbulleted reference. Metadata stays on
+   separate lines, while real lists preserve the document's semantics. */
+.research-header { margin-bottom: 3.25rem; }
+
+.research-header h1 {
+  margin: 0 0 1.5rem;
+  color: #252c33;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 2.75rem;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.research-header > p {
+  margin: 0;
+  color: #717980;
+  font-size: 1.125rem;
+  line-height: 1.8;
+}
+
+.research-sections { display: grid; gap: 3.5rem; }
+.research-section { display: grid; gap: 1.875rem; }
+
+.research-section h2 {
+  margin: 0;
+  color: #252c33;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.875rem;
+  font-weight: 400;
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+}
+
+.research-list {
+  display: grid;
+  gap: 2.75rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.research-entry { min-width: 0; }
+
+.research-paper-title {
+  margin: 0 0 0.875rem;
+  color: #252c33;
+  font-size: 1.125rem;
+  font-weight: 500;
+  line-height: 1.65;
+}
+
+.research-authors,
+.research-journal {
+  margin: 0;
+  color: #454a50;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.8;
+}
+
+.research-journal em { font-style: italic; }
+.research-authors a { color: inherit; text-decoration: none; }
+
+.research-authors a:hover {
+  color: #456882;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.research-download { margin: 0.5rem 0 0; font-size: 0.9375rem; }
+.research-download a { color: #456882; text-underline-offset: 3px; }
+.research-download a:hover { text-decoration: underline; }
 
 .skip-link {
   position: fixed;
@@ -195,6 +268,12 @@ body { margin: 0; }
   .site-page h1 { font-size: 1.75rem; line-height: 1.25; }
   .site-page h2 { font-size: 1.375rem; }
   .photography-heading svg { display: none; }
+  .research-header { margin-bottom: 2.5rem; }
+  .research-header > p, .research-paper-title { font-size: 1rem; }
+  .research-authors, .research-journal { font-size: 0.9375rem; }
+  .research-sections { gap: 2.75rem; }
+  .research-section { gap: 1.5rem; }
+  .research-list { gap: 2rem; }
 }
 
 @media (max-width: 600px) {

@@ -45,6 +45,12 @@ the full name and affiliation remain in the site content and accessible name.
 Navigation placement is independent of the homepage's content spacing. The
 right-hand content retains this site's serif headings and muted blue links.
 
+The Research page follows the user's preferred Research reference separately
+from the sidebar: large serif headings, an unbulleted single-column paper list,
+and generous whitespace instead of divider lines. Paper titles, collaborators,
+and journal/status information occupy separate lines. Author and PDF links
+remain functional; the research data still comes from `constants.ts`.
+
 `index.html` retains the existing external Tailwind browser CDN and Google Fonts
 resources. Those styles and fonts require internet access. Application
 dependencies are recorded in `package.json` and `package-lock.json`; this layout

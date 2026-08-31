@@ -8,6 +8,7 @@ import { renderToStaticMarkup } from 'react-dom/server';
 import { build } from 'vite';
 
 let renderPage;
+let renderResearchEntry;
 let content;
 let getPhotoColumnCount;
 let stylesheet;
@@ -31,7 +32,7 @@ before(async () => {
   const compiledModule = { exports: {} };
   const runModule = new Function('require', 'module', 'exports', chunks[0].code);
   runModule(createRequire(import.meta.url), compiledModule, compiledModule.exports);
-  ({ renderPage, content, getPhotoColumnCount } = compiledModule.exports);
+  ({ renderPage, renderResearchEntry, content, getPhotoColumnCount } = compiledModule.exports);
   stylesheet = await readFile(new URL('../index.css', import.meta.url), 'utf8');
 });
 
@@ -143,4 +144,54 @@ test('reference sidebar navigation spacing is independent of the home content', 
   assert.match(sidebar, /grid-template-rows:\s*var\(--sidebar-nav-offset\) auto/);
   assert.match(stylesheet, /--sidebar-nav-offset:\s*clamp\(15rem, 40vh, 30rem\)/);
   assert.match(stylesheet, /--sidebar-nav-offset:\s*8rem/);
+});
+
+test('research reference uses unbulleted sections without divider classes', () => {
+  const html = renderPage('/research');
+  const research = html.match(/<div class="site-page research-page">([\s\S]*?)<\/main>/)[1];
+  assert.ok(research.includes('Labor economics and the economics of technology and innovation.'));
+  assert.ok(research.includes('<ul class="research-list" role="list">'));
+  assert.ok(research.includes('aria-labelledby="working-papers"'));
+  assert.ok(research.includes('<h2 id="working-papers">Working Papers</h2>'));
+  assert.doesNotMatch(research, /list-disc|border-t|border-b/);
+  const listStyles = stylesheet.match(/\.research-list\s*\{([^}]+)\}/)[1];
+  assert.match(listStyles, /list-style:\s*none/);
+  assert.match(listStyles, /padding:\s*0/);
+});
+
+test('research titles, authors, and journal details occupy distinct blocks', () => {
+  const paper = content.PAPERS[0];
+  const html = renderResearchEntry(paper);
+  assert.ok(html.includes(`<h3 class="research-paper-title">${escapeText(paper.title)}</h3>`));
+  assert.match(html, /<\/h3><p class="research-authors">with /);
+  assert.match(html, /<\/p><p class="research-journal">/);
+  assert.ok(html.includes(`<em>${escapeText(paper.journal)}</em>`));
+  assert.ok(html.includes(escapeText(paper.journalStatus.trim())));
+  assert.ok(html.includes(`href="${paper.authorLinks['Wei Huang']}"`));
+});
+
+test('research author rows handle zero, one, two, and three collaborators', () => {
+  for (const [authors, expected] of [
+    [[], null],
+    [[content.SITE_CONFIG.name], null],
+    [['Alice'], 'with Alice'],
+    [['Alice', 'Bob'], 'with Alice and Bob'],
+    [['Alice', content.SITE_CONFIG.name, 'Bob', 'Carol'], 'with Alice, Bob, and Carol'],
+  ]) {
+    const html = renderResearchEntry({ ...content.PAPERS[4], authors });
+    const row = html.match(/<p class="research-authors">([\s\S]*?)<\/p>/);
+    assert.equal(row ? row[1].replace(/<[^>]*>/g, '') : null, expected);
+  }
+});
+
+test('research optional metadata and PDF links do not create empty lines', () => {
+  const paper = { ...content.PAPERS[4], authors: [] };
+  const plain = renderResearchEntry(paper);
+  assert.ok(!plain.includes('research-authors'));
+  assert.ok(!plain.includes('research-journal'));
+  assert.ok(!plain.includes('research-download'));
+  const linked = renderResearchEntry({ ...paper, pdfUrl: '/test-paper.pdf', journalStatus: 'Under review' });
+  assert.ok(linked.includes('<p class="research-journal">Under review</p>'));
+  assert.ok(linked.includes('href="/test-paper.pdf"'));
+  assert.ok(linked.includes(`aria-label="Download PDF: ${escapeText(paper.title)}"`));
 });
