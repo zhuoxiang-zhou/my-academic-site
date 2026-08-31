@@ -55,7 +55,7 @@ for (const pathname of ['/', '/research', '/teaching', '/photography']) {
     assert.ok(activeLinks[0].includes(`href="${pathname}"`));
     assert.match(html, /<main id="main-content" tabindex="-1"/);
     assert.ok(html.includes('Skip to content'));
-    assert.ok(html.includes('class="site-footer"'));
+    assert.doesNotMatch(html, /<footer\b|site-footer|All rights reserved\./);
   });
 }
 
@@ -69,6 +69,25 @@ test('home preserves the biography, portrait, full name, and contact links', () 
   assert.ok(html.includes(`href="mailto:${content.SITE_CONFIG.email}"`));
   assert.ok(html.includes('href="/cv.pdf"'));
   assert.ok(html.includes(`href="${content.SITE_CONFIG.linkedin}"`));
+});
+
+test('home contact links replace the job caption directly below the portrait', () => {
+  const html = renderPage('/');
+  const profile = html.match(/<div class="home-profile">([\s\S]*?)<div class="home-biography">/)[1];
+  assert.ok(profile.includes('src="/images/bio.jpg"'));
+  assert.ok(profile.indexOf('class="home-portrait"') < profile.indexOf('class="home-links"'));
+  assert.equal((html.match(/class="home-links"/g) || []).length, 1);
+  for (const [label, href] of [
+    ['Email', `mailto:${content.SITE_CONFIG.email}`],
+    ['CV', '/cv.pdf'],
+    ['LinkedIn', content.SITE_CONFIG.linkedin],
+  ]) {
+    assert.ok(profile.includes(`href="${href}"`));
+    assert.equal((html.match(new RegExp(`>${label}</a>`, 'g')) || []).length, 1);
+  }
+  assert.doesNotMatch(profile, /home-affiliation|Predoctoral Research Fellow/);
+  assert.ok(!profile.includes(escapeText(content.SITE_CONFIG.title)));
+  assert.doesNotMatch(stylesheet, /\.home-affiliation\b|\.site-footer\b/);
 });
 
 test('research preserves papers, collaborators, and Chinese publications', () => {
@@ -136,14 +155,12 @@ test('desktop proportions use a narrower rail and a bounded portrait column', ()
   assert.match(portrait, /max-width:\s*var\(--portrait-width\)/);
 });
 
-test('page and footer use the smaller right gutter to widen the content area', () => {
+test('page uses the smaller right gutter to widen the content area', () => {
   const root = stylesheet.match(/:root\s*\{([^}]+)\}/)[1];
   const page = stylesheet.match(/\.site-page\s*\{([^}]+)\}/)[1];
-  const footer = stylesheet.match(/\.site-footer\s*\{([^}]+)\}/)[1];
   assert.match(root, /--content-right-inset:\s*clamp\(1rem, 2vw, 2rem\)/);
   assert.match(page, /max-width:\s*90rem/);
   assert.match(page, /padding:\s*4\.5rem var\(--content-right-inset\) 3rem var\(--content-inset\)/);
-  assert.match(footer, /margin:\s*3rem var\(--content-right-inset\) 0 var\(--content-inset\)/);
 });
 
 test('reference sidebar uses a bold uppercase name and undecorated navigation', () => {

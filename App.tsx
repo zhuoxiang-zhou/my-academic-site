@@ -1,7 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { HashRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Footer from './components/Footer';
 import Home from './pages/Home';
 import Research from './pages/Research';
 import Teaching from './pages/Teaching';
@@ -57,7 +56,6 @@ export const SiteLayout: React.FC = () => {
             <Route path="/photography" element={<Photography />} />
           </Routes>
         </main>
-        <Footer />
       </div>
     </div>
   );

@@ -47,6 +47,8 @@ right-hand content retains this site's serif headings and muted blue links.
 The desktop rail is narrower, the homepage portrait is capped at 17rem, and a
 smaller right gutter gives the page content more room. The biography retains a
 readable maximum width, while the portrait and text still stack on small screens.
+Email, CV, and LinkedIn sit directly beneath the portrait in place of the job
+title caption. The copyright footer is omitted throughout the site.
 
 The Research page follows the user's preferred Research reference separately
 from the sidebar: large serif headings, an unbulleted single-column paper list,
