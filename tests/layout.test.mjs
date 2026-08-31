@@ -90,6 +90,16 @@ test('home contact links replace the job caption directly below the portrait', (
   assert.doesNotMatch(profile, /home-affiliation|Predoctoral Research Fellow/);
   assert.ok(!profile.includes(escapeText(content.SITE_CONFIG.title)));
   assert.doesNotMatch(stylesheet, /\.home-affiliation\b|\.site-footer\b/);
+
+  const profileStyles = stylesheet.match(/\.home-profile\s*\{([^}]+)\}/)[1];
+  const linkStyles = stylesheet.match(/\.home-links\s*\{([^}]+)\}/)[1];
+  assert.match(profileStyles, /max-width:\s*var\(--portrait-width\)/);
+  assert.match(linkStyles, /display:\s*grid/);
+  assert.match(linkStyles, /grid-template-columns:\s*minmax\(0, 1fr\) auto minmax\(0, 1fr\)/);
+  assert.match(linkStyles, /width:\s*100%/);
+  assert.match(stylesheet, /\.home-links a:first-child\s*\{\s*justify-self:\s*start/);
+  assert.match(stylesheet, /\.home-links a:nth-child\(2\)\s*\{\s*justify-self:\s*center/);
+  assert.match(stylesheet, /\.home-links a:nth-child\(3\)\s*\{\s*justify-self:\s*end/);
 });
 
 test('research preserves papers, collaborators, and Chinese publications', () => {

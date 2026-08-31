@@ -57,7 +57,8 @@ also begins lower on larger screens using a height-aware top offset. The
 biography retains a readable maximum width, while the portrait and text still
 stack on small screens.
 Email, CV, and LinkedIn sit directly beneath the portrait in place of the job
-title caption. The copyright footer is omitted throughout the site.
+title caption. They span the portrait width with Email left-aligned, CV centered,
+and LinkedIn right-aligned. The copyright footer is omitted throughout the site.
 
 The Research page follows the user's preferred Research reference separately
 from the sidebar: blank space above Working Papers instead of a visible page
