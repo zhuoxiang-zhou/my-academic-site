@@ -37,8 +37,13 @@ If developing that optional feature, keep its `GEMINI_API_KEY` in an ignored
   cover the entire screen without being constrained by the content column.
 
 The layout follows the approved fixed-left preview inspired by
-[Matthew Gentzkow's site](https://matthewgentzkow.com/), while preserving this
-site's own content, serif headings, and muted blue links.
+[Matthew Gentzkow's site](https://matthewgentzkow.com/). The left panel follows
+the user's reference: a bold, uppercase, two-line name near the upper-left
+corner and plain navigation farther down, with bold text for the active page.
+The sidebar has no nickname subtitle, active-page dot, or affiliation label;
+the full name and affiliation remain in the site content and accessible name.
+Navigation placement is independent of the homepage's content spacing. The
+right-hand content retains this site's serif headings and muted blue links.
 
 `index.html` retains the existing external Tailwind browser CDN and Google Fonts
 resources. Those styles and fonts require internet access. Application

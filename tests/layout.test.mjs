@@ -123,3 +123,24 @@ test('narrow-screen layout keeps a compact rail and stacks the home content', ()
   assert.match(stylesheet, /@container site-content \(max-width: 42rem\)/);
   assert.match(stylesheet, /\.home-grid\s*\{\s*grid-template-columns:\s*minmax\(0, 1fr\)/);
 });
+
+test('reference sidebar uses a bold uppercase name and undecorated navigation', () => {
+  const html = renderPage('/research');
+  const sidebar = html.match(/<aside\b[^>]*>([\s\S]*?)<\/aside>/)[1];
+  const name = stylesheet.match(/\.sidebar-name\s*\{([^}]+)\}/)[1];
+  assert.ok(sidebar.includes(`<span>${content.PROFILE_NAME.given}</span>`));
+  assert.ok(sidebar.includes(`<span>${content.PROFILE_NAME.family}</span>`));
+  assert.ok(!sidebar.includes('sidebar-nickname'));
+  assert.ok(!sidebar.includes('sidebar-affiliation'));
+  assert.match(name, /font-family:\s*Arial,/);
+  assert.match(name, /font-weight:\s*700/);
+  assert.match(name, /text-transform:\s*uppercase/);
+  assert.doesNotMatch(stylesheet, /\.sidebar-navigation[^{}]*::before/);
+});
+
+test('reference sidebar navigation spacing is independent of the home content', () => {
+  const sidebar = stylesheet.match(/\.site-sidebar\s*\{([^}]+)\}/)[1];
+  assert.match(sidebar, /grid-template-rows:\s*var\(--sidebar-nav-offset\) auto/);
+  assert.match(stylesheet, /--sidebar-nav-offset:\s*clamp\(15rem, 40vh, 30rem\)/);
+  assert.match(stylesheet, /--sidebar-nav-offset:\s*8rem/);
+});

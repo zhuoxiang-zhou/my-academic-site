@@ -18,7 +18,6 @@ const Navbar: React.FC = () => (
     >
       <span>{PROFILE_NAME.given}</span>
       <span>{PROFILE_NAME.family}</span>
-      <span className="sidebar-nickname">({PROFILE_NAME.preferred})</span>
     </Link>
 
     <nav className="sidebar-navigation" aria-label="Main navigation">
@@ -28,11 +27,6 @@ const Navbar: React.FC = () => (
         </NavLink>
       ))}
     </nav>
-
-    <p className="sidebar-affiliation">
-      Economics<br />
-      {SITE_CONFIG.institution}
-    </p>
   </aside>
 );
 
