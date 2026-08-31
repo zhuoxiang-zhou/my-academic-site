@@ -110,7 +110,24 @@ test('teaching preserves each course and its description', () => {
     assert.ok(html.includes(escapeText(course.title)));
     assert.ok(html.includes(escapeText(course.description)));
     assert.ok(html.includes(escapeText(course.semester)));
+    assert.ok(html.includes(escapeText(course.code)));
+    assert.ok(html.includes(escapeText(`${course.level} Level`)));
   }
+});
+
+test('teaching matches the Research page hierarchy and vertical rhythm', () => {
+  const html = renderPage('/teaching');
+  assert.ok(html.includes('<h1 class="sr-only">Teaching</h1>'));
+  assert.ok(html.includes('<section class="teaching-section" aria-labelledby="courses-heading">'));
+  assert.ok(html.includes('<h2 id="courses-heading">Courses</h2>'));
+  assert.ok(html.includes('<ul class="teaching-list" role="list">'));
+  assert.equal((html.match(/class="teaching-entry"/g) || []).length, content.COURSES.length);
+  assert.doesNotMatch(html, /Current and past courses|text-4xl|<article/);
+
+  assert.match(stylesheet, /\.research-page,\s*\.teaching-page\s*\{\s*padding-top:\s*9\.5rem/);
+  assert.match(stylesheet, /\.research-section h2,\s*\.teaching-section h2\s*\{[^}]*font-weight:\s*700/);
+  assert.match(stylesheet, /\.research-paper-title,\s*\.teaching-course-title\s*\{[^}]*color:\s*#111[^}]*font-weight:\s*700/);
+  assert.match(stylesheet, /@media \(max-width: 600px\)[\s\S]*?\.research-page,\s*\.teaching-page\s*\{\s*padding-top:\s*5rem/);
 });
 
 test('photography preserves featured images, quotations, and the expand control', () => {
@@ -186,7 +203,7 @@ test('non-photography pages use sans serif while Photography keeps its serif sty
   for (const pathname of ['/', '/research', '/teaching']) {
     assert.doesNotMatch(renderPage(pathname), /font-serif/);
   }
-  const researchHeading = stylesheet.match(/\.research-section h2\s*\{([^}]+)\}/)[1];
+  const researchHeading = stylesheet.match(/\.research-section h2,\s*\.teaching-section h2\s*\{([^}]+)\}/)[1];
   assert.doesNotMatch(researchHeading, /font-family/);
   assert.match(renderPage('/photography'), /photography-heading[^"\n]*font-serif|font-serif[^"\n]*photography-heading/);
 });
@@ -218,8 +235,8 @@ test('research starts with blank space instead of an introduction and retains an
   assert.ok(!html.includes('Labor economics and the economics of technology and innovation.'));
   assert.doesNotMatch(html, /research-header/);
   assert.doesNotMatch(stylesheet, /\.research-header\b/);
-  assert.match(stylesheet, /\.research-page\s*\{\s*padding-top:\s*9\.5rem/);
-  assert.match(stylesheet, /@media \(max-width: 600px\)[\s\S]*?\.research-page\s*\{\s*padding-top:\s*5rem/);
+  assert.match(stylesheet, /\.research-page,\s*\.teaching-page\s*\{\s*padding-top:\s*9\.5rem/);
+  assert.match(stylesheet, /@media \(max-width: 600px\)[\s\S]*?\.research-page,\s*\.teaching-page\s*\{\s*padding-top:\s*5rem/);
 });
 
 test('research reference uses unbulleted sections without divider classes', () => {
@@ -232,8 +249,8 @@ test('research reference uses unbulleted sections without divider classes', () =
   assert.equal(chineseHeading.replace(/<[^>]*>/g, ''), '中文发表 / Chinese Publications');
   assert.doesNotMatch(chineseHeading, /<br\b/);
   assert.doesNotMatch(research, /list-disc|border-t|border-b/);
-  const listStyles = stylesheet.match(/\.research-list\s*\{([^}]+)\}/)[1];
-  const headingStyles = stylesheet.match(/\.research-section h2\s*\{([^}]+)\}/)[1];
+  const listStyles = stylesheet.match(/\.research-list,\s*\.teaching-list\s*\{([^}]+)\}/)[1];
+  const headingStyles = stylesheet.match(/\.research-section h2,\s*\.teaching-section h2\s*\{([^}]+)\}/)[1];
   assert.match(listStyles, /list-style:\s*none/);
   assert.match(listStyles, /padding:\s*0/);
   assert.match(listStyles, /gap:\s*2\.125rem/);
@@ -254,12 +271,12 @@ test('research titles, authors, and journal details occupy distinct blocks', () 
   assert.equal(journalText, `${paper.journal}. ${status}.`);
   assert.doesNotMatch(html, /last updated/i);
   assert.ok(html.includes(`href="${paper.authorLinks['Wei Huang']}"`));
-  const titleStyles = stylesheet.match(/\.research-paper-title\s*\{([^}]+)\}/)[1];
+  const titleStyles = stylesheet.match(/\.research-paper-title,\s*\.teaching-course-title\s*\{([^}]+)\}/)[1];
   assert.match(titleStyles, /color:\s*#111/);
   assert.match(titleStyles, /font-weight:\s*700/);
   assert.match(titleStyles, /margin:\s*0 0 0\.5rem/);
   assert.match(titleStyles, /line-height:\s*1\.45/);
-  assert.match(stylesheet, /\.research-authors,\s*\.research-journal\s*\{[^}]*line-height:\s*1\.6/);
+  assert.match(stylesheet, /\.research-authors,\s*\.research-journal,\s*\.teaching-meta,\s*\.teaching-description\s*\{[^}]*line-height:\s*1\.6/);
   assert.match(stylesheet, /\.research-authors\s*\{\s*margin:\s*0 0 0\.5rem/);
   assert.match(stylesheet, /\.research-journal em\s*\{\s*font-style:\s*italic/);
   assert.ok(documentMarkup.includes('family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400'));
