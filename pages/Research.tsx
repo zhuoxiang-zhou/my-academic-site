@@ -1,180 +1,108 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { PAPERS, BOOK_CHAPTERS, CHINESE_PUBLICATIONS, SITE_CONFIG } from '../constants';
 import { Paper } from '../types';
-import { FileText, ExternalLink, ChevronDown, ChevronUp } from 'lucide-react';
 
-interface ResearchPanelProps {
-  paper: Paper;
-  isWip?: boolean;
-}
-
-const ResearchPanel: React.FC<ResearchPanelProps> = ({ paper, isWip = false }) => {
-  // Working Papers start closed. WIP doesn't use toggle.
-  const [isOpen, setIsOpen] = useState(false);
-
-  // Filter out the site owner from authors list
-  const otherAuthors = paper.authors.filter(a => a !== SITE_CONFIG.name);
-
-  const handleToggle = () => {
-    if (!isWip) {
-      setIsOpen(!isOpen);
-    }
-  };
-
-  // Status color dot
-  const dotColor = paper.status === 'Working Paper' ? 'bg-amber-400' : 'bg-stone-300';
+const ResearchEntry: React.FC<{ paper: Paper }> = ({ paper }) => {
+  const otherAuthors = paper.authors.filter(author => author !== SITE_CONFIG.name);
 
   return (
-    <div 
-      className={`bg-white border border-stone-200 rounded-xl p-6 shadow-sm mb-6 transition-all duration-200 ${!isWip ? 'cursor-pointer hover:shadow-md' : ''}`} 
-      onClick={handleToggle}
-    >
-      <div className="flex justify-between items-start mb-3">
-        {/* Topic Pills */}
-        <div className="flex flex-wrap gap-2">
-           {paper.topics && paper.topics.map(topic => (
-             <span key={topic} className="inline-flex items-center px-2.5 py-1 rounded text-xs font-medium bg-stone-100 text-stone-600 tracking-wide">
-               {topic}
-             </span>
-           ))}
-           {(!paper.topics || paper.topics.length === 0) && (
-              <span className="inline-flex items-center px-2.5 py-1 rounded text-xs font-medium bg-stone-100 text-stone-600 tracking-wide">
-               General
-             </span>
-           )}
-        </div>
-
-        {/* Toggle Icon for Non-WIP */}
-        {!isWip && (
-          <button className="text-stone-400 hover:text-stone-600 p-1">
-            {isOpen ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
-          </button>
-        )}
-      </div>
-
-      {/* Title - Black, Serif */}
-      <h3 className="text-2xl font-paper font-bold text-black mb-2 leading-snug">
-        {paper.title}
+    <article className="font-sans text-base sm:text-lg leading-relaxed text-stone-600">
+      <h3 className="inline font-bold text-stone-800">
+        {paper.title}{/[.!?。！？]$/.test(paper.title) ? '' : '.'}
       </h3>
-      
-      {/* Authors - Sans Serif */}
       {otherAuthors.length > 0 && (
-        <p className="text-lg font-sans text-stone-600 mb-4">
-          with {otherAuthors.map((author, i) => {
+        <span>
+          {' with '}
+          {otherAuthors.map((author, i) => {
             const url = paper.authorLinks?.[author];
             const isLast = i === otherAuthors.length - 1;
             const separator = i === 0 ? '' : otherAuthors.length > 2 ? ', ' : ' ';
             const prefix = isLast && i > 0 ? separator + 'and ' : separator;
+
             return (
-              <span key={author}>
+              <React.Fragment key={author}>
                 {prefix}
                 {url ? (
-                  <a href={url} target="_blank" rel="noopener noreferrer" className="underline">
+                  <a href={url} target="_blank" rel="noopener noreferrer" className="underline underline-offset-2 hover:text-academic-800">
                     {author}
                   </a>
                 ) : author}
-              </span>
+              </React.Fragment>
             );
           })}
-        </p>
+          .
+        </span>
       )}
-
-      {/* Status Line */}
       {paper.journal && (
-        <div className="flex items-center gap-2 mb-4">
-          <div className={`w-2 h-2 rounded-full ${dotColor}`} />
-          <span className="text-sm font-medium text-stone-500">
-            {paper.journalStatus && <>{paper.journalStatus} </>}<em>{paper.journal}</em>
-          </span>
-        </div>
+        <span>
+          {' '}
+          {paper.journalStatus && `${paper.journalStatus.trim()} `}
+          <em className="font-bold text-stone-800">{paper.journal}</em>.
+        </span>
       )}
-
-      {/* Abstract & Actions - Only for non-WIP items when open */}
-      {!isWip && isOpen && (
-        <div className="mt-5 pt-5 border-t border-stone-100 animate-in fade-in slide-in-from-top-1 duration-200">
-          {/* <div className="text-stone-700 leading-relaxed text-base">
-            <span className="font-bold text-stone-900 text-xs uppercase tracking-wider mr-2">Abstract:</span>
-            {paper.abstract}
-          </div> */}
-
-          <div className="flex gap-4 mt-4 pt-2">
-             {paper.pdfUrl && (
-               <a 
-                 href={paper.pdfUrl} 
-                 className="flex items-center gap-2 text-sm font-medium text-academic-600 hover:text-academic-800 transition-colors border border-stone-200 px-3 py-1.5 rounded-md hover:bg-stone-50"
-                 onClick={(e) => e.stopPropagation()}
-               >
-                 <FileText size={16} /> Download PDF
-               </a>
-             )}
-             {/* {paper.link && (
-               <a
-                 href={paper.link}
-                 className="flex items-center gap-2 text-sm font-medium text-academic-600 hover:text-academic-800 transition-colors border border-stone-200 px-3 py-1.5 rounded-md hover:bg-stone-50"
-                 onClick={(e) => e.stopPropagation()}
-               >
-                 <ExternalLink size={16} /> External Link
-               </a>
-             )} */}
-          </div>
-        </div>
+      {paper.pdfUrl && (
+        <>
+          {' '}
+          <a href={paper.pdfUrl} className="font-medium text-academic-700 underline underline-offset-2 hover:text-academic-900" aria-label={`Download PDF: ${paper.title}`}>
+            [PDF]
+          </a>
+        </>
       )}
+    </article>
+  );
+};
+
+const ResearchSection: React.FC<{ title: React.ReactNode; children: React.ReactNode }> = ({ title, children }) => (
+  <section className="flex flex-col md:flex-row gap-4 md:gap-10 border-t border-stone-200 pt-8 first:border-0 first:pt-0">
+    <div className="md:w-64 shrink-0">
+      <h2 className="text-2xl font-serif font-bold text-academic-900 sticky top-24">
+        {title}
+      </h2>
     </div>
-  );
-};
-
-const ResearchSection: React.FC<{ title: string; papers: Paper[]; isWip?: boolean }> = ({ title, papers, isWip = false }) => {
-  if (papers.length === 0) return null;
-  return (
-    <section className="flex flex-col md:flex-row gap-8 md:gap-12 border-t border-stone-200 pt-10 first:border-0 first:pt-0">
-      <div className="md:w-64 shrink-0">
-        <h2 className="text-2xl font-serif font-bold text-academic-900 sticky top-24">
-          {title}
-        </h2>
-      </div>
-      <div className="flex-1">
-        {papers.map(p => <ResearchPanel key={p.id} paper={p} isWip={isWip} />)}
-      </div>
-    </section>
-  );
-};
+    <div className="flex-1 min-w-0 space-y-5">
+      {children}
+    </div>
+  </section>
+);
 
 const Research: React.FC = () => {
-  // Filter papers
-  const working = PAPERS.filter(p => p.status === 'Working Paper');
-  const wip = PAPERS.filter(p => p.status === 'Work in Progress');
-  
+  const working = PAPERS.filter(paper => paper.status === 'Working Paper');
+  const wip = PAPERS.filter(paper => paper.status === 'Work in Progress');
+
   return (
-    <div className="max-w-7xl mx-auto px-4 py-20 sm:px-6 lg:px-8">
-      <div className="mb-16 border-b border-stone-200 pb-10">
+    <div className="max-w-7xl mx-auto px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
+      <div className="mb-10 border-b border-stone-200 pb-8">
         <h1 className="text-4xl font-serif font-bold text-academic-900 mb-4">Research</h1>
         <p className="text-stone-500 text-xl">
           My research focuses on labor economics and the economics of technology and innovation.
         </p>
       </div>
 
-      <div className="space-y-12">
-        <ResearchSection title="Working Papers" papers={working} />
-        <ResearchSection title="Selected Work in Progress" papers={wip} isWip={true} />
-        <ResearchSection title="Book Chapters" papers={BOOK_CHAPTERS} />
-        <section className="flex flex-col md:flex-row gap-8 md:gap-12 border-t border-stone-200 pt-10">
-          <div className="md:w-64 shrink-0">
-            <h2 className="text-2xl font-serif font-bold text-academic-900 sticky top-24">
-              <span lang="zh-Hans" className="font-cjk-sc">中文发表</span>
-              <br />
-              Chinese Publications
-            </h2>
-          </div>
-          <div className="flex-1 min-w-0">
+      <div className="space-y-8">
+        {working.length > 0 && (
+          <ResearchSection title="Working Papers">
+            {working.map(paper => <ResearchEntry key={paper.id} paper={paper} />)}
+          </ResearchSection>
+        )}
+        {wip.length > 0 && (
+          <ResearchSection title="Selected Work in Progress">
+            {wip.map(paper => <ResearchEntry key={paper.id} paper={paper} />)}
+          </ResearchSection>
+        )}
+        {BOOK_CHAPTERS.length > 0 && (
+          <ResearchSection title="Book Chapters">
+            {BOOK_CHAPTERS.map(paper => <ResearchEntry key={paper.id} paper={paper} />)}
+          </ResearchSection>
+        )}
+        {CHINESE_PUBLICATIONS.length > 0 && (
+          <ResearchSection title={<><span lang="zh-Hans" className="font-cjk-sc">中文发表</span><br />Chinese Publications</>}>
             {CHINESE_PUBLICATIONS.map(publication => (
-              <div key={publication.id} lang="zh-Hans" className="bg-white border border-stone-200 rounded-xl p-6 shadow-sm mb-6">
-                <p className="font-cjk-sc text-lg text-stone-700 leading-relaxed">
-                  {publication.citation}
-                </p>
-              </div>
+              <p key={publication.id} lang="zh-Hans" className="font-cjk-sc text-base sm:text-lg text-stone-600 leading-relaxed">
+                {publication.citation}
+              </p>
             ))}
-          </div>
-        </section>
+          </ResearchSection>
+        )}
       </div>
     </div>
   );
