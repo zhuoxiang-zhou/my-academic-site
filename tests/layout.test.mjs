@@ -96,12 +96,12 @@ test('home contact links replace the job caption directly below the portrait', (
   const profileStyles = stylesheet.match(/\.home-profile\s*\{([^}]+)\}/)[1];
   const linkStyles = stylesheet.match(/\.home-links\s*\{([^}]+)\}/)[1];
   assert.match(profileStyles, /max-width:\s*var\(--portrait-width\)/);
-  assert.match(linkStyles, /display:\s*grid/);
-  assert.match(linkStyles, /grid-template-columns:\s*minmax\(0, 1fr\) auto minmax\(0, 1fr\)/);
+  assert.match(linkStyles, /display:\s*flex/);
+  assert.match(linkStyles, /flex-wrap:\s*wrap/);
+  assert.match(linkStyles, /justify-content:\s*center/);
+  assert.match(linkStyles, /gap:\s*0\.25rem 2rem/);
   assert.match(linkStyles, /width:\s*100%/);
-  assert.match(stylesheet, /\.home-links a:first-child\s*\{\s*justify-self:\s*start/);
-  assert.match(stylesheet, /\.home-links a:nth-child\(2\)\s*\{\s*justify-self:\s*center/);
-  assert.match(stylesheet, /\.home-links a:nth-child\(3\)\s*\{\s*justify-self:\s*end/);
+  assert.doesNotMatch(stylesheet, /\.home-links a:(?:first-child|nth-child)[^{]*\{[^}]*justify-self/);
 });
 
 test('research preserves papers, collaborators, and Chinese publications', () => {
