@@ -6,7 +6,7 @@ const ResearchEntry: React.FC<{ paper: Paper }> = ({ paper }) => {
   const otherAuthors = paper.authors.filter(author => author !== SITE_CONFIG.name);
 
   return (
-    <li className="font-sans text-base sm:text-lg leading-relaxed text-stone-600">
+    <li className="font-research text-base sm:text-lg leading-relaxed text-stone-600">
       <h3 className="inline font-bold text-stone-800">
         {paper.title}{/[.!?。！？]$/.test(paper.title) ? '' : '.'}
       </h3>
