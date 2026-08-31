@@ -30,14 +30,7 @@ const Navbar: React.FC = () => {
   return (
     <nav className="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-stone-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
-          {/* Logo */}
-          <div className="flex-shrink-0 flex items-center">
-            <Link to="/" className="font-serif text-2xl font-bold text-academic-900 tracking-tight">
-              Shawn Zhou<span className="text-academic-500">.</span>
-            </Link>
-          </div>
-
+        <div className="flex justify-end items-center h-20">
           {/* Desktop Menu */}
           <div className="hidden md:flex space-x-10 items-center">
             <Link to="/" className={`text-lg transition-colors ${isActive('/')}`}>
