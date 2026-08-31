@@ -73,7 +73,7 @@ const Research: React.FC = () => {
     <div className="max-w-7xl mx-auto px-4 pt-6 pb-12 sm:px-6 sm:pt-8 sm:pb-16 lg:px-8">
       <div className="mb-6 border-b border-stone-200 pb-4">
         <h1 className="text-4xl font-serif font-bold text-academic-900 mb-2">Research</h1>
-        <p className="text-stone-500 text-xl">
+        <p className="text-stone-500 text-base sm:text-lg">
           My research focuses on labor economics and the economics of technology and innovation.
         </p>
       </div>
