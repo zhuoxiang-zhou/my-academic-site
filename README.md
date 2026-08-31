@@ -51,8 +51,10 @@ Email, CV, and LinkedIn sit directly beneath the portrait in place of the job
 title caption. The copyright footer is omitted throughout the site.
 
 The Research page follows the user's preferred Research reference separately
-from the sidebar: large serif headings, an unbulleted single-column paper list,
-and generous whitespace instead of divider lines. Paper titles, collaborators,
+from the sidebar: blank space above Working Papers instead of a visible page
+title or introductory sentence, large serif section headings, an unbulleted
+single-column paper list, and generous whitespace instead of divider lines.
+A screen-reader-only page heading remains. Paper titles, collaborators,
 and journal/status information occupy separate lines. Author and PDF links
 remain functional; the research data still comes from `constants.ts`.
 

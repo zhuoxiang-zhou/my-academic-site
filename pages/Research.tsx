@@ -68,12 +68,6 @@ const Research: React.FC = () => {
   return (
     <div className="site-page research-page">
       <h1 className="sr-only">Research</h1>
-      <header className="research-header">
-        <p>
-          Labor economics and the economics of technology and innovation.
-        </p>
-      </header>
-
       <div className="research-sections">
         {working.length > 0 && (
           <ResearchSection id="working-papers" title="Working Papers">

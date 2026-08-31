@@ -184,19 +184,19 @@ test('reference sidebar navigation spacing is independent of the home content', 
   assert.match(stylesheet, /--sidebar-nav-offset:\s*8rem/);
 });
 
-test('research hides the page title while preserving its description and accessible heading', () => {
+test('research starts with blank space instead of an introduction and retains an accessible heading', () => {
   const html = renderPage('/research');
-  const header = html.match(/<header class="research-header">([\s\S]*?)<\/header>/)[1];
   assert.ok(html.includes('<h1 class="sr-only">Research</h1>'));
-  assert.doesNotMatch(header, /<h1\b/);
-  assert.ok(header.includes('Labor economics and the economics of technology and innovation.'));
-  assert.doesNotMatch(stylesheet, /\.research-header h1\s*\{/);
+  assert.ok(!html.includes('Labor economics and the economics of technology and innovation.'));
+  assert.doesNotMatch(html, /research-header/);
+  assert.doesNotMatch(stylesheet, /\.research-header\b/);
+  assert.match(stylesheet, /\.research-page\s*\{\s*padding-top:\s*9\.5rem/);
+  assert.match(stylesheet, /@media \(max-width: 600px\)[\s\S]*?\.research-page\s*\{\s*padding-top:\s*5rem/);
 });
 
 test('research reference uses unbulleted sections without divider classes', () => {
   const html = renderPage('/research');
   const research = html.match(/<div class="site-page research-page">([\s\S]*?)<\/main>/)[1];
-  assert.ok(research.includes('Labor economics and the economics of technology and innovation.'));
   assert.ok(research.includes('<ul class="research-list" role="list">'));
   assert.ok(research.includes('aria-labelledby="working-papers"'));
   assert.ok(research.includes('<h2 id="working-papers">Working Papers</h2>'));
