@@ -56,6 +56,8 @@ Photography keeps its original narrower gutter and gallery width. The Home body
 also begins lower on larger screens using a height-aware top offset. The
 biography retains a readable maximum width, while the portrait and text still
 stack on small screens.
+Matthew Gentzkow's name in the biography links to his website using the same
+muted-blue treatment as other site links.
 Email, CV, and LinkedIn sit directly beneath the portrait in place of the job
 title caption. They span the portrait width with Email left-aligned, CV centered,
 and LinkedIn right-aligned. The copyright footer is omitted throughout the site.

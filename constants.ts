@@ -14,6 +14,10 @@ export const SITE_CONFIG = {
   twitter: "",
   github: "",
   linkedin: "https://linkedin.com/in/zhuoxiang-zhou-b25478288/",
+  advisor: {
+    name: "Matthew Gentzkow",
+    url: "https://matthewgentzkow.com/"
+  },
   bio: "I am a predoctoral research fellow in economics at Stanford University, working with Professor Matthew Gentzkow. I received my B.A. in Economics from Peking University.",
   bio2: "My research focuses on labor economics and the economics of technology and innovation. I study how policy instruments shape individual behavior and human capital formation, and how access to and adoption of new technologies affect productivity, welfare, and inequality.",
   office: ""

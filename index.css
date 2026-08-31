@@ -140,6 +140,16 @@ body { margin: 0; }
   line-height: 1.9;
 }
 
+.home-biography a {
+  color: #456882;
+  text-decoration: none;
+}
+
+.home-biography a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
 .home-greeting { color: #252c33; }
 
 .home-links {

@@ -63,14 +63,16 @@ for (const pathname of ['/', '/research', '/teaching', '/photography']) {
 
 test('home preserves the biography, portrait, full name, and contact links', () => {
   const html = renderPage('/');
+  const text = html.replace(/<[^>]+>/g, '');
   assert.equal(content.SITE_CONFIG.name, 'Zhuoxiang (Shawn) Zhou');
-  assert.ok(html.includes(escapeText(content.SITE_CONFIG.bio)));
+  assert.ok(text.includes(content.SITE_CONFIG.bio));
   assert.ok(html.includes(escapeText(content.SITE_CONFIG.bio2)));
   assert.ok(html.includes('src="/images/bio.jpg"'));
   assert.ok(html.includes(`<h1 class="sr-only">${content.SITE_CONFIG.name}</h1>`));
   assert.ok(html.includes(`href="mailto:${content.SITE_CONFIG.email}"`));
   assert.ok(html.includes('href="/cv.pdf"'));
   assert.ok(html.includes(`href="${content.SITE_CONFIG.linkedin}"`));
+  assert.match(html, new RegExp(`<a href="${content.SITE_CONFIG.advisor.url}" target="_blank" rel="noopener noreferrer">${content.SITE_CONFIG.advisor.name}</a>`));
 });
 
 test('home contact links replace the job caption directly below the portrait', () => {

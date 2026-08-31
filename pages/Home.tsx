@@ -1,6 +1,8 @@
 import React from 'react';
 import { SITE_CONFIG } from '../constants';
 
+const [bioBeforeAdvisor, bioAfterAdvisor] = SITE_CONFIG.bio.split(SITE_CONFIG.advisor.name);
+
 const Home: React.FC = () => (
   <div className="site-page home-page">
     <h1 className="sr-only">{SITE_CONFIG.name}</h1>
@@ -28,7 +30,13 @@ const Home: React.FC = () => (
         <p className="home-greeting">
           Hello, I'm Zhuoxiang (<em>Jwo-shyang</em>). I also go by Shawn.
         </p>
-        <p>{SITE_CONFIG.bio}</p>
+        <p>
+          {bioBeforeAdvisor}
+          <a href={SITE_CONFIG.advisor.url} target="_blank" rel="noopener noreferrer">
+            {SITE_CONFIG.advisor.name}
+          </a>
+          {bioAfterAdvisor}
+        </p>
         <p>{SITE_CONFIG.bio2}</p>
       </div>
     </div>
