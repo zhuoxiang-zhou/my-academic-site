@@ -1,7 +1,13 @@
 import { Paper, Course, Photo, Note } from './types';
 
+export const PROFILE_NAME = {
+  given: 'Zhuoxiang',
+  family: 'Zhou',
+  preferred: 'Shawn',
+};
+
 export const SITE_CONFIG = {
-  name: "Zhuoxiang (Shawn) Zhou",
+  name: `${PROFILE_NAME.given} (${PROFILE_NAME.preferred}) ${PROFILE_NAME.family}`,
   title: "Stanford Institute for Economic Policy Research",
   institution: "Stanford University",
   email: "zhuoxiang.zhou@gmail.com",

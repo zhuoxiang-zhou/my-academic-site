@@ -1,0 +1,258 @@
+:root {
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+  color: #454a50;
+  background: #fff;
+  font-synthesis: none;
+  --sidebar-width: clamp(12.5rem, 24vw, 24rem);
+  --sidebar-inset: clamp(1.75rem, 3.5vw, 4.5rem);
+  --content-inset: clamp(1.5rem, 3.5vw, 4rem);
+  --home-offset: clamp(11.5rem, 22vh, 15rem);
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+
+.site-shell {
+  min-height: 100vh;
+  color: #454a50;
+  background: #fff;
+}
+
+.site-shell a:focus-visible,
+.site-shell button:focus-visible {
+  outline: 2px solid #456882;
+  outline-offset: 5px;
+}
+
+.site-sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 40;
+  display: grid;
+  grid-template-rows: var(--home-offset) auto minmax(3rem, 1fr);
+  width: var(--sidebar-width);
+  padding: 0 1.25rem 2rem var(--sidebar-inset);
+  overflow-y: auto;
+  background: #fff;
+}
+
+.sidebar-name {
+  align-self: start;
+  justify-self: start;
+  margin-top: clamp(2rem, 3.5vw, 3.5rem);
+  color: #252c33;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: clamp(1.75rem, 3vw, 2.625rem);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.035em;
+  text-decoration: none;
+}
+
+.sidebar-name span { display: block; }
+
+.sidebar-name .sidebar-nickname {
+  margin-top: 0.85rem;
+  color: #717980;
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+}
+
+.sidebar-navigation {
+  display: grid;
+  align-content: start;
+  gap: 0.5rem;
+}
+
+.sidebar-navigation a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0.5rem 0;
+  color: #454a50;
+  font-size: 1rem;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.sidebar-navigation a:hover,
+.home-links a:hover { color: #456882; }
+
+.sidebar-navigation a[aria-current="page"] {
+  color: #252c33;
+  font-weight: 600;
+}
+
+.sidebar-navigation a[aria-current="page"]::before {
+  position: absolute;
+  left: -0.875rem;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #456882;
+  content: "";
+}
+
+.sidebar-affiliation {
+  align-self: end;
+  margin: 2rem 0 0;
+  color: #717980;
+  font-size: 0.6875rem;
+  line-height: 1.8;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+}
+
+/* Ordinary document scrolling preserves keyboard scrolling and the existing
+   photography lightbox's body scroll lock; only the sidebar is fixed. */
+.site-content {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin-left: var(--sidebar-width);
+  container: site-content / inline-size;
+}
+
+.site-main { flex: 1; min-width: 0; }
+.site-main:focus { outline: none; }
+
+.site-page {
+  width: 100%;
+  max-width: 84rem;
+  margin: 0 auto;
+  padding: 4.5rem var(--content-inset) 3rem;
+  overflow-wrap: anywhere;
+}
+
+.page-heading { letter-spacing: -0.025em; }
+.research-section h2 { line-height: 1.35; }
+.home-biography { max-width: 42rem; }
+
+.home-page { padding-top: var(--home-offset); }
+
+.home-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.2fr);
+  align-items: start;
+  gap: clamp(1.75rem, 4vw, 4rem);
+}
+
+.home-portrait {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
+.home-affiliation {
+  margin: 1.25rem 0 0;
+  color: #717980;
+  font-size: 0.8125rem;
+  line-height: 1.8;
+}
+
+.home-biography p {
+  margin: 0 0 1.5rem;
+  font-size: 1.0625rem;
+  line-height: 1.9;
+}
+
+.home-greeting { color: #252c33; }
+
+.home-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.home-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: #456882;
+  font-size: 0.9375rem;
+  text-decoration: none;
+}
+
+.home-links a:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.site-footer {
+  margin: 3rem var(--content-inset) 0;
+  padding: 1.25rem 0 2rem;
+  border-top: 1px solid #e8e9eb;
+  color: #717980;
+  font-size: 0.75rem;
+  line-height: 1.8;
+}
+
+.site-footer p { margin: 0; }
+.research-section { display: grid; gap: 1.25rem; }
+.teaching-list { display: grid; gap: 2.5rem; }
+
+.skip-link {
+  position: fixed;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 60;
+  padding: 0.75rem 1rem;
+  transform: translateY(-200%);
+  color: #252c33;
+  background: #fff;
+}
+
+.skip-link:focus { transform: translateY(0); }
+
+/* Account for the sidebar when deciding whether the content can fit columns. */
+@container site-content (max-width: 42rem) {
+  .home-grid { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
+  .home-portrait { max-width: 20rem; }
+  .home-biography p { font-size: 1rem; }
+}
+
+@container site-content (max-width: 30rem) {
+  .site-page h1 { font-size: 1.75rem; line-height: 1.25; }
+  .site-page h2 { font-size: 1.375rem; }
+  .photography-heading svg { display: none; }
+}
+
+@media (max-width: 600px) {
+  :root {
+    --sidebar-width: 7.5rem;
+    --sidebar-inset: 1rem;
+    --content-inset: 1rem;
+    --home-offset: 10.5rem;
+  }
+
+  .site-sidebar { padding-right: 0.5rem; padding-bottom: 1.5rem; }
+  .sidebar-name { margin-top: 1.75rem; font-size: 1.3rem; }
+  .sidebar-name .sidebar-nickname { font-size: 0.75rem; }
+  .sidebar-navigation { gap: 0.375rem; }
+  .sidebar-navigation a { font-size: 0.8125rem; }
+  .sidebar-navigation a[aria-current="page"]::before { left: -0.625rem; }
+  .sidebar-affiliation { font-size: 0.625rem; }
+  .site-page { padding-top: 2rem; padding-left: 0.5rem; }
+  .home-affiliation { display: none; }
+  .home-biography p { font-size: 0.9375rem; line-height: 1.85; }
+  .home-links { gap: 0.25rem 1rem; }
+  .site-footer { margin-left: 0.5rem; }
+}
+
+@container site-content (max-width: 15rem) {
+  .site-page h1 { font-size: 1.5rem; }
+}
+
+/* Keep every link reachable on short/zoomed windows without clipping it. */
+@media (max-height: 500px) and (min-width: 601px) {
+  :root { --home-offset: 10.5rem; }
+  .sidebar-name { margin-top: 1.5rem; font-size: 1.75rem; }
+  .sidebar-affiliation { display: none; }
+}

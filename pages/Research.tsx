@@ -53,9 +53,9 @@ const ResearchEntry: React.FC<{ paper: Paper }> = ({ paper }) => {
 };
 
 const ResearchSection: React.FC<{ title: React.ReactNode; children: React.ReactNode }> = ({ title, children }) => (
-  <section className="flex flex-col md:flex-row gap-4 md:gap-10 border-t border-stone-200 pt-8 first:border-0 first:pt-0">
-    <div className="md:w-64 shrink-0">
-      <h2 className="text-2xl font-serif font-bold text-academic-900 sticky top-24">
+  <section className="research-section border-t border-stone-200 pt-8 first:border-0 first:pt-0">
+    <div>
+      <h2 className="text-2xl font-serif font-medium text-academic-900">
         {title}
       </h2>
     </div>
@@ -70,9 +70,9 @@ const Research: React.FC = () => {
   const wip = PAPERS.filter(paper => paper.status === 'Work in Progress');
 
   return (
-    <div className="max-w-7xl mx-auto px-4 pt-6 pb-12 sm:px-6 sm:pt-8 sm:pb-16 lg:px-8">
+    <div className="site-page research-page">
       <div className="mb-6 border-b border-stone-200 pb-4">
-        <h1 className="text-4xl font-serif font-bold text-academic-900 mb-2">Research</h1>
+        <h1 className="page-heading text-4xl font-serif font-medium text-academic-900 mb-2">Research</h1>
         <p className="text-stone-500 text-base sm:text-lg">
           My research focuses on labor economics and the economics of technology and innovation.
         </p>
