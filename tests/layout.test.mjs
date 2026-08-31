@@ -125,6 +125,27 @@ test('narrow-screen layout keeps a compact rail and stacks the home content', ()
   assert.match(stylesheet, /\.home-grid\s*\{\s*grid-template-columns:\s*minmax\(0, 1fr\)/);
 });
 
+test('desktop proportions use a narrower rail and a bounded portrait column', () => {
+  const root = stylesheet.match(/:root\s*\{([^}]+)\}/)[1];
+  const grid = stylesheet.match(/\.home-grid\s*\{([^}]+)\}/)[1];
+  const portrait = stylesheet.match(/\.home-portrait\s*\{([^}]+)\}/)[1];
+  assert.match(root, /--sidebar-width:\s*clamp\(12\.5rem, 20vw, 20rem\)/);
+  assert.match(root, /--portrait-width:\s*17rem/);
+  assert.match(grid, /grid-template-columns:\s*minmax\(0, var\(--portrait-width\)\) minmax\(0, 1fr\)/);
+  assert.match(portrait, /width:\s*100%/);
+  assert.match(portrait, /max-width:\s*var\(--portrait-width\)/);
+});
+
+test('page and footer use the smaller right gutter to widen the content area', () => {
+  const root = stylesheet.match(/:root\s*\{([^}]+)\}/)[1];
+  const page = stylesheet.match(/\.site-page\s*\{([^}]+)\}/)[1];
+  const footer = stylesheet.match(/\.site-footer\s*\{([^}]+)\}/)[1];
+  assert.match(root, /--content-right-inset:\s*clamp\(1rem, 2vw, 2rem\)/);
+  assert.match(page, /max-width:\s*90rem/);
+  assert.match(page, /padding:\s*4\.5rem var\(--content-right-inset\) 3rem var\(--content-inset\)/);
+  assert.match(footer, /margin:\s*3rem var\(--content-right-inset\) 0 var\(--content-inset\)/);
+});
+
 test('reference sidebar uses a bold uppercase name and undecorated navigation', () => {
   const html = renderPage('/research');
   const sidebar = html.match(/<aside\b[^>]*>([\s\S]*?)<\/aside>/)[1];

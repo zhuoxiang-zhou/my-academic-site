@@ -3,10 +3,12 @@
   color: #454a50;
   background: #fff;
   font-synthesis: none;
-  --sidebar-width: clamp(12.5rem, 24vw, 24rem);
+  --sidebar-width: clamp(12.5rem, 20vw, 20rem);
   --sidebar-inset: clamp(1.75rem, 4vw, 5rem);
   --sidebar-nav-offset: clamp(15rem, 40vh, 30rem);
   --content-inset: clamp(1.5rem, 3.5vw, 4rem);
+  --content-right-inset: clamp(1rem, 2vw, 2rem);
+  --portrait-width: 17rem;
   --home-offset: clamp(11.5rem, 22vh, 15rem);
 }
 
@@ -95,20 +97,20 @@ body { margin: 0; }
 
 .site-page {
   width: 100%;
-  max-width: 84rem;
+  max-width: 90rem;
   margin: 0 auto;
-  padding: 4.5rem var(--content-inset) 3rem;
+  padding: 4.5rem var(--content-right-inset) 3rem var(--content-inset);
   overflow-wrap: anywhere;
 }
 
 .page-heading { letter-spacing: -0.025em; }
-.home-biography { max-width: 42rem; }
+.home-biography { max-width: 48rem; }
 
 .home-page { padding-top: var(--home-offset); }
 
 .home-grid {
   display: grid;
-  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.2fr);
+  grid-template-columns: minmax(0, var(--portrait-width)) minmax(0, 1fr);
   align-items: start;
   gap: clamp(1.75rem, 4vw, 4rem);
 }
@@ -116,6 +118,7 @@ body { margin: 0; }
 .home-portrait {
   display: block;
   width: 100%;
+  max-width: var(--portrait-width);
   height: auto;
   aspect-ratio: 1;
   object-fit: cover;
@@ -158,7 +161,7 @@ body { margin: 0; }
 }
 
 .site-footer {
-  margin: 3rem var(--content-inset) 0;
+  margin: 3rem var(--content-right-inset) 0 var(--content-inset);
   padding: 1.25rem 0 2rem;
   border-top: 1px solid #e8e9eb;
   color: #717980;
@@ -260,7 +263,6 @@ body { margin: 0; }
 /* Account for the sidebar when deciding whether the content can fit columns. */
 @container site-content (max-width: 42rem) {
   .home-grid { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
-  .home-portrait { max-width: 20rem; }
   .home-biography p { font-size: 1rem; }
 }
 

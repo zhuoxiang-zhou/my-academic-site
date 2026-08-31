@@ -44,6 +44,9 @@ The sidebar has no nickname subtitle, active-page dot, or affiliation label;
 the full name and affiliation remain in the site content and accessible name.
 Navigation placement is independent of the homepage's content spacing. The
 right-hand content retains this site's serif headings and muted blue links.
+The desktop rail is narrower, the homepage portrait is capped at 17rem, and a
+smaller right gutter gives the page content more room. The biography retains a
+readable maximum width, while the portrait and text still stack on small screens.
 
 The Research page follows the user's preferred Research reference separately
 from the sidebar: large serif headings, an unbulleted single-column paper list,
