@@ -177,6 +177,17 @@ test('text pages gain right whitespace while Photography is excluded', () => {
   }
 });
 
+test('non-photography pages use sans serif while Photography keeps its serif styling', () => {
+  const root = stylesheet.match(/:root\s*\{([^}]+)\}/)[1];
+  assert.match(root, /font-family:\s*Inter, "Helvetica Neue", Arial, sans-serif/);
+  for (const pathname of ['/', '/research', '/teaching']) {
+    assert.doesNotMatch(renderPage(pathname), /font-serif/);
+  }
+  const researchHeading = stylesheet.match(/\.research-section h2\s*\{([^}]+)\}/)[1];
+  assert.doesNotMatch(researchHeading, /font-family/);
+  assert.match(renderPage('/photography'), /photography-heading[^"\n]*font-serif|font-serif[^"\n]*photography-heading/);
+});
+
 test('reference sidebar uses a bold uppercase name and undecorated navigation', () => {
   const html = renderPage('/research');
   const sidebar = html.match(/<aside\b[^>]*>([\s\S]*?)<\/aside>/)[1];

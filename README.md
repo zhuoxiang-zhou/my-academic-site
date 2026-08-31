@@ -42,8 +42,10 @@ the user's reference: a bold, uppercase, two-line name near the upper-left
 corner and plain navigation farther down, with bold text for the active page.
 The sidebar has no nickname subtitle, active-page dot, or affiliation label;
 the full name and affiliation remain in the site content and accessible name.
-Navigation placement is independent of the homepage's content spacing. The
-right-hand content retains this site's serif headings and muted blue links.
+Navigation placement is independent of the homepage's content spacing. Home,
+Research, Teaching, and the fixed sidebar use sans serif text throughout;
+Photography retains its existing serif and literary typography. Muted blue
+links remain unchanged.
 The desktop rail is narrower and the homepage portrait is capped at 17rem.
 Home, Research, and Teaching reserve a generous white right margin that scales
 with the viewport, with a compact 1.5rem gutter on mobile. Photography keeps its
@@ -54,7 +56,7 @@ title caption. The copyright footer is omitted throughout the site.
 
 The Research page follows the user's preferred Research reference separately
 from the sidebar: blank space above Working Papers instead of a visible page
-title or introductory sentence, large serif section headings, an unbulleted
+title or introductory sentence, large sans serif section headings, an unbulleted
 single-column paper list, and generous whitespace instead of divider lines.
 A screen-reader-only page heading remains. Paper titles, collaborators,
 and journal/status information occupy separate lines. Paper titles are bold

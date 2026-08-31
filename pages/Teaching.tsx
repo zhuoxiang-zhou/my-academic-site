@@ -6,7 +6,7 @@ const Teaching: React.FC = () => {
   return (
     <div className="site-page teaching-page">
       <div className="mb-8">
-        <h1 className="page-heading text-4xl font-serif font-medium text-academic-900 mb-4">Teaching</h1>
+        <h1 className="page-heading text-4xl font-medium text-academic-900 mb-4">Teaching</h1>
         <p className="text-stone-500 text-base sm:text-lg">Current and past courses taught at Peking University.</p>
       </div>
 
@@ -21,7 +21,7 @@ const Teaching: React.FC = () => {
                 <span className="text-stone-300">|</span>
                 <span className="text-stone-500 text-sm font-medium">{course.semester}</span>
               </div>
-              <h2 className="text-2xl font-serif font-medium text-academic-900 mb-2">{course.title}</h2>
+              <h2 className="text-2xl font-medium text-academic-900 mb-2">{course.title}</h2>
               <span className="inline-block text-xs font-medium text-stone-500 mb-4">
                 {course.level} Level
               </span>
