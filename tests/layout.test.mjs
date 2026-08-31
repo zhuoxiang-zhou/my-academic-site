@@ -167,6 +167,15 @@ test('reference sidebar navigation spacing is independent of the home content', 
   assert.match(stylesheet, /--sidebar-nav-offset:\s*8rem/);
 });
 
+test('research hides the page title while preserving its description and accessible heading', () => {
+  const html = renderPage('/research');
+  const header = html.match(/<header class="research-header">([\s\S]*?)<\/header>/)[1];
+  assert.ok(html.includes('<h1 class="sr-only">Research</h1>'));
+  assert.doesNotMatch(header, /<h1\b/);
+  assert.ok(header.includes('Labor economics and the economics of technology and innovation.'));
+  assert.doesNotMatch(stylesheet, /\.research-header h1\s*\{/);
+});
+
 test('research reference uses unbulleted sections without divider classes', () => {
   const html = renderPage('/research');
   const research = html.match(/<div class="site-page research-page">([\s\S]*?)<\/main>/)[1];
