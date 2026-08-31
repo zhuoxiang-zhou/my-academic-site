@@ -2,12 +2,24 @@ import React from 'react';
 import { PAPERS, BOOK_CHAPTERS, CHINESE_PUBLICATIONS, SITE_CONFIG } from '../constants';
 import { Paper } from '../types';
 
-export const ResearchEntry: React.FC<{ paper: Paper }> = ({ paper }) => {
+type ResearchEntryData = Pick<
+  Paper,
+  'title' | 'authors' | 'authorLinks' | 'journal' | 'journalStatus' | 'pdfUrl'
+>;
+
+export const ResearchEntry: React.FC<{
+  paper: ResearchEntryData;
+  language?: string;
+  className?: string;
+}> = ({ paper, language, className }) => {
   const otherAuthors = paper.authors.filter(author => author !== SITE_CONFIG.name);
   const journalStatus = paper.journalStatus?.trim().replace(/[,.;:]+$/, '');
 
   return (
-    <li className="research-entry">
+    <li
+      lang={language}
+      className={`research-entry${className ? ` ${className}` : ''}`}
+    >
       <h3 className="research-paper-title">{paper.title}</h3>
       {otherAuthors.length > 0 && (
         <p className="research-authors">
@@ -90,10 +102,12 @@ const Research: React.FC = () => {
         {CHINESE_PUBLICATIONS.length > 0 && (
           <ResearchSection id="chinese-publications" title={<><span lang="zh-Hans" className="font-research">中文发表</span><br />Chinese Publications</>}>
             {CHINESE_PUBLICATIONS.map(publication => (
-              <li key={publication.id} lang="zh-Hans" className="research-entry font-research">
-                <p className="research-paper-title">{publication.citation}</p>
-                {publication.status && <p className="research-journal">{publication.status}</p>}
-              </li>
+              <ResearchEntry
+                key={publication.id}
+                paper={publication}
+                language="zh-Hans"
+                className="font-research"
+              />
             ))}
           </ResearchSection>
         )}

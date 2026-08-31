@@ -99,7 +99,10 @@ test('research preserves papers, collaborators, and Chinese publications', () =>
     for (const author of paper.authors) assert.ok(html.includes(escapeText(author)), author);
   }
   for (const publication of content.CHINESE_PUBLICATIONS) {
-    assert.ok(html.includes(escapeText(publication.citation)));
+    assert.ok(html.includes(escapeText(publication.title)));
+    for (const author of publication.authors) assert.ok(html.includes(escapeText(author)));
+    assert.ok(html.includes(escapeText(publication.journal)));
+    assert.ok(html.includes(escapeText(publication.journalStatus)));
   }
   assert.ok(!html.includes('sticky top-24'), 'Section headings must not overlap other content');
 });
@@ -259,6 +262,17 @@ test('research titles, authors, and journal details occupy distinct blocks', () 
   assert.match(stylesheet, /\.research-authors\s*\{\s*margin:\s*0 0 0\.5rem/);
   assert.match(stylesheet, /\.research-journal em\s*\{\s*font-style:\s*italic/);
   assert.ok(documentMarkup.includes('family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400'));
+});
+
+test('Chinese publications use the same title, collaborator, and journal layout', () => {
+  const publication = content.CHINESE_PUBLICATIONS[0];
+  const html = renderPage('/research');
+  const entry = html.match(/<li lang="zh-Hans" class="research-entry font-research">([\s\S]*?)<\/li>/)[1];
+  assert.ok(entry.includes(`<h3 class="research-paper-title">${escapeText(publication.title)}</h3>`));
+  assert.match(entry, /<p class="research-authors">\(with /);
+  for (const author of publication.authors) assert.ok(entry.includes(escapeText(author)));
+  assert.ok(entry.includes(`<em>${escapeText(publication.journal)}</em>`));
+  assert.ok(entry.includes(escapeText(`${publication.journalStatus}.`)));
 });
 
 test('research author rows handle zero, one, two, and three collaborators', () => {
