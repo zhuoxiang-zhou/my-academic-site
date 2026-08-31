@@ -132,6 +132,8 @@ test('teaching matches the Research page hierarchy and vertical rhythm', () => {
 
 test('photography preserves featured images, quotations, and the expand control', () => {
   const html = renderPage('/photography');
+  assert.ok(html.includes('<h1 class="sr-only">Photography</h1>'));
+  assert.doesNotMatch(html, /photography-heading|Light leaves; the frame remembers|<header/);
   const featured = content.PHOTOS.filter(photo => photo.featured);
   for (const photo of featured) {
     assert.ok(html.includes(`src="${photo.url}"`));
@@ -205,7 +207,7 @@ test('non-photography pages use sans serif while Photography keeps its serif sty
   }
   const researchHeading = stylesheet.match(/\.research-section h2,\s*\.teaching-section h2\s*\{([^}]+)\}/)[1];
   assert.doesNotMatch(researchHeading, /font-family/);
-  assert.match(renderPage('/photography'), /photography-heading[^"\n]*font-serif|font-serif[^"\n]*photography-heading/);
+  assert.match(renderPage('/photography'), /font-literary|font-cjk-(?:tc|sc)/);
 });
 
 test('reference sidebar uses a bold uppercase name and undecorated navigation', () => {

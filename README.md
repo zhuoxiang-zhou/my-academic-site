@@ -47,6 +47,8 @@ Navigation placement is independent of the homepage's content spacing. Home,
 Research, Teaching, and the fixed sidebar use sans serif text throughout;
 Photography retains its existing serif and literary typography. Muted blue
 links remain unchanged.
+Its visible title, camera icon, and introductory tagline are omitted so the
+gallery begins directly, while a screen-reader-only page heading remains.
 The desktop rail is narrower and the homepage portrait is capped at 17rem.
 Home, Research, and Teaching reserve a generous white right margin that scales
 up to 12rem with the viewport, with a compact 1.5rem gutter on mobile.

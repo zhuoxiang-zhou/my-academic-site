@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { Camera, ChevronLeft, ChevronRight, MapPin, X, ZoomIn } from 'lucide-react';
+import { ChevronLeft, ChevronRight, MapPin, X, ZoomIn } from 'lucide-react';
 import { PHOTOS } from '../constants';
 import { Photo } from '../types';
 
@@ -203,15 +203,7 @@ const Photography: React.FC = () => {
 
   return (
     <div className="site-page photography-page">
-      <header className="mb-8">
-        <h1 className="page-heading photography-heading mb-4 flex items-center gap-3 font-serif text-4xl font-medium text-academic-900">
-          <Camera className="text-academic-500" size={32} strokeWidth={1.5} aria-hidden="true" />
-          Photography
-        </h1>
-        <p className="max-w-4xl text-base sm:text-lg leading-relaxed text-stone-500">
-          Light leaves; the frame remembers.
-        </p>
-      </header>
+      <h1 className="sr-only">Photography</h1>
 
       <div
         id="photography-gallery"
