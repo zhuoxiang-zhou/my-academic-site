@@ -227,6 +227,9 @@ test('research reference uses unbulleted sections without divider classes', () =
   assert.ok(research.includes('<ul class="research-list" role="list">'));
   assert.ok(research.includes('aria-labelledby="working-papers"'));
   assert.ok(research.includes('<h2 id="working-papers">Working Papers</h2>'));
+  const chineseHeading = research.match(/<h2 id="chinese-publications">([\s\S]*?)<\/h2>/)[1];
+  assert.equal(chineseHeading.replace(/<[^>]*>/g, ''), '中文发表 / Chinese Publications');
+  assert.doesNotMatch(chineseHeading, /<br\b/);
   assert.doesNotMatch(research, /list-disc|border-t|border-b/);
   const listStyles = stylesheet.match(/\.research-list\s*\{([^}]+)\}/)[1];
   const headingStyles = stylesheet.match(/\.research-section h2\s*\{([^}]+)\}/)[1];

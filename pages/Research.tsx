@@ -95,7 +95,7 @@ const Research: React.FC = () => {
           </ResearchSection>
         )}
         {CHINESE_PUBLICATIONS.length > 0 && (
-          <ResearchSection id="chinese-publications" title={<><span lang="zh-Hans" className="font-research">中文发表</span><br />Chinese Publications</>}>
+          <ResearchSection id="chinese-publications" title={<><span lang="zh-Hans" className="font-research">中文发表</span> / Chinese Publications</>}>
             {CHINESE_PUBLICATIONS.map(publication => (
               <li key={publication.id} lang="zh-Hans" className="research-entry font-research">
                 <p className="research-citation">{publication.citation}</p>

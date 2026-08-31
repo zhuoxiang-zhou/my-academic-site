@@ -64,7 +64,8 @@ black; collaborator lines are parenthesized; and an italic journal name appears
 before its status. Section headings are bold, and paper entries use a compact
 vertical rhythm. No update timestamp is displayed. Author and PDF links remain
 functional. Chinese publications display the exact requested single-line
-citation stored in `constants.ts`.
+citation stored in `constants.ts`, under the one-line section label
+“中文发表 / Chinese Publications.”
 
 `index.html` retains the existing external Tailwind browser CDN and Google Fonts
 resources. Those styles and fonts require internet access. Application
