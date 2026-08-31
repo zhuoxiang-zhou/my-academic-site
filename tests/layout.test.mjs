@@ -111,20 +111,26 @@ test('teaching preserves each course and its description', () => {
     assert.ok(html.includes(escapeText(course.description)));
     assert.ok(html.includes(escapeText(course.semester)));
     assert.ok(html.includes(escapeText(course.code)));
-    assert.ok(html.includes(escapeText(`${course.level} Level`)));
+    assert.ok(html.includes(escapeText(`${course.code} · ${course.semester} · Peking University`)));
   }
 });
 
 test('teaching matches the Research page hierarchy and vertical rhythm', () => {
   const html = renderPage('/teaching');
   assert.ok(html.includes('<h1 class="sr-only">Teaching</h1>'));
-  assert.ok(html.includes('<section class="teaching-section" aria-labelledby="peking-university-heading">'));
-  assert.ok(html.includes('<h2 id="peking-university-heading">Peking University</h2>'));
+  assert.ok(html.includes('<div class="teaching-sections">'));
+  assert.ok(html.includes('<section class="teaching-section" aria-labelledby="phd-level-heading">'));
+  assert.ok(html.includes('<h2 id="phd-level-heading">PhD Level</h2>'));
+  assert.ok(html.includes('<section class="teaching-section" aria-labelledby="undergraduate-level-heading">'));
+  assert.ok(html.includes('<h2 id="undergraduate-level-heading">Undergraduate Level</h2>'));
   assert.ok(html.includes('<ul class="teaching-list" role="list">'));
   assert.equal((html.match(/class="teaching-entry"/g) || []).length, content.COURSES.length);
+  assert.ok(html.indexOf('PhD Level') < html.indexOf('Undergraduate Level'));
+  assert.equal((html.match(/ECON · Fall 2025 · Peking University/g) || []).length, content.COURSES.length);
   assert.doesNotMatch(html, /Current and past courses|text-4xl|<article/);
 
   assert.match(stylesheet, /\.research-page,\s*\.teaching-page\s*\{\s*padding-top:\s*9\.5rem/);
+  assert.match(stylesheet, /\.research-sections,\s*\.teaching-sections\s*\{\s*display:\s*grid;\s*gap:\s*3\.5rem/);
   assert.match(stylesheet, /\.research-section h2,\s*\.teaching-section h2\s*\{[^}]*font-weight:\s*700/);
   assert.match(stylesheet, /\.research-paper-title,\s*\.teaching-course-title\s*\{[^}]*color:\s*#111[^}]*font-weight:\s*700/);
   assert.match(stylesheet, /@media \(max-width: 600px\)[\s\S]*?\.research-page,\s*\.teaching-page\s*\{\s*padding-top:\s*5rem/);

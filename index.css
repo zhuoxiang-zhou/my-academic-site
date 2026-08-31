@@ -163,7 +163,8 @@ body { margin: 0; }
 .research-page,
 .teaching-page { padding-top: 9.5rem; }
 
-.research-sections { display: grid; gap: 3.5rem; }
+.research-sections,
+.teaching-sections { display: grid; gap: 3.5rem; }
 .research-section,
 .teaching-section { display: grid; gap: 1.875rem; }
 
@@ -268,7 +269,8 @@ body { margin: 0; }
   .research-journal,
   .teaching-meta,
   .teaching-description { font-size: 0.9375rem; }
-  .research-sections { gap: 2.75rem; }
+  .research-sections,
+  .teaching-sections { gap: 2.75rem; }
   .research-section,
   .teaching-section { gap: 1.5rem; }
   .research-list,
