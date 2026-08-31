@@ -95,12 +95,17 @@ test('home contact links replace the job caption directly below the portrait', (
 
   const profileStyles = stylesheet.match(/\.home-profile\s*\{([^}]+)\}/)[1];
   const linkStyles = stylesheet.match(/\.home-links\s*\{([^}]+)\}/)[1];
+  const anchorStyles = stylesheet.match(/\.home-links a\s*\{([^}]+)\}/)[1];
   assert.match(profileStyles, /max-width:\s*var\(--portrait-width\)/);
   assert.match(linkStyles, /display:\s*flex/);
   assert.match(linkStyles, /flex-wrap:\s*wrap/);
   assert.match(linkStyles, /justify-content:\s*center/);
   assert.match(linkStyles, /gap:\s*0\.25rem 2rem/);
   assert.match(linkStyles, /width:\s*100%/);
+  assert.match(linkStyles, /margin-top:\s*0\.5rem/);
+  assert.match(anchorStyles, /font-size:\s*1\.0625rem/);
+  assert.match(stylesheet, /@container site-content \(max-width: 44rem\)[\s\S]*?\.home-biography p,\s*\.home-links a\s*\{\s*font-size:\s*1rem/);
+  assert.match(stylesheet, /@media \(max-width: 600px\)[\s\S]*?\.home-biography p,\s*\.home-links a\s*\{\s*font-size:\s*0\.9375rem/);
   assert.doesNotMatch(stylesheet, /\.home-links a:(?:first-child|nth-child)[^{]*\{[^}]*justify-self/);
 });
 

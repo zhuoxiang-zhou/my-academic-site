@@ -60,7 +60,8 @@ Matthew Gentzkow's name in the biography links to his website using the same
 muted-blue treatment as other site links.
 Email, CV, and LinkedIn sit directly beneath the portrait in place of the job
 title caption. They form a centered, evenly spaced group rather than aligning
-to the portrait edges. The copyright footer is omitted throughout the site.
+to the portrait edges, sit close to the image, and use the same responsive font
+size as the biography. The copyright footer is omitted throughout the site.
 
 The Research page follows the user's preferred Research reference separately
 from the sidebar: blank space above Working Papers instead of a visible page

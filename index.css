@@ -159,7 +159,7 @@ body { margin: 0; }
   justify-content: center;
   gap: 0.25rem 2rem;
   width: 100%;
-  margin-top: 1.5rem;
+  margin-top: 0.5rem;
 }
 
 .home-links a {
@@ -167,7 +167,7 @@ body { margin: 0; }
   align-items: center;
   min-height: 44px;
   color: #456882;
-  font-size: 0.9375rem;
+  font-size: 1.0625rem;
   text-decoration: none;
 }
 
@@ -275,7 +275,8 @@ body { margin: 0; }
 /* Account for the sidebar when deciding whether the content can fit columns. */
 @container site-content (max-width: 44rem) {
   .home-grid { grid-template-columns: minmax(0, 1fr); gap: 2rem; }
-  .home-biography p { font-size: 1rem; }
+  .home-biography p,
+  .home-links a { font-size: 1rem; }
 }
 
 @container site-content (max-width: 30rem) {
@@ -312,7 +313,9 @@ body { margin: 0; }
   .site-page:not(.photography-page) { --content-right-inset: 1.5rem; }
   .research-page,
   .teaching-page { padding-top: 5rem; }
-  .home-biography p { font-size: 0.9375rem; line-height: 1.85; }
+  .home-biography p { line-height: 1.85; }
+  .home-biography p,
+  .home-links a { font-size: 0.9375rem; }
 }
 
 @container site-content (max-width: 15rem) {
