@@ -6,7 +6,7 @@ const ResearchEntry: React.FC<{ paper: Paper }> = ({ paper }) => {
   const otherAuthors = paper.authors.filter(author => author !== SITE_CONFIG.name);
 
   return (
-    <article className="font-sans text-base sm:text-lg leading-relaxed text-stone-600">
+    <li className="font-sans text-base sm:text-lg leading-relaxed text-stone-600">
       <h3 className="inline font-bold text-stone-800">
         {paper.title}{/[.!?。！？]$/.test(paper.title) ? '' : '.'}
       </h3>
@@ -48,7 +48,7 @@ const ResearchEntry: React.FC<{ paper: Paper }> = ({ paper }) => {
           </a>
         </>
       )}
-    </article>
+    </li>
   );
 };
 
@@ -59,9 +59,9 @@ const ResearchSection: React.FC<{ title: React.ReactNode; children: React.ReactN
         {title}
       </h2>
     </div>
-    <div className="flex-1 min-w-0 space-y-5">
+    <ul className="flex-1 min-w-0 list-disc space-y-5 pl-5 marker:text-stone-600">
       {children}
-    </div>
+    </ul>
   </section>
 );
 
@@ -97,9 +97,9 @@ const Research: React.FC = () => {
         {CHINESE_PUBLICATIONS.length > 0 && (
           <ResearchSection title={<><span lang="zh-Hans" className="font-cjk-sc">中文发表</span><br />Chinese Publications</>}>
             {CHINESE_PUBLICATIONS.map(publication => (
-              <p key={publication.id} lang="zh-Hans" className="font-cjk-sc text-base sm:text-lg text-stone-600 leading-relaxed">
+              <li key={publication.id} lang="zh-Hans" className="font-cjk-sc text-base sm:text-lg text-stone-600 leading-relaxed">
                 {publication.citation}
-              </p>
+              </li>
             ))}
           </ResearchSection>
         )}
