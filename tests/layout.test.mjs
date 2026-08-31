@@ -99,10 +99,7 @@ test('research preserves papers, collaborators, and Chinese publications', () =>
     for (const author of paper.authors) assert.ok(html.includes(escapeText(author)), author);
   }
   for (const publication of content.CHINESE_PUBLICATIONS) {
-    assert.ok(html.includes(escapeText(publication.title)));
-    for (const author of publication.authors) assert.ok(html.includes(escapeText(author)));
-    assert.ok(html.includes(escapeText(publication.journal)));
-    assert.ok(html.includes(escapeText(publication.journalStatus)));
+    assert.ok(html.includes(escapeText(publication.citation)));
   }
   assert.ok(!html.includes('sticky top-24'), 'Section headings must not overlap other content');
 });
@@ -264,16 +261,16 @@ test('research titles, authors, and journal details occupy distinct blocks', () 
   assert.ok(documentMarkup.includes('family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400'));
 });
 
-test('Chinese publications use the same title, collaborator, and journal layout', () => {
+test('Chinese publications render the exact requested citation on one row', () => {
   const publication = content.CHINESE_PUBLICATIONS[0];
   const html = renderPage('/research');
   const entry = html.match(/<li lang="zh-Hans" class="research-entry font-research">([\s\S]*?)<\/li>/)[1];
-  assert.ok(entry.includes(`<h3 class="research-paper-title">${escapeText(publication.title)}</h3>`));
-  const authorRow = entry.match(/<p class="research-authors">([\s\S]*?)<\/p>/)[1];
-  assert.equal(authorRow.replace(/<[^>]*>/g, ''), `(与 ${publication.authors.join('、')}）`);
-  for (const author of publication.authors) assert.ok(entry.includes(escapeText(author)));
-  assert.ok(entry.includes(`<em>${escapeText(publication.journal)}</em>`));
-  assert.ok(entry.includes(escapeText(`${publication.journalStatus}.`)));
+  assert.equal(
+    publication.citation,
+    '黄炜、蔡睿思、周卓翔*. 人工智能如何重塑科研生产与国际化：来自中国经管学者国际发表的大样本证据. 管理世界，返修.',
+  );
+  assert.equal(entry, `<p class="research-citation">${escapeText(publication.citation)}</p>`);
+  assert.doesNotMatch(entry, /research-paper-title|research-authors|research-journal|<em>/);
 });
 
 test('research author rows handle zero, one, two, and three collaborators', () => {

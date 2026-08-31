@@ -9,33 +9,21 @@ type ResearchEntryData = Pick<
 
 export const ResearchEntry: React.FC<{
   paper: ResearchEntryData;
-  language?: string;
-  className?: string;
-}> = ({ paper, language, className }) => {
+}> = ({ paper }) => {
   const otherAuthors = paper.authors.filter(author => author !== SITE_CONFIG.name);
   const journalStatus = paper.journalStatus?.trim().replace(/[,.;:]+$/, '');
-  const isChinese = language?.startsWith('zh') ?? false;
 
   return (
-    <li
-      lang={language}
-      className={`research-entry${className ? ` ${className}` : ''}`}
-    >
+    <li className="research-entry">
       <h3 className="research-paper-title">{paper.title}</h3>
       {otherAuthors.length > 0 && (
         <p className="research-authors">
-          {isChinese ? '(与 ' : '(with '}
+          {'(with '}
           {otherAuthors.map((author, i) => {
             const url = paper.authorLinks?.[author];
             const isLast = i === otherAuthors.length - 1;
-            const separator = i === 0
-              ? ''
-              : isChinese
-                ? '、'
-                : otherAuthors.length > 2 ? ', ' : ' ';
-            const prefix = !isChinese && isLast && i > 0
-              ? separator + 'and '
-              : separator;
+            const separator = i === 0 ? '' : otherAuthors.length > 2 ? ', ' : ' ';
+            const prefix = isLast && i > 0 ? separator + 'and ' : separator;
 
             return (
               <React.Fragment key={author}>
@@ -48,7 +36,7 @@ export const ResearchEntry: React.FC<{
               </React.Fragment>
             );
           })}
-          {isChinese ? '）' : ')'}
+          {')'}
         </p>
       )}
       {(paper.journal || journalStatus) && (
@@ -109,12 +97,9 @@ const Research: React.FC = () => {
         {CHINESE_PUBLICATIONS.length > 0 && (
           <ResearchSection id="chinese-publications" title={<><span lang="zh-Hans" className="font-research">中文发表</span><br />Chinese Publications</>}>
             {CHINESE_PUBLICATIONS.map(publication => (
-              <ResearchEntry
-                key={publication.id}
-                paper={publication}
-                language="zh-Hans"
-                className="font-research"
-              />
+              <li key={publication.id} lang="zh-Hans" className="research-entry font-research">
+                <p className="research-citation">{publication.citation}</p>
+              </li>
             ))}
           </ResearchSection>
         )}
