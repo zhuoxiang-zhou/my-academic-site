@@ -96,16 +96,18 @@ export const COURSES: Course[] = [
     code: "ECON",
     title: "Applied Econometrics",
     level: "PhD",
+    role: "Teaching Assistant",
     semester: "Fall 2025",
-    description: "Taught in English; led weekly tutorial and Q&A sessions. Topics cover randomized controlled trials (RCT), instrumental variables (IV), regression discontinuity (RD), difference-in-differences (DiD), and event-study designs."
+    description: "Led weekly tutorials and Q&A sessions covering randomized controlled trials (RCT), instrumental variables (IV), regression discontinuity (RD), difference-in-differences (DiD), and event-study designs."
   },
   {
     id: 'c2',
     code: "ECON",
     title: "Econometrics",
     level: "Undergraduate",
+    role: "Teaching Assistant",
     semester: "Fall 2025",
-    description: "Led weekly tutorial sessions. Topics include ordinary least squares (OLS), multiple regression, dummy variables, heteroskedasticity, panel data, and causal inference methods."
+    description: "Led weekly tutorial sessions covering ordinary least squares (OLS), multiple regression, dummy variables, heteroskedasticity, panel data, and causal inference methods."
   }
 ];
 

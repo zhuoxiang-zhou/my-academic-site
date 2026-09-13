@@ -18,6 +18,7 @@ export interface Course {
   code: string;
   title: string;
   level: 'Undergraduate' | 'Graduate' | 'PhD';
+  role: string;
   description: string;
   syllabusUrl?: string;
   semester: string;
