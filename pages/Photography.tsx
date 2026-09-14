@@ -16,15 +16,15 @@ const PhotoVerse: React.FC<{ photo: Photo; lightbox?: boolean }> = ({ photo, lig
   const isChinese = language?.startsWith('zh');
   const verseClass = lightbox ? 'mt-4' : 'mt-3';
   const quoteClass = isChinese
-    ? `${language === 'zh-Hant' ? 'font-cjk-tc' : 'font-cjk-sc'} not-italic tracking-[0.035em] ${
+    ? `${language === 'zh-Hant' ? 'font-cjk-tc' : 'font-cjk-sc'} whitespace-pre-line not-italic tracking-[0.035em] ${
         lightbox ? 'text-base leading-[1.8] text-stone-200 md:text-lg' : 'text-[0.95rem] leading-[1.75] text-stone-700'
       }`
-    : `font-literary italic ${
+    : `font-literary whitespace-pre-line italic ${
         lightbox ? 'text-lg leading-relaxed text-stone-200 md:text-xl' : 'text-[0.98rem] leading-[1.6] text-stone-700'
       }`;
   const translationClass = lightbox
-    ? 'mt-1.5 font-literary text-[0.95rem] italic leading-relaxed text-stone-400 md:text-base'
-    : 'mt-1.5 font-literary text-[0.875rem] italic leading-[1.6] text-stone-500';
+    ? 'mt-1.5 whitespace-pre-line font-literary text-[0.95rem] italic leading-relaxed text-stone-400 md:text-base'
+    : 'mt-1.5 whitespace-pre-line font-literary text-[0.875rem] italic leading-[1.6] text-stone-500';
   const citationClass = lightbox
     ? 'mt-2.5 block font-sans text-[0.7rem] not-italic tracking-[0.025em] text-stone-500 md:text-xs'
     : 'mt-2 block font-sans text-[0.68rem] not-italic leading-relaxed tracking-[0.02em] text-stone-400';
@@ -42,7 +42,6 @@ const PhotoVerse: React.FC<{ photo: Photo; lightbox?: boolean }> = ({ photo, lig
 };
 
 const Photography: React.FC = () => {
-  const [showAll, setShowAll] = useState(false);
   const [columnCount, setColumnCount] = useState(1);
   const [selectedPhotoId, setSelectedPhotoId] = useState<string | null>(null);
   const dialogRef = useRef<HTMLDivElement>(null);
@@ -64,10 +63,8 @@ const Photography: React.FC = () => {
   }, []);
 
   const visiblePhotos = useMemo(
-    () => PHOTOS
-      .filter((photo) => showAll || photo.featured)
-      .sort((a, b) => a.order - b.order || a.column - b.column),
-    [showAll],
+    () => [...PHOTOS].sort((a, b) => a.order - b.order || a.column - b.column),
+    [],
   );
 
   const photoColumns = useMemo(() => {
@@ -88,7 +85,6 @@ const Photography: React.FC = () => {
     : visiblePhotos.findIndex((photo) => photo.id === selectedPhotoId);
   const selectedPhoto = selectedPhotoIndex >= 0 ? visiblePhotos[selectedPhotoIndex] : null;
   const isLightboxOpen = selectedPhoto !== null;
-  const remainingPhotoCount = PHOTOS.length - visiblePhotos.length;
 
   const openLightbox = (photoId: string, trigger: HTMLButtonElement) => {
     lastTriggerRef.current = trigger;
@@ -218,19 +214,6 @@ const Photography: React.FC = () => {
           </div>
         ))}
       </div>
-
-      {!showAll && remainingPhotoCount > 0 && (
-        <div className="mt-16 flex justify-center">
-          <button
-            type="button"
-            className="rounded-full border border-academic-300 bg-white px-7 py-3 text-base font-medium text-academic-800 transition-colors hover:border-academic-500 hover:bg-academic-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-academic-500 focus-visible:ring-offset-4 focus-visible:ring-offset-stone-50"
-            aria-controls="photography-gallery"
-            onClick={() => setShowAll(true)}
-          >
-            View {remainingPhotoCount} more photographs
-          </button>
-        </div>
-      )}
 
       {selectedPhoto && createPortal(
         <div

@@ -123,9 +123,8 @@ export const PHOTOS: Photo[] = [
       citation: '朱熹，《觀書有感》',
       language: 'zh-Hant',
     },
-    column: 1,
-    order: 1,
-    featured: true
+    column: 3,
+    order: 7,
   },
   { 
     id: 'ph2',
@@ -137,9 +136,8 @@ export const PHOTOS: Photo[] = [
       citation: 'Carl Sandburg, “Fog”',
       language: 'en',
     },
-    column: 1,
-    order: 5,
-    featured: false
+    column: 2,
+    order: 11,
   },
   { 
     id: 'ph3',
@@ -152,8 +150,7 @@ export const PHOTOS: Photo[] = [
       language: 'en',
     },
     column: 1,
-    order: 2,
-    featured: true
+    order: 6,
   },
   { 
     id: 'ph4',
@@ -161,13 +158,12 @@ export const PHOTOS: Photo[] = [
     title: 'The Tender Line',
     location: 'San Francisco, California, USA',
     literaryQuote: {
-      text: 'The readiness is all.',
-      citation: 'William Shakespeare, Hamlet',
+      text: 'And we must take the current when it serves',
+      citation: 'William Shakespeare, Julius Caesar',
       language: 'en',
     },
-    column: 1,
-    order: 6,
-    featured: false
+    column: 3,
+    order: 4,
   },
   { 
     id: 'ph5',
@@ -175,13 +171,12 @@ export const PHOTOS: Photo[] = [
     title: 'Across',
     location: 'San Francisco, California, USA',
     literaryQuote: {
-      text: 'I am a part of all that I have met;',
-      citation: 'Alfred, Lord Tennyson, “Ulysses”',
+      text: 'I’m in California\ndreaming about who we used to be;\nwhen we were younger and free.',
+      citation: 'Adele, “Hello”',
       language: 'en',
     },
-    column: 1,
-    order: 3,
-    featured: true
+    column: 3,
+    order: 1,
   },
   { 
     id: 'ph6',
@@ -193,9 +188,8 @@ export const PHOTOS: Photo[] = [
       citation: 'William Shakespeare, Macbeth',
       language: 'en',
     },
-    column: 1,
-    order: 7,
-    featured: false
+    column: 3,
+    order: 11,
   },
   { 
     id: 'ph7',
@@ -207,9 +201,8 @@ export const PHOTOS: Photo[] = [
       citation: 'Christopher Smart, Jubilate Agno',
       language: 'en',
     },
-    column: 1,
-    order: 4,
-    featured: true
+    column: 2,
+    order: 10,
   },
   { 
     id: 'ph8',
@@ -223,8 +216,7 @@ export const PHOTOS: Photo[] = [
       language: 'zh-Hant',
     },
     column: 2,
-    order: 1,
-    featured: true
+    order: 3,
   },
   { 
     id: 'ph9',
@@ -232,13 +224,12 @@ export const PHOTOS: Photo[] = [
     title: 'The Long Threshold',
     location: 'San Francisco, California, USA',
     literaryQuote: {
-      text: 'A thing of beauty is a joy for ever:',
-      citation: 'John Keats, Endymion',
+      text: 'The light that never was, on sea or land,',
+      citation: 'William Wordsworth, “Elegiac Stanzas”',
       language: 'en',
     },
     column: 2,
-    order: 2,
-    featured: true
+    order: 4,
   },
   { 
     id: 'ph10',
@@ -250,9 +241,8 @@ export const PHOTOS: Photo[] = [
       citation: 'Percy Bysshe Shelley, “Ode to the West Wind”',
       language: 'en',
     },
-    column: 2,
+    column: 3,
     order: 5,
-    featured: false
   },
   { 
     id: 'ph11',
@@ -260,13 +250,12 @@ export const PHOTOS: Photo[] = [
     title: 'White Interval',
     location: 'Boston, Massachusetts, USA',
     literaryQuote: {
-      text: 'The woods are lovely, dark and deep,',
-      citation: 'Robert Frost, “Stopping by Woods on a Snowy Evening”',
+      text: 'One must have a mind of winter',
+      citation: 'Wallace Stevens, “The Snow Man”',
       language: 'en',
     },
-    column: 2,
-    order: 3,
-    featured: true
+    column: 1,
+    order: 9,
   },
   { 
     id: 'ph12',
@@ -280,8 +269,7 @@ export const PHOTOS: Photo[] = [
       language: 'zh-Hant',
     },
     column: 2,
-    order: 4,
-    featured: true
+    order: 5,
   },
   { 
     id: 'ph13',
@@ -289,13 +277,12 @@ export const PHOTOS: Photo[] = [
     title: 'Between Motions',
     location: 'Ocean Beach, San Francisco, California, USA',
     literaryQuote: {
-      text: 'The sea is calm to-night.',
-      citation: 'Matthew Arnold, “Dover Beach”',
+      text: 'I must go down to the seas again, to the lonely sea and the sky,',
+      citation: 'John Masefield, “Sea-Fever”',
       language: 'en',
     },
-    column: 2,
-    order: 6,
-    featured: false
+    column: 1,
+    order: 11,
   },
   { 
     id: 'ph14',
@@ -307,9 +294,8 @@ export const PHOTOS: Photo[] = [
       citation: 'William Shakespeare, The Tempest',
       language: 'en',
     },
-    column: 2,
-    order: 7,
-    featured: false
+    column: 3,
+    order: 9,
   },
   { 
     id: 'ph15',
@@ -322,8 +308,7 @@ export const PHOTOS: Photo[] = [
       language: 'en',
     },
     column: 3,
-    order: 1,
-    featured: true
+    order: 6,
   },
   { 
     id: 'ph16',
@@ -335,9 +320,8 @@ export const PHOTOS: Photo[] = [
       citation: 'Emily Dickinson, “I’ll tell you how the Sun rose”',
       language: 'en',
     },
-    column: 3,
-    order: 2,
-    featured: true
+    column: 2,
+    order: 6,
   },
   { 
     id: 'ph17',
@@ -350,8 +334,7 @@ export const PHOTOS: Photo[] = [
       language: 'en',
     },
     column: 3,
-    order: 5,
-    featured: false
+    order: 8,
   },
   { 
     id: 'ph18',
@@ -359,13 +342,12 @@ export const PHOTOS: Photo[] = [
     title: 'Transit',
     location: 'Boston, Massachusetts, USA',
     literaryQuote: {
-      text: 'The world is charged with the grandeur of God.',
-      citation: 'Gerard Manley Hopkins, “God’s Grandeur”',
+      text: 'Nature’s first green is gold,',
+      citation: 'Robert Frost, “Nothing Gold Can Stay”',
       language: 'en',
     },
-    column: 3,
-    order: 6,
-    featured: false
+    column: 2,
+    order: 9,
   },
   { 
     id: 'ph19',
@@ -378,9 +360,8 @@ export const PHOTOS: Photo[] = [
       citation: '李商隱，《無題二首·昨夜星辰昨夜風》',
       language: 'zh-Hant',
     },
-    column: 3,
-    order: 3,
-    featured: true
+    column: 1,
+    order: 10,
   },
   { 
     id: 'ph20',
@@ -392,9 +373,195 @@ export const PHOTOS: Photo[] = [
       citation: 'Emily Dickinson, “Hope” is the thing with feathers',
       language: 'en',
     },
+    column: 1,
+    order: 12,
+  },
+  {
+    id: 'ph21',
+    url: '/photos/Summer_Palace_misty_pavilion.jpg',
+    title: 'Pavilion in Mist',
+    location: 'Summer Palace, Beijing, China',
+    literaryQuote: {
+      text: '霧失樓臺，月迷津渡。',
+      translation: 'Mist hides the towers; moonlight loses the ferry crossing.',
+      citation: '秦觀，《踏莎行·郴州旅舍》',
+      language: 'zh-Hant',
+    },
+    column: 1,
+    order: 5,
+  },
+  {
+    id: 'ph22',
+    url: '/photos/Summer_Palace_boat_reflections.jpg',
+    title: 'Winter Mooring',
+    location: 'Summer Palace, Beijing, China',
+    literaryQuote: {
+      text: '水深冰合。',
+      translation: 'Deep water, sealed with ice.',
+      citation: '辛棄疾，《賀新郎·把酒長亭說》',
+      language: 'zh-Hant',
+    },
     column: 3,
+    order: 2,
+  },
+  {
+    id: 'ph23',
+    url: '/photos/SF_Chinatown_crossing.jpg',
+    title: 'Crosscurrents',
+    location: 'Chinatown, San Francisco, California, USA',
+    literaryQuote: {
+      text: '人生如逆旅，我亦是行人。',
+      translation: 'Life is but an inn; I too am a traveler.',
+      citation: '蘇軾，《臨江仙·送錢穆父》',
+      language: 'zh-Hant',
+    },
+    column: 1,
+    order: 1,
+  },
+  {
+    id: 'ph24',
+    url: '/photos/SF_cable_car.jpg',
+    title: 'Going Places',
+    location: 'San Francisco, California, USA',
+    literaryQuote: {
+      text: 'Afoot and light-hearted I take to the open road,',
+      citation: 'Walt Whitman, “Song of the Open Road”',
+      language: 'en',
+    },
+    column: 1,
+    order: 2,
+  },
+  {
+    id: 'ph25',
+    url: '/photos/SF_Fishermans_Wharf_clown.jpg',
+    title: 'Let Me Play the Fool',
+    location: 'Fisherman’s Wharf, San Francisco, California, USA',
+    literaryQuote: {
+      text: 'And if I laugh at any mortal thing,\n’Tis that I may not weep.',
+      citation: 'Lord Byron, Don Juan',
+      language: 'en',
+    },
+    column: 3,
+    order: 10,
+  },
+  {
+    id: 'ph26',
+    url: '/photos/SF_California_Street_downhill.jpg',
+    title: 'The Only Way Forward',
+    location: 'California Street, San Francisco, California, USA',
+    literaryQuote: {
+      text: 'Downward is the only way forward.',
+      citation: 'Christopher Nolan, Inception',
+      language: 'en',
+    },
+    column: 2,
+    order: 1,
+  },
+  {
+    id: 'ph27',
+    url: '/photos/SF_Pier_39_seagull_love_locks.jpg',
+    title: 'Love, Unlocked',
+    location: 'Pier 39, San Francisco, California, USA',
+    literaryQuote: {
+      text: 'If you love somebody, set them free.',
+      citation: 'Sting',
+      language: 'en',
+    },
+    column: 1,
     order: 4,
-    featured: true
+  },
+  {
+    id: 'ph28',
+    url: '/photos/Stanford_Hoover_Tower.jpg',
+    title: 'The Wind of Freedom',
+    location: 'Stanford University, Stanford, California, USA',
+    literaryQuote: {
+      text: 'Die Luft der Freiheit weht.',
+      translation: 'The wind of freedom blows.',
+      citation: 'Ulrich von Hutten / Stanford University motto',
+      language: 'de',
+    },
+    column: 1,
+    order: 7,
+  },
+  {
+    id: 'ph29',
+    url: '/photos/Stanford_Dish_radio_telescope.jpg',
+    title: 'Listening',
+    location: 'The Stanford Dish, Stanford, California, USA',
+    literaryQuote: {
+      text: 'Is there anybody out there?',
+      citation: 'Pink Floyd, The Wall',
+      language: 'en',
+    },
+    column: 3,
+    order: 3,
+  },
+  {
+    id: 'ph30',
+    url: '/photos/UC_Berkeley_Sather_Tower.jpg',
+    title: 'Let There Be Light',
+    location: 'UC Berkeley, Berkeley, California, USA',
+    literaryQuote: {
+      text: 'Fiat Lux.',
+      citation: 'UC Berkeley',
+      language: 'la',
+    },
+    column: 2,
+    order: 7,
+  },
+  {
+    id: 'ph31',
+    url: '/photos/SF_Independence_Day_250_fireworks.jpg',
+    title: 'The Rockets’ Red Glare',
+    location: 'San Francisco, California, USA',
+    literaryQuote: {
+      text: 'O say can you see…',
+      citation: 'Francis Scott Key, “The Star-Spangled Banner”',
+      language: 'en',
+    },
+    column: 1,
+    order: 3,
+  },
+  {
+    id: 'ph32',
+    url: '/photos/Stanford_campus_statue.jpg',
+    title: 'Prologue',
+    location: 'Stanford University, Stanford, California, USA',
+    literaryQuote: {
+      text: 'What’s past is prologue.',
+      citation: 'William Shakespeare, The Tempest',
+      language: 'en',
+    },
+    column: 1,
+    order: 8,
+  },
+  {
+    id: 'ph33',
+    url: '/photos/Stanford_campus_soccer.jpg',
+    title: 'Very Heaven',
+    location: 'Stanford University, Stanford, California, USA',
+    literaryQuote: {
+      text: 'But to be young was very heaven',
+      citation: 'William Wordsworth, The Prelude',
+      language: 'en',
+    },
+    column: 2,
+    order: 8,
+  },
+  {
+    id: 'ph34',
+    url: '/photos/China_tea_garden_pavilion.jpg',
+    title: 'Deep Retreat',
+    location: 'Tea garden, China',
+    literaryQuote: {
+      text: '曲徑通幽處，禪房花木深。',
+      translation: 'A winding footpath leads to deep retreat;\nThe abbot’s cell is hid’ mid flowers sweet.',
+      citation: '常建，《題破山寺後禪院》',
+      language: 'zh-Hant',
+    },
+    column: 2,
+    order: 2,
   },
 ];
 

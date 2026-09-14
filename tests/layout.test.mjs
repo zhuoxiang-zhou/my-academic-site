@@ -153,16 +153,15 @@ test('teaching matches the Research page hierarchy and vertical rhythm', () => {
   assert.match(stylesheet, /@media \(max-width: 600px\)[\s\S]*?\.research-page,\s*\.teaching-page\s*\{\s*padding-top:\s*5rem/);
 });
 
-test('photography preserves featured images, quotations, and the expand control', () => {
+test('photography shows every image and quotation without an expand control', () => {
   const html = renderPage('/photography');
   assert.ok(html.includes('<h1 class="sr-only">Photography</h1>'));
   assert.doesNotMatch(html, /photography-heading|Light leaves; the frame remembers|<header/);
-  const featured = content.PHOTOS.filter(photo => photo.featured);
-  for (const photo of featured) {
+  for (const photo of content.PHOTOS) {
     assert.ok(html.includes(`src="${photo.url}"`));
     assert.ok(html.includes(escapeText(photo.literaryQuote.text)));
   }
-  assert.ok(html.includes(`View ${content.PHOTOS.length - featured.length} more photographs`));
+  assert.doesNotMatch(html, /View \d+ more photographs/);
 });
 
 test('photography columns adapt to available gallery width at both boundaries', () => {

@@ -38,7 +38,6 @@ export interface Photo {
   };
   column: 1 | 2 | 3;
   order: number;
-  featured: boolean;
 }
 
 export interface Note {

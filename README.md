@@ -115,7 +115,7 @@ For visual review, inspect the four routes at desktop, tablet, and mobile widths
    updates. Keyboard users can skip directly to the content.
 3. The portrait and biography sit side by side when there is room and stack
    cleanly on narrow screens.
-4. The photo gallery reflows, the expand button works, and the lightbox covers
-   the full viewport. Escape closes it; arrow keys switch photos; Tab remains
-   within the dialog; closing restores focus to the photo trigger.
+4. The complete photo gallery reflows and the lightbox covers the full viewport.
+   Escape closes it; arrow keys switch photos; Tab remains within the dialog;
+   closing restores focus to the photo trigger.
 5. Email, CV, and LinkedIn links still resolve correctly.
