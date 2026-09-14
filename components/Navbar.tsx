@@ -22,7 +22,15 @@ const Navbar: React.FC = () => (
 
     <nav className="sidebar-navigation" aria-label="Main navigation">
       {navigation.map(({ to, label }) => (
-        <NavLink key={to} to={to} end={to === '/'}>
+        <NavLink
+          key={to}
+          to={to}
+          end={to === '/'}
+          {...(to === '/research' && {
+            'data-analytics-event': 'research_nav_click',
+            'data-analytics-location': 'sidebar',
+          })}
+        >
           {label}
         </NavLink>
       ))}
