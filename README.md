@@ -101,6 +101,22 @@ npm run preview -- --host 127.0.0.1
 The build produces `dist/`, which is generated and ignored by Git. Never edit
 that directory by hand. Building or previewing does not publish the live site.
 
+## Visitor analytics
+
+The production site uses Google Analytics 4 (GA4) measurement ID
+`G-WMSFC0CBDE`. GA4 measurement IDs are public identifiers included in the
+delivered website. `VITE_GA_MEASUREMENT_ID` can override the default for a
+different production deployment. Analytics remains disabled in development
+and when the configured identifier is invalid.
+
+The integration sends one virtual `page_view` for each hash route and records
+`research_nav_click` and `cv_click` when visitors use the corresponding links.
+In the GA4 web stream's Enhanced Measurement settings, keep file-download
+measurement enabled but turn off **Page changes based on browser history
+events**. Pageviews are sent explicitly by the application, so leaving Google's
+automatic history tracking enabled can double-count route changes. Use GA4
+Realtime and DebugView after deployment to verify the three event types.
+
 The automated tests compile and server-render the actual page components. They
 check the active navigation, preserved content and links, gallery column
 boundaries, and fixed-sidebar/responsive CSS contracts. They do not substitute

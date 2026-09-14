@@ -6,6 +6,7 @@ import Research from './pages/Research';
 import Teaching from './pages/Teaching';
 import Photography from './pages/Photography';
 import { SITE_CONFIG } from './constants';
+import { trackPageView } from './analytics';
 
 const pageTitles: Record<string, string> = {
   '/': 'Home',
@@ -21,9 +22,11 @@ export const SiteLayout: React.FC = () => {
   const previousPath = useRef(pathname);
 
   useEffect(() => {
-    document.title = pathname === '/'
+    const title = pathname === '/'
       ? SITE_CONFIG.name
       : `${pageTitles[pathname] || 'Page'} | ${SITE_CONFIG.name}`;
+    document.title = title;
+    trackPageView(pathname, title);
 
     if (previousPath.current !== pathname) {
       window.scrollTo({ top: 0, left: 0, behavior: 'instant' });

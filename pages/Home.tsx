@@ -17,7 +17,15 @@ const Home: React.FC = () => (
         />
         <div className="home-links" aria-label="Contact and curriculum vitae">
           <a href={`mailto:${SITE_CONFIG.email}`}>Email</a>
-          <a href="/cv.pdf" target="_blank" rel="noopener noreferrer">CV</a>
+          <a
+            href="/cv.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            data-analytics-event="cv_click"
+            data-analytics-location="home"
+          >
+            CV
+          </a>
           {SITE_CONFIG.linkedin && (
             <a href={SITE_CONFIG.linkedin} target="_blank" rel="noopener noreferrer">
               LinkedIn

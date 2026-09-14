@@ -75,6 +75,19 @@ test('home preserves the biography, portrait, full name, and contact links', () 
   assert.match(html, new RegExp(`<a href="${content.SITE_CONFIG.advisor.url}" target="_blank" rel="noopener noreferrer">${content.SITE_CONFIG.advisor.name}</a>`));
 });
 
+test('GA4 click events annotate the Research navigation and CV links', () => {
+  const home = renderPage('/');
+  const research = renderPage('/research');
+  const cvLink = home.match(/<a\b[^>]*>\s*CV\s*<\/a>/)[0];
+  const researchLink = research.match(/<a\b[^>]*>Research<\/a>/)[0];
+  assert.ok(cvLink.includes('href="/cv.pdf"'));
+  assert.ok(cvLink.includes('data-analytics-event="cv_click"'));
+  assert.ok(cvLink.includes('data-analytics-location="home"'));
+  assert.ok(researchLink.includes('href="/research"'));
+  assert.ok(researchLink.includes('data-analytics-event="research_nav_click"'));
+  assert.ok(researchLink.includes('data-analytics-location="sidebar"'));
+});
+
 test('home contact links replace the job caption directly below the portrait', () => {
   const html = renderPage('/');
   const profile = html.match(/<div class="home-profile">([\s\S]*?)<div class="home-biography">/)[1];
