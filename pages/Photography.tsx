@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { ChevronLeft, ChevronRight, MapPin, X, ZoomIn } from 'lucide-react';
-import { PHOTOS } from '../constants';
+import { PHOTOS, SITE_CONFIG } from '../constants';
 import { Photo } from '../types';
 
 // Measure the gallery, not the viewport: the fixed sidebar reserves screen space.
@@ -214,6 +214,22 @@ const Photography: React.FC = () => {
           </div>
         ))}
       </div>
+
+      <aside
+        aria-label="Photography rights and privacy notice"
+        className="mt-16 border-t border-stone-200 pt-6 font-sans text-xs leading-relaxed text-stone-400"
+      >
+        © {new Date().getFullYear()} Zhuoxiang Zhou. All photographs are my own unless otherwise noted.{' '}
+        Quotations are credited to their respective authors and are presented for noncommercial, editorial
+        purposes. If you appear in a photograph and would like it removed,{' '}
+        <a
+          href={`mailto:${SITE_CONFIG.email}`}
+          className="text-academic-600 underline decoration-academic-300 underline-offset-2 transition-colors hover:text-academic-800"
+        >
+          contact me
+        </a>
+        . References to institutions do not imply endorsement.
+      </aside>
 
       {selectedPhoto && createPortal(
         <div

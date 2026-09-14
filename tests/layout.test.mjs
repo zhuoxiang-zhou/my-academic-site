@@ -162,6 +162,9 @@ test('photography shows every image and quotation without an expand control', ()
     assert.ok(html.includes(escapeText(photo.literaryQuote.text)));
   }
   assert.doesNotMatch(html, /View \d+ more photographs/);
+  assert.ok(html.includes('Photography rights and privacy notice'));
+  assert.ok(html.includes(`href="mailto:${content.SITE_CONFIG.email}"`));
+  assert.ok(html.includes('All photographs are my own unless otherwise noted.'));
 });
 
 test('photography columns adapt to available gallery width at both boundaries', () => {
