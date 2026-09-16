@@ -6,7 +6,7 @@ type GtagArguments = [command: string, ...parameters: unknown[]];
 
 declare global {
   interface Window {
-    dataLayer: GtagArguments[];
+    dataLayer: IArguments[];
     gtag: (...args: GtagArguments) => void;
   }
 }
@@ -41,8 +41,8 @@ export function initializeAnalytics(): void {
   }
 
   window.dataLayer = window.dataLayer || [];
-  window.gtag = (...args: GtagArguments) => {
-    window.dataLayer.push(args);
+  window.gtag = function gtag(..._args: GtagArguments): void {
+    window.dataLayer.push(arguments);
   };
 
   window.gtag('js', new Date());
